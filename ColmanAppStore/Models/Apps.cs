@@ -26,12 +26,11 @@ namespace ColmanAppStore.Models
 
         public string Logo { get; set; }
 
-        public string Images { get; set; }
+        public List<AppsImage> Images { get; set; }
 
         public float Raiting { get; set; }
 
-        public string Review { get; set; }
-
+        public Review Review { get; set; }
 
 
         public string DeveloperName { get; set; }
