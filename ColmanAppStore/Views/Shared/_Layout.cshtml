@@ -15,7 +15,6 @@
 <body>
   
     <header>
-
         <div class="container-fluid header">
             <div class="d-flex justify-content-between">
                 <div class="row header__row align-items-center">
@@ -24,13 +23,13 @@
                     </div>
                     <div class="col-sm header align-middle">
                         <div class="input-group rounded">
-                            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                            <input type="search" class="form-control" placeholder="Search" aria-label="Search"
                                    aria-describedby="search-addon" />
-                            <span class="input-group-text border-0" id="search-addon">
-                                <span class="material-icons-outlined">
-                                    done
-                                </span>
-                            </span>
+                            <button type="button" class="btn btn-primary btn_search">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="bi bi-search" viewBox="0 0 18 18">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
                     <div class="col-sm header d-flex justify-content-end">
@@ -42,58 +41,53 @@
         </div>
     </header>
 
-    <main class="container-fluid">
-        <div class="d-flex align-items-stretch">
+    <main>
+        <div class="container-fluid">
+            <div class="d-flex align-items-stretch">
+                <div class="row">
+                    <div class="col-sm-2 col-navbar">
 
-            <div class="row">
-                <div class="col-sm-2 col-navbar">
-
-                    <div class="d-flex align-items-start ">
-                        <nav class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
-                            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Categories</button>
-                            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Account</button>
-                            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
-                        </nav>
-                        <!--
-
-
+                        <div class="d-flex align-items-start">
+                            <nav class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
+                                <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">News</button>
+                                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Social Networking</button>
+                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Sport</button>
+                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Kids</button>
+                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Games</button>
+                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Shopping</button>
+                            </nav>
+                            <!--
                         <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">AdiAmoyal</div>
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
                         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
                         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                          </div>
-
                         -->
-
+                        </div>
                     </div>
 
-
-                </div>
-
-                <div class="col-sm-10 col-lines">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+                    <div class="col-sm-10 col-lines">
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+                    </div>
                 </div>
             </div>
-
-
         </div>
-
     </main>
-
+    
     <footer class="border-top footer text-muted">
         <div class="container-fluid">
             &copy; 2021 - ColmanAppStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>

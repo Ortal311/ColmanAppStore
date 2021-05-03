@@ -21,12 +21,6 @@ a {
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
 /* Sticky footer styles
 -------------------------------------------------- */
 
@@ -38,7 +32,13 @@ a {
 html {
     font-size: 14px;
     width: 100%;
+    height: 100%;
 }
+
+body {
+    height: 100%;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -55,12 +55,14 @@ header {
     border-bottom: 1px solid black;
 }
 
+main {
+    height: 100%;
+}
 
 .row {
     width: 100%;
     height: 100%;
 }
-
 
 .btn_signup {
     margin-left: 5px;
@@ -77,12 +79,8 @@ header {
 
 .nav {
     width: 100%;
-}
-
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    height: 100%;
+    border-right: 1px solid black;
 }
 
 /* Sticky footer styles
