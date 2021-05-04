@@ -28,6 +28,14 @@ namespace ColmanAppStore.Controllers
             return View();
         }
 
+        public IActionResult CategoryInfo() //(int id) ->to add the type of the category
+        {
+            Category category = new Category();
+            category.Name = "Sport bkabka";
+
+            return View(category);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

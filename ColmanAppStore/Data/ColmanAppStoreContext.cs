@@ -15,5 +15,9 @@ namespace ColmanAppStore.Data
         }
 
         public DbSet<ColmanAppStore.Models.Apps> Apps { get; set; }
+
+        public DbSet<ColmanAppStore.Models.Category> Category { get; set; }
+
+        public DbSet<ColmanAppStore.Models.User> User { get; set; }
     }
 }

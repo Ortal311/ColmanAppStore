@@ -13,10 +13,12 @@ namespace ColmanAppStore.Models
 
         public string Name { get; set; }
 
+        [DataType(DataType.Currency)]
         public float Price { get; set; }
 
         public string Description { get; set; }
 
+        [Display(Name = "Publish date")]
         public DateTime publishDate { get; set; }
 
         public Category Category { get; set; }
@@ -29,11 +31,12 @@ namespace ColmanAppStore.Models
 
         public List<AppsImage> Images { get; set; }
 
+        [Range(0,5)]
         public float Raiting { get; set; }
 
         public Review Review { get; set; }
 
-
+        [Display(Name="Developer Name")]
         public string DeveloperName { get; set; }
     }
 }

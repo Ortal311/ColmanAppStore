@@ -27,5 +27,9 @@ namespace ColmanAppStore.Models
         public string Password { get; set; }
 
         public Payment PaymentMethod;
+
+        public string UserType { get; set; }
+
+        public List<Apps> AppListUser { get; set; }
     }
 }
