@@ -28,9 +28,10 @@ namespace ColmanAppStore.Models
         [StringLength(9, MinimumLength = 9, ErrorMessage = "The password must be 9 characters")]
         public long IdNumber { get; set; }
 
-        public User User { get; set; }
+        //Many to many
+        public List<User> User { get; set; }
 
-        public int UserId { get; set; }
+        //public int UserId { get; set; }
 
 
     }
