@@ -5,18 +5,14 @@ using System.Threading.Tasks;
 
 namespace ColmanAppStore.Models
 {
-    public class AppsImage
-    {
-
+    public class AppVideo
+    { 
         public int Id { get; set; }
 
-        public string Image { get; set; }
+        public string Video { get; set; }
 
         public int AppId { get; set; }
 
-        public Apps App { get; set; }
-
-
-
+        public App App { get; set; }
     }
 }

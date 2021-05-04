@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ColmanAppStore.Models
 {
-    public class Apps
+    public class App
     {
         public int Id { get; set; }
 
@@ -32,12 +32,15 @@ namespace ColmanAppStore.Models
         [Required]
         public Logo Logo { get; set; }
 
-        public List<AppsImage> Images { get; set; }
+        public List<AppImage> Images { get; set; }
 
-        [Range(0,5)]
-        public float Raiting { get; set; }
+        public List<AppVideo> Videos { get; set; }
 
-        public Review Review { get; set; }
+        public float AverageRaiting { get; set; }
+
+        public List<Review> Review { get; set; }
+
+        public int countReview { get; set; }
 
         [Required]
         [Display(Name="Developer Name")]

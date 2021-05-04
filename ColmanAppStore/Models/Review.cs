@@ -11,23 +11,21 @@ namespace ColmanAppStore.Models
 
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "You must enter title")]
         public string Title { get; set; }
 
-        public string Body  { get; set; }
+        public string Body { get; set; }
 
-
+        [Range(0, 5)]
         [Required(ErrorMessage = "You must enter raiting")]
         public float Raiting { get; set; }
 
         public DateTime PublishDate { get; set; }
 
+        public int AppId { get; set; }
+
+        public App App { get; set; }
+
         public User UserName { get; set; }
-
-
-
-
-
 
     }
 }

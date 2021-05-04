@@ -14,10 +14,20 @@ namespace ColmanAppStore.Data
         {
         }
 
-        public DbSet<ColmanAppStore.Models.Apps> Apps { get; set; }
+        public DbSet<ColmanAppStore.Models.App> Apps { get; set; }
 
         public DbSet<ColmanAppStore.Models.Category> Category { get; set; }
 
         public DbSet<ColmanAppStore.Models.User> User { get; set; }
+
+        public DbSet<ColmanAppStore.Models.AppImage> AppsImage { get; set; }
+
+        public DbSet<ColmanAppStore.Models.Logo> Logo { get; set; }
+
+        public DbSet<ColmanAppStore.Models.Payment> Payment { get; set; }
+
+        public DbSet<ColmanAppStore.Models.AppVideo> AppVideo { get; set; }
+
+        public DbSet<ColmanAppStore.Models.Review> Review { get; set; }
     }
 }

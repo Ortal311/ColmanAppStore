@@ -31,6 +31,6 @@ namespace ColmanAppStore.Models
 
         public string UserType { get; set; }
 
-        public List<Apps> AppListUser { get; set; }
+        public List<App> AppListUser { get; set; }
     }
 }
