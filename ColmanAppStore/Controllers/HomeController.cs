@@ -20,6 +20,12 @@ namespace ColmanAppStore.Controllers
 
         public IActionResult Index()
         {
+            List<string> titles = new List<string>();
+
+            titles.Add("Top Rated");
+            titles.Add("Popular");
+            titles.Add("Last Updated");
+
             return View();
         }
 
