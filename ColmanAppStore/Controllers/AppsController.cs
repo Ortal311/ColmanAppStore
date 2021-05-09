@@ -61,6 +61,7 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
+                app.publishDate = DateTime.Now;
                 _context.Add(app);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

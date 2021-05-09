@@ -29,7 +29,7 @@ namespace ColmanAppStore.Models
 
         public float Size { get; set; }
 
-        [Required]
+        //[Required]
         public Logo Logo { get; set; }
 
         public List<AppImage> Images { get; set; }

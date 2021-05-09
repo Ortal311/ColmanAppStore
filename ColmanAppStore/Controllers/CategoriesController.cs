@@ -56,6 +56,8 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
+            Console.WriteLine(ModelState.Values);
+
             if (ModelState.IsValid)
             {
                 _context.Add(category);

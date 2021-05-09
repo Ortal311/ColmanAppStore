@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ColmanAppStore.Migrations
 {
     [DbContext(typeof(ColmanAppStoreContext))]
-    [Migration("20210502134309_User")]
-    partial class User
+    [Migration("20210509154349_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,12 +21,15 @@ namespace ColmanAppStore.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ColmanAppStore.Models.Apps", b =>
+            modelBuilder.Entity("ColmanAppStore.Models.App", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("AverageRaiting")
+                        .HasColumnType("real");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -35,25 +38,24 @@ namespace ColmanAppStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DeveloperName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Logo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<float>("Raiting")
-                        .HasColumnType("real");
-
-                    b.Property<int?>("ReviewId")
-                        .HasColumnType("int");
-
                     b.Property<float>("Size")
                         .HasColumnType("real");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("countReview")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("publishDate")
                         .HasColumnType("datetime2");
@@ -62,12 +64,12 @@ namespace ColmanAppStore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ReviewId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Apps");
                 });
 
-            modelBuilder.Entity("ColmanAppStore.Models.AppsImage", b =>
+            modelBuilder.Entity("ColmanAppStore.Models.AppImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,6 +89,26 @@ namespace ColmanAppStore.Migrations
                     b.ToTable("AppsImage");
                 });
 
+            modelBuilder.Entity("ColmanAppStore.Models.AppVideo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Video")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppId");
+
+                    b.ToTable("AppVideo");
+                });
+
             modelBuilder.Entity("ColmanAppStore.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -95,11 +117,63 @@ namespace ColmanAppStore.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("ColmanAppStore.Models.Logo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppsId")
+                        .IsUnique();
+
+                    b.ToTable("Logo");
+                });
+
+            modelBuilder.Entity("ColmanAppStore.Models.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CVV")
+                        .HasMaxLength(4)
+                        .HasColumnType("int");
+
+                    b.Property<long>("CardNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ExpiredDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("IdNumber")
+                        .HasMaxLength(9)
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("ColmanAppStore.Models.Review", b =>
@@ -108,6 +182,9 @@ namespace ColmanAppStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
@@ -119,13 +196,14 @@ namespace ColmanAppStore.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserNameId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppId");
 
                     b.HasIndex("UserNameId");
 
@@ -153,12 +231,20 @@ namespace ColmanAppStore.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<int?>("PaymentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentId");
 
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("ColmanAppStore.Models.Apps", b =>
+            modelBuilder.Entity("ColmanAppStore.Models.App", b =>
                 {
                     b.HasOne("ColmanAppStore.Models.Category", "Category")
                         .WithMany("Apps")
@@ -166,18 +252,16 @@ namespace ColmanAppStore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ColmanAppStore.Models.Review", "Review")
-                        .WithMany()
-                        .HasForeignKey("ReviewId");
+                    b.HasOne("ColmanAppStore.Models.User", null)
+                        .WithMany("AppListUser")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Review");
                 });
 
-            modelBuilder.Entity("ColmanAppStore.Models.AppsImage", b =>
+            modelBuilder.Entity("ColmanAppStore.Models.AppImage", b =>
                 {
-                    b.HasOne("ColmanAppStore.Models.Apps", "App")
+                    b.HasOne("ColmanAppStore.Models.App", "App")
                         .WithMany("Images")
                         .HasForeignKey("AppId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -186,23 +270,77 @@ namespace ColmanAppStore.Migrations
                     b.Navigation("App");
                 });
 
+            modelBuilder.Entity("ColmanAppStore.Models.AppVideo", b =>
+                {
+                    b.HasOne("ColmanAppStore.Models.App", "App")
+                        .WithMany("Videos")
+                        .HasForeignKey("AppId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("App");
+                });
+
+            modelBuilder.Entity("ColmanAppStore.Models.Logo", b =>
+                {
+                    b.HasOne("ColmanAppStore.Models.App", "Apps")
+                        .WithOne("Logo")
+                        .HasForeignKey("ColmanAppStore.Models.Logo", "AppsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Apps");
+                });
+
             modelBuilder.Entity("ColmanAppStore.Models.Review", b =>
                 {
+                    b.HasOne("ColmanAppStore.Models.App", "App")
+                        .WithMany("Review")
+                        .HasForeignKey("AppId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ColmanAppStore.Models.User", "UserName")
                         .WithMany()
                         .HasForeignKey("UserNameId");
 
+                    b.Navigation("App");
+
                     b.Navigation("UserName");
                 });
 
-            modelBuilder.Entity("ColmanAppStore.Models.Apps", b =>
+            modelBuilder.Entity("ColmanAppStore.Models.User", b =>
+                {
+                    b.HasOne("ColmanAppStore.Models.Payment", null)
+                        .WithMany("User")
+                        .HasForeignKey("PaymentId");
+                });
+
+            modelBuilder.Entity("ColmanAppStore.Models.App", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("Logo")
+                        .IsRequired();
+
+                    b.Navigation("Review");
+
+                    b.Navigation("Videos");
                 });
 
             modelBuilder.Entity("ColmanAppStore.Models.Category", b =>
                 {
                     b.Navigation("Apps");
+                });
+
+            modelBuilder.Entity("ColmanAppStore.Models.Payment", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ColmanAppStore.Models.User", b =>
+                {
+                    b.Navigation("AppListUser");
                 });
 #pragma warning restore 612, 618
         }

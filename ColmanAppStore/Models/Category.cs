@@ -15,7 +15,7 @@ namespace ColmanAppStore.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        
         public List<App> Apps  { get; set; }
 
 
