@@ -318,8 +318,7 @@ namespace ColmanAppStore.Migrations
                 {
                     b.Navigation("Images");
 
-                    b.Navigation("Logo")
-                        .IsRequired();
+                    b.Navigation("Logo");
 
                     b.Navigation("Review");
 

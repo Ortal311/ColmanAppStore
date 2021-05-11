@@ -9,7 +9,7 @@ namespace ColmanAppStore.Models
     public class Category
     {
 
-        [Required]
+        //[Required]
         public int Id { get; set; }
 
         [Required]

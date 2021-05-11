@@ -48,7 +48,7 @@ namespace ColmanAppStore.Controllers
         // GET: Logoes/Create
         public IActionResult Create()
         {
-            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "DeveloperName");
+            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace ColmanAppStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "DeveloperName", logo.AppsId);
+            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name", logo.AppsId);
             return View(logo);
         }
 
@@ -82,7 +82,7 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "DeveloperName", logo.AppsId);
+            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name", logo.AppsId);
             return View(logo);
         }
 
@@ -118,7 +118,7 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "DeveloperName", logo.AppsId);
+            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name", logo.AppsId);
             return View(logo);
         }
 
