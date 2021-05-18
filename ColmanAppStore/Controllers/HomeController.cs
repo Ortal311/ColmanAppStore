@@ -6,26 +6,36 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ColmanAppStore.Data;
+
+
 
 namespace ColmanAppStore.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+     //   private readonly ColmanAppStoreContext _context;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            
+     
         }
 
         public IActionResult Index()
         {
+            /*
             List<string> titles = new List<string>();
-
+            for(int i=0; i<5; i++)
+            {
+                
+            }
             titles.Add("Top Rated");
             titles.Add("Popular");
             titles.Add("Last Updated");
-
+            */
             return View();
         }
 

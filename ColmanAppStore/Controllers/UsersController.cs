@@ -20,8 +20,9 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+      /*  public async Task<IActionResult> Index()
         {
+
             return View(await _context.User.ToListAsync());
         }
 
@@ -41,9 +42,46 @@ namespace ColmanAppStore.Controllers
             }
 
             return View(user);
+        }*/
+
+        //GET: Users/Register
+
+        public IActionResult Register()
+        {
+            return View();
         }
 
+        // POST: Users/Register
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([Bind("Id,Name,Email,Password")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (ModelState.IsValid)
+                {
+                    var q = _context.User.FirstOrDefault(u => u.Name == user.Name);
+
+                    if (q == null)
+                    {
+                        _context.Add(user);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index), "Home");
+                    }
+                    else
+                    {
+                        ViewData["Error"] = "Unable to comply; cannot register this user.";
+                    }
+                }
+            }
+            return View(user);
+        }
+
+
         // GET: Users/Create
+        /*
         public IActionResult Create()
         {
             return View();
@@ -54,7 +92,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,Password,UserType")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email,Password,Type")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +102,7 @@ namespace ColmanAppStore.Controllers
             }
             return View(user);
         }
-
+   
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -86,7 +124,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password,UserType")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password,Type")] User user)
         {
             if (id != user.Id)
             {
@@ -149,5 +187,7 @@ namespace ColmanAppStore.Controllers
         {
             return _context.User.Any(e => e.Id == id);
         }
+              */
     }
+
 }

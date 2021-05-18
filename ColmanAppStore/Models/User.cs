@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace ColmanAppStore.Models
 {
+    public enum UserType
+    {
+        Client,
+        Programer,
+        Admin
+    }
     public class User
     {
 
@@ -23,14 +29,15 @@ namespace ColmanAppStore.Models
         
         [StringLength(30, MinimumLength = 8,ErrorMessage ="The password must be at least 8 charcaters")]
         [Required(ErrorMessage ="You must enter password")]
-        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "The body must start with one or more uppercase letters")]
+        [RegularExpression("^[A-Z]+[a-zA-Z0-9 ]*$", ErrorMessage = "The body must start with one or more uppercase letters")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         //Many to many
         public List<Payment> PaymentMethod;
 
-        public string UserType { get; set; }
-
         public List<App> AppListUser { get; set; }
+
+        public UserType UserType { get; set; } = UserType.Client;
     }
 }
