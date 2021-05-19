@@ -17,6 +17,5 @@ namespace ColmanAppStore.Models
         public App App { get; set; }
 
 
-
     }
 }

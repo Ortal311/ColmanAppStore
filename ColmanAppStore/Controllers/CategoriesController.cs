@@ -33,8 +33,8 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.Id == id);
+            //var category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Category.Include(c => c.Apps).FirstOrDefaultAsync(x => x.Id == id); //need to get access from category
             if (category == null)
             {
                 return NotFound();
