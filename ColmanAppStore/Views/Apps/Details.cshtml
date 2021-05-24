@@ -4,7 +4,11 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 class="text-center">@Model.Name app</h1>
+<center>
+    <img src="@Model.Logo.Image" class="card-img-top" alt="can't load image" style="max-width: 10%;" />
+</center>
+
+<h1 class="text-center">@Model.Name</h1>
 
 <div>
     <h4>Information</h4>
@@ -70,7 +74,7 @@
             }
             else
             {
-                <p>no images added for the app</p> //NOT SHOWING IN WEB!!! TO FIX
+                <p>no images added for the app</p>//NOT SHOWING IN WEB!!! TO FIX
             }
         </dd>
 

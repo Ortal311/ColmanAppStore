@@ -23,7 +23,7 @@ namespace ColmanAppStore.Controllers
         // GET: Apps
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.Apps.Include(a => a.Category);
+            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l=>l.Logo);
             return View(await colmanAppStoreContext.ToListAsync());
         }
 

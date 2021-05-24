@@ -17,7 +17,7 @@
             {
                 <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
 
-                    <img src="@item.Logo.Image" class="card-img-top" alt="can't load image">
+                    <center><img src="@item.Logo.Image" class="card-img-top" alt="can't load image" style="max-width: 50%;"></center>
                     <div class="card-body">
                         <h5 class="card-title">@item.Name</h5>
                         <p class="card-text">@item.Description</p>
@@ -31,5 +31,5 @@
 }
 else
 {
-    <h3 class="text-center">no apps in this category</h3>
+    <p class="text-center">no apps in this category</p>
 }
