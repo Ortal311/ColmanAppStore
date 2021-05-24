@@ -7,21 +7,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ColmanAppStore.Data;
-
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ColmanAppStore.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-     //   private readonly ColmanAppStoreContext _context;
+        private readonly ColmanAppStoreContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ColmanAppStoreContext context)
         {
             _logger = logger;
-            
-     
+            _context = context;
         }
 
         public IActionResult Index()
@@ -36,11 +35,21 @@ namespace ColmanAppStore.Controllers
             titles.Add("Popular");
             titles.Add("Last Updated");
             */
+
+
+            ViewData["top"] = _context.Apps.ToList();
+
+
             return View();
         }
 
+       [Authorize]
         public IActionResult Privacy()
         {
+          /*  if(HttpContext.Session.GetString("email")==null)
+            {
+                return RedirectToAction("Login", "Users");
+            }*/
             return View();
         }
 

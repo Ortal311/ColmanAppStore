@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ColmanAppStore
 {
@@ -29,6 +30,16 @@ namespace ColmanAppStore
 
             services.AddDbContext<ColmanAppStoreContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ColmanAppStoreContext")));
+
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                options => { 
+                    options.LoginPath = "/Users/Login";
+                    options.AccessDeniedPath = "/Users/AccessDenied";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +59,10 @@ namespace ColmanAppStore
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

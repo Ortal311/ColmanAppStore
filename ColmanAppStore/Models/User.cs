@@ -34,7 +34,7 @@ namespace ColmanAppStore.Models
         public string Password { get; set; }
 
         //Many to many
-        public List<Payment> PaymentMethod;
+        public List<Payment> PaymentMethod { get; set; }
 
         public List<App> AppListUser { get; set; }
 
