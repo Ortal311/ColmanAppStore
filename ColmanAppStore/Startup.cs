@@ -31,14 +31,16 @@ namespace ColmanAppStore
             services.AddDbContext<ColmanAppStoreContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ColmanAppStoreContext")));
 
-            services.AddSession(options => {
+          /*  services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(1);
             });
+          */
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 options => { 
                     options.LoginPath = "/Users/Login";
                     options.AccessDeniedPath = "/Users/AccessDenied";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
                 });
         }
 
@@ -60,7 +62,7 @@ namespace ColmanAppStore
 
             app.UseRouting();
 
-            app.UseSession();
+           // app.UseSession();
 
             app.UseAuthentication();
 

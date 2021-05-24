@@ -34,7 +34,7 @@ namespace ColmanAppStore.Controllers
             }
 
             //var category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
-            var category = await _context.Category.Include(c => c.Apps).FirstOrDefaultAsync(x => x.Id == id);
+            var category = await _context.Category.Include(c => c.Apps).ThenInclude(c => c.Logo).FirstOrDefaultAsync(x => x.Id == id);
 
             if (category == null)
             {
