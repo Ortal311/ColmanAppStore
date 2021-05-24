@@ -29,11 +29,14 @@ namespace ColmanAppStore.Models
 
         public float Size { get; set; }
 
-        //[Required]
+        [Required]
+        [Display(Name = "App logo")]
         public Logo Logo { get; set; }
 
+        [Display(Name = "App images")]
         public List<AppImage> Images { get; set; }
 
+        [Display(Name = "App videos")]
         public List<AppVideo> Videos { get; set; }
 
         public float AverageRaiting { get; set; }
