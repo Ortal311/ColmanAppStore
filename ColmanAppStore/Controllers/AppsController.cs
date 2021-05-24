@@ -16,7 +16,8 @@ namespace ColmanAppStore.Controllers
 
         public AppsController(ColmanAppStoreContext context)
         {
-            _context = context;
+            _context = context;            
+   
         }
 
         // GET: Apps
@@ -26,6 +27,12 @@ namespace ColmanAppStore.Controllers
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Search(string query, string queryBody)
+        {
+            var searchContext = _context.Apps.Where(a => (a.Name.Contains(query) || query == null) && (a.Description.Contains(queryBody) || queryBody == null));
+            return View("Index", await searchContext.ToListAsync());
+        }
+        
         // GET: Apps/Details/5
         public async Task<IActionResult> Details(int? id)
         {
