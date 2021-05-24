@@ -48,7 +48,7 @@ namespace ColmanAppStore.Controllers
         // GET: AppVideos/Create
         public IActionResult Create()
         {
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName");
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View();
         }
 
@@ -57,15 +57,18 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Video,AppId")] AppVideo appVideo)
+        public async Task<IActionResult> Create([Bind("Id,Name,Video")] AppVideo appVideo)
         {
             if (ModelState.IsValid)
             {
+                appVideo.AppId = 1; //default before change in app's create
                 _context.Add(appVideo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", appVideo.AppId);
+            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appVideo.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+
             return View(appVideo);
         }
 
@@ -91,7 +94,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Video,AppId")] AppVideo appVideo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Video,AppId")] AppVideo appVideo)
         {
             if (id != appVideo.Id)
             {

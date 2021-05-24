@@ -4,14 +4,16 @@ using ColmanAppStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ColmanAppStore.Migrations
 {
     [DbContext(typeof(ColmanAppStoreContext))]
-    partial class ColmanAppStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20210519071357_appUpdate")]
+    partial class appUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,11 +80,6 @@ namespace ColmanAppStore.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -102,12 +99,7 @@ namespace ColmanAppStore.Migrations
                     b.Property<int>("AppId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Video")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -239,27 +231,17 @@ namespace ColmanAppStore.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<int?>("PaymentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PaymentId");
+
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("PaymentUser", b =>
-                {
-                    b.Property<int>("PaymentMethodId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
-
-                    b.HasKey("PaymentMethodId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PaymentUser");
                 });
 
             modelBuilder.Entity("ColmanAppStore.Models.App", b =>
@@ -327,19 +309,11 @@ namespace ColmanAppStore.Migrations
                     b.Navigation("UserName");
                 });
 
-            modelBuilder.Entity("PaymentUser", b =>
+            modelBuilder.Entity("ColmanAppStore.Models.User", b =>
                 {
                     b.HasOne("ColmanAppStore.Models.Payment", null)
-                        .WithMany()
-                        .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ColmanAppStore.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("User")
+                        .HasForeignKey("PaymentId");
                 });
 
             modelBuilder.Entity("ColmanAppStore.Models.App", b =>
@@ -357,6 +331,11 @@ namespace ColmanAppStore.Migrations
             modelBuilder.Entity("ColmanAppStore.Models.Category", b =>
                 {
                     b.Navigation("Apps");
+                });
+
+            modelBuilder.Entity("ColmanAppStore.Models.Payment", b =>
+                {
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ColmanAppStore.Models.User", b =>

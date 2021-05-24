@@ -48,24 +48,28 @@ namespace ColmanAppStore.Controllers
         // GET: AppImages/Create
         public IActionResult Create()
         {
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName");
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View();
         }
 
         // POST: AppImages/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //public async Task<IActionResult> Create([Bind("Id,Name,Image,AppId")] AppImage appImage)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Image,AppId")] AppImage appImage)
+        public async Task<IActionResult> Create([Bind("Id,Name,Image")] AppImage appImage)
         {
             if (ModelState.IsValid)
             {
+                appImage.AppId = 1; //default before change in app's create
                 _context.Add(appImage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", appImage.AppId);
+            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appImage.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+
             return View(appImage);
         }
 
@@ -82,7 +86,7 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", appImage.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appImage.AppId);
             return View(appImage);
         }
 
@@ -91,7 +95,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Image,AppId")] AppImage appImage)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Image,AppId")] AppImage appImage)
         {
             if (id != appImage.Id)
             {
@@ -118,7 +122,7 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", appImage.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appImage.AppId);
             return View(appImage);
         }
 

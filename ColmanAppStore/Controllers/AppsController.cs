@@ -42,7 +42,7 @@ namespace ColmanAppStore.Controllers
             }
 
             var app = await _context.Apps
-                .Include(a => a.Category)
+                .Include(a => a.Category).Include(l => l.Logo).Include(v=>v.Videos).Include(i=>i.Images)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {
@@ -56,6 +56,9 @@ namespace ColmanAppStore.Controllers
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
+            ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
+            ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
+
             return View();
         }
 
@@ -64,12 +67,47 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,publishDate,CategoryId,Size,AverageRaiting,countReview,DeveloperName")] App app)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size," +
+                                                "AverageRaiting,countReview,DeveloperName,Images")] App app, int[] Images, int[] Videos)
         {
             if (ModelState.IsValid)
             {
+
+                Logo log = new Logo();
+                log.Image = app.Logo.Image;
+                log.Apps = app;
+                log.AppsId = app.Id;
+                _context.Add(log);
+
                 app.publishDate = DateTime.Now;
+                app.Logo = log;
+
+                if (Images.Length > 0) //check if developer added more pics of the app
+                {
+                    app.Images = new List<AppImage>();
+                    app.Images.AddRange(_context.AppsImage.Where(x => Images.Contains(x.Id)));
+
+                    foreach (var item in app.Images)
+                    {
+                        item.AppId = app.Id;
+                        item.App = app;
+                    }
+                }
+
+                if (Videos.Length > 0) //check if developer added more videos of the app
+                {
+                    app.Videos = new List<AppVideo>();
+                    app.Videos.AddRange(_context.AppVideo.Where(x => Videos.Contains(x.Id)));
+
+                    foreach (var item in app.Videos)
+                    {
+                        item.AppId = app.Id;
+                        item.App = app;
+                    }
+                }
+
                 _context.Add(app);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -91,6 +129,8 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
+            ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
+            ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
             return View(app);
         }
 
