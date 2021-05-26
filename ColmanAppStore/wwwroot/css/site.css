@@ -1,30 +1,46 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-/*
-a {
-    color: #0366d6;
+
+
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-
-    header {
+header {
     margin-top: 3px;
     width: 100%;
-    border-bottom: 1px solid black;
-    background-color: black;
+    background-color: #E1F0FA;
+
 }
 
 main {
     height: 100%;
     width: 100%;
-margin-bottom: 100px;
-background-color: aquamarine;
+    margin-bottom: 100px;
 }
+
+body {
+    height: 100vh;
+    margin-bottom: 60px;
+    
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+
+html {
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+}
+
 
 .row {
     width: 100%;
@@ -35,9 +51,19 @@ background-color: aquamarine;
     margin-left: 5px;
 }
 
+.btn_search {
+    margin-left: 2px;
+}
+
+.btn_signup {
+    margin-left: 5px;
+}
+
+
 .col-navbar {
     width: 100%;
     height: 100%;
+    background-color: #D3E0EA;
 }
 
 .col-lines {
@@ -52,52 +78,27 @@ background-color: aquamarine;
 }
 
 
-
-
-
-*/
-/* Sticky footer styles
--------------------------------------------------- */
-* {
-    margin: 0;
-    padding: 0;
+.btn_categories {
+    height: 30px;
+    text-align: center;
 }
 
-html {
-    font-size: 14px;
-    width: 100%;
-    height: 100%;
-  
+.card {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-body {
-    height: 100%;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  
-}
 .footer {
-    position:static;
+   /* position: absolute;*/
+    background-color: #E1F0FA;
+    line-height: 60px;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    white-space: normal;
+   
+
+    margin-top: 100px;
 }
