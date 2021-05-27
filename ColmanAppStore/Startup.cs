@@ -40,7 +40,7 @@ namespace ColmanAppStore
                 options => { 
                     options.LoginPath = "/Users/Login";
                     options.AccessDeniedPath = "/Users/AccessDenied";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 });
         }
 
