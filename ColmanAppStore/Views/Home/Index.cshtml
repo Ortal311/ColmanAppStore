@@ -4,57 +4,59 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="container align-self-stretch">
+<center>
+    <div class="container align-self-stretch">
 
 
-    <div class="row justify-content-between mt-4">
-        <h2>Top Rated</h2>
-        
-        @for(int i=0; i<3; i++)
-        {
-            <div class="col-3">
-                <div class="card" style="width: 220px;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card Title</h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="row justify-content-between mt-4">
+            <h2>Top Rated</h2>
+
+            @for (int i = 0; i < 3; i++)
+            {
+                <div class="col-3">
+                    <div class="card" style="width: 220px;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Title</h5>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
-    <div class="row justify-content-between mt-4">
-        <h2>Popular</h2>
+            }
+        </div>
+        <div class="row justify-content-between mt-4">
+            <h2>Popular</h2>
 
-        @for (int j = 0; j < 3; j++)
-        {
-            <div class="col-3">
-                <div class="card" style="width: 220px;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            @for (int j = 0; j < 3; j++)
+            {
+                <div class="col-3">
+                    <div class="card" style="width: 220px;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
-    <div class="row justify-content-between mt-4">
-        <h2>Last Released</h2>
+            }
+        </div>
+        <div class="row justify-content-between mt-4">
+            <h2>Last Released</h2>
 
-        @for (int j = 0; j < 3; j++)
-        {
-            <div class="col-3">
-                <div class="card" style="width: 220px;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            @for (int j = 0; j < 3; j++)
+            {
+                <div class="col-3">
+                    <div class="card" style="width: 220px;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+
+
     </div>
-
-
-</div>
+</center>

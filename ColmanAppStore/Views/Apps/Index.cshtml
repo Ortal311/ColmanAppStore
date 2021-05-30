@@ -2,10 +2,12 @@
 @using ColmanAppStore.Models
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Apps";
 }
 
-<h1>All apps</h1>
+<center>
+    <h1>All apps</h1>
+</center>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -84,20 +86,21 @@
         </tbody>
     </table>*@
 
-
-<div class="container px-3">
-    <div class="row align-items-center">
-        @foreach (var item in Model)
-        {
-            <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
-                <div class="card-body">
-                    <center><img src="@item.Logo.Image" class="card-img-top" alt="can't load image" style="max-width: 50%;"></center>
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">Price: @item.Price</p>
-                    <p class="card-text">Size: @item.Size MB</p>
-                    <a href="/Apps/Details/@item.Id" class="btn btn-primary">More info</a>
+<center>
+    <div class="container px-3">
+        <div class="row align-items-center">
+            @foreach (var item in Model)
+            {
+                <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
+                    <div class="card-body">
+                        <center><img src="@item.Logo.Image" class="card-img-top" alt="can't load image" style="max-width: 50%;"></center>
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">Price: @item.Price</p>
+                        <p class="card-text">Size: @item.Size MB</p>
+                        <a href="/Apps/Details/@item.Id" class="btn btn-primary">More info</a>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
+</center>

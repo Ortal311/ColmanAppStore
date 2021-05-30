@@ -1,24 +1,27 @@
 ﻿@model IEnumerable<ColmanAppStore.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Categories";
 }
-
-<h1>All Categories</h1>
-<p>
+<center>
+    <h1>All Categories</h1>
+</center>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 
-<div class="container px-3">
-    <div class="row g-2 align-items-center">
-        @foreach (var item in Model)
-        {
-            <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
+<center>
+    <div class="container px-3">
+        <div class="row g-2 align-items-center">
+            @foreach (var item in Model)
+            {
+                <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
                     <div class="card-body">
                         <h5 class="card-title">@item.Name</h5>
                         <a href="/Categories/Details/@item.Id" class="btn btn-primary">Go to apps</a>
                     </div>
-            </div>
-        }
+                </div>
+            }
+        </div>
     </div>
-</div>
+</center>

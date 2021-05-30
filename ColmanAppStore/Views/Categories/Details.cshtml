@@ -2,33 +2,35 @@
 
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Name + " apps";
 }
 
-<h1 class="text-center">@Model.Name apps</h1>
+<h1 class="text-center" style="font-family:fantasy">@Model.Name apps</h1>
 
 
 @if (Model.Apps != null && Model.Apps.Count > 0)
 {
-    <div class="container px-3">
-        <div class="row g-2 align-items-center">
+    <center>
+        <div class="container px-3">
+            <div class="row g-2 align-items-center">
 
-            @foreach (var item in Model.Apps)
-            {
-                <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
+                @foreach (var item in Model.Apps)
+                {
+                    <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
 
-                    <center><img src="@item.Logo.Image" class="card-img-top" alt="can't load image" style="max-width: 30%;margin-top:10px"></center>
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Name</h5>
-                        <p class="card-text">Price: @item.Price ₪</p>
-                        <p class="card-text">Rate: @item.AverageRaiting</p>
-                        <a href="/Apps/Details/@item.Id" class="btn btn-primary">More info</a>
+                        <center><img src="@item.Logo.Image" class="card-img-top" alt="can't load image" style="max-width: 30%;margin-top:10px"></center>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">Price: @item.Price ₪</p>
+                            <p class="card-text">Rate: @item.AverageRaiting</p>
+                            <a href="/Apps/Details/@item.Id" class="btn btn-primary" style="margin-bottom:10px">More info</a>
+                        </div>
                     </div>
-                </div>
-            }
+                }
 
+            </div>
         </div>
-    </div>
+    </center>
 }
 else
 {
