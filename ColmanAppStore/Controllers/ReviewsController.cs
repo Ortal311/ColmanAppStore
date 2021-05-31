@@ -48,7 +48,7 @@ namespace ColmanAppStore.Controllers
         // GET: Reviews/Create
         public IActionResult Create()
         {
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName");
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View();
         }
 
@@ -57,10 +57,23 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,PublishDate,AppId")] Review review)
+        public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,AppId")] Review review)
         {
             if (ModelState.IsValid)
             {
+                foreach(var item in _context.Apps)
+                {
+                    if(item.Id==review.AppId)
+                    {
+                        item.AverageRaiting= ((item.AverageRaiting*item.countReview)+review.Raiting)/(item.countReview+1);
+                        item.countReview++;
+
+                        break;
+                    }
+                }
+
+                review.PublishDate = DateTime.Now;
+
                 _context.Add(review);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -82,7 +95,7 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", review.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
             return View(review);
         }
 
@@ -91,7 +104,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,Raiting,PublishDate,AppId")] Review review)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,Raiting,AppId")] Review review)
         {
             if (id != review.Id)
             {
@@ -102,6 +115,25 @@ namespace ColmanAppStore.Controllers
             {
                 try
                 {
+                    foreach (var item in _context.Apps)
+                    {
+                        if (item.Id == review.AppId)
+                        {
+                            float sum = 0;
+                            foreach (var r in _context.Review)
+                            {
+                                if (r.AppId == item.Id && r.Id!=review.Id)
+                                {
+                                    sum += r.Raiting;
+                                }
+                            }
+                            sum += review.Raiting;
+                            item.AverageRaiting = sum / item.countReview;
+                        }
+                    }
+
+                    review.PublishDate = DateTime.Now;
+
                     _context.Update(review);
                     await _context.SaveChangesAsync();
                 }

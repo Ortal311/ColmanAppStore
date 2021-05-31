@@ -43,7 +43,7 @@ namespace ColmanAppStore.Models
 
         public List<Review> Review { get; set; }
 
-        public int countReview { get; set; }
+        public int countReview { get; set; } //raiting
 
         [Required]
         [Display(Name="Developer Name")]
