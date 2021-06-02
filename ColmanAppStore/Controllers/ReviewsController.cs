@@ -78,7 +78,7 @@ namespace ColmanAppStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", review.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
             return View(review);
         }
 
@@ -115,6 +115,13 @@ namespace ColmanAppStore.Controllers
             {
                 try
                 {
+                    review.PublishDate = DateTime.Now;
+
+                    _context.Update(review);
+
+                    await _context.SaveChangesAsync();
+
+                    //update Average raiting
                     foreach (var item in _context.Apps)
                     {
                         if (item.Id == review.AppId)
@@ -122,20 +129,16 @@ namespace ColmanAppStore.Controllers
                             float sum = 0;
                             foreach (var r in _context.Review)
                             {
-                                if (r.AppId == item.Id && r.Id!=review.Id)
+                                if (r.AppId == item.Id)
                                 {
                                     sum += r.Raiting;
                                 }
                             }
-                            sum += review.Raiting;
                             item.AverageRaiting = sum / item.countReview;
+                            _context.Update(item);
+                            break;
                         }
                     }
-
-                    review.PublishDate = DateTime.Now;
-
-                    _context.Update(review);
-                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -150,7 +153,7 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", review.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
             return View(review);
         }
 
