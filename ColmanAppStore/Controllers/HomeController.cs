@@ -25,31 +25,27 @@ namespace ColmanAppStore.Controllers
 
         public IActionResult Index()
         {
-            /*
-            List<string> titles = new List<string>();
-            for(int i=0; i<5; i++)
-            {
-                
-            }
-            titles.Add("Top Rated");
-            titles.Add("Popular");
-            titles.Add("Last Updated");
-            */
 
+            /*ViewData["top"] = _context.Apps.ToList();
 
-            ViewData["top"] = _context.Apps.ToList();
+            return View();*/
 
+            return View(_context.Apps.ToList());
+        }
 
+        [Authorize]
+        public IActionResult Privacy()
+        {
+
+            /*  if(HttpContext.Session.GetString("email")==null)
+              {
+                  return RedirectToAction("Login", "Users");
+              }*/
             return View();
         }
 
-       [Authorize]
-        public IActionResult Privacy()
+        public IActionResult About()
         {
-          /*  if(HttpContext.Session.GetString("email")==null)
-            {
-                return RedirectToAction("Login", "Users");
-            }*/
             return View();
         }
 
