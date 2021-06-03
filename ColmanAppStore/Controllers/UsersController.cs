@@ -45,7 +45,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Id,Name,Email,Password")] User user)
+        public async Task<IActionResult> Register([Bind("Id,Name,Email,Password,UserType")] User user)
         {
 
             if (ModelState.IsValid)

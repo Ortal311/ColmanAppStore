@@ -4,59 +4,154 @@
     ViewBag.Title = "Home Page";
 }
 
+<!--<div class="container align-self-stretch"> -->
+
 <center>
-    <div class="container align-self-stretch">
 
-
+    <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel data-interval=" false"">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
+        </ol>
         <div class="row justify-content-between mt-4">
-            <h2>Top Rated</h2>
-
-            @for (int i = 0; i < 3; i++)
-            {
-                <div class="col-3">
-                    <div class="card" style="width: 220px;">
-                        <img src="..." class="card-img-top" alt="...">
+            <h1 class="text-center" style="font-family:fantasy">Top Rated</h1>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card" style="width: 500px;">
+                        <img src="@Model.ElementAt(0).Logo" class="card-img-top" alt="can't load image" style="max-width: 50%">
                         <div class="card-body">
-                            <h5 class="card-title">Card Title</h5>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <h5 class="card-title">@Model.OrderByDescending(r => r.AverageRaiting).ElementAt(0).Name</h5>
+                            <h6 class="card-title">Price: @Model.OrderByDescending(r => r.AverageRaiting).ElementAt(0).Price</h6>
+                            <h6 class="card-title">Raiting:@Model.OrderByDescending(r => r.AverageRaiting).ElementAt(0).AverageRaiting</h6>
+                            <a asp-action="details" asp-controller="Apps" asp-route-id="@Model.OrderByDescending(r => r.AverageRaiting).ElementAt(0).Id" class="btn btn-primary">View App </a>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
-        <div class="row justify-content-between mt-4">
-            <h2>Popular</h2>
 
-            @for (int j = 0; j < 3; j++)
-            {
-                <div class="col-3">
-                    <div class="card" style="width: 220px;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                @for (int i = 1; i < 3; i++)
+                {
+                    <div class="carousel-item">
+                        <div class="card" style="width: 500px; ">
+                            <img src="@Model.ElementAt(i).Logo" class="card-img-top" alt="can't load image" style="max-width: 50%">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.OrderByDescending(r => r.AverageRaiting).ElementAt(i).Name</h5>
+                                <h6 class="card-title">Price: @Model.OrderByDescending(r => r.AverageRaiting).ElementAt(i).Price</h6>
+                                <h6 class="card-title">Raiting:@Model.OrderByDescending(r => r.AverageRaiting).ElementAt(i).AverageRaiting</h6>
+                                <a asp-action="details" asp-controller="Apps" asp-route-id="@Model.OrderByDescending(r => r.AverageRaiting).ElementAt(i).Id" class="btn btn-primary">View App </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+
+                }
+                <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
         </div>
-        <div class="row justify-content-between mt-4">
-            <h2>Last Released</h2>
-
-            @for (int j = 0; j < 3; j++)
-            {
-                <div class="col-3">
-                    <div class="card" style="width: 220px;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-
-
     </div>
+
+
+
+    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel data-interval=" false"">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+        </ol>
+        <div class="row justify-content-between mt-4">
+            <h1 class="text-center" style="font-family:fantasy">Last Released</h1>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card" style="width: 500px;">
+                        <img src="@Model.ElementAt(0).Logo" class="card-img-top" alt="can't load image" style="max-width: 50%">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.OrderByDescending(r => r.publishDate).ElementAt(0).Name</h5>
+                            <h6 class="card-title">Price: @Model.OrderByDescending(r => r.publishDate).ElementAt(0).Price</h6>
+                            <h6 class="card-title">Raiting:@Model.OrderByDescending(r => r.publishDate).ElementAt(0).publishDate</h6>
+                            <a asp-action="details" asp-controller="Apps" asp-route-id="@Model.OrderByDescending(r => r.publishDate).ElementAt(0).Id" class="btn btn-primary">View App </a>
+                        </div>
+                    </div>
+                </div>
+
+                @for (int i = 1; i < 3; i++)
+                {
+                    <div class="carousel-item">
+                        <div class="card" style="width: 500px; ">
+                            <img src="@Model.ElementAt(i).Logo" class="card-img-top" alt="can't load image" style="max-width: 50%">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.OrderByDescending(r => r.publishDate).ElementAt(i).Name</h5>
+                                <h6 class="card-title">Price: @Model.OrderByDescending(r => r.publishDate).ElementAt(i).Price</h6>
+                                <h6 class="card-title">Raiting:@Model.OrderByDescending(r => r.publishDate).ElementAt(i).publishDate</h6>
+                                <a asp-action="details" asp-controller="Apps" asp-route-id="@Model.OrderByDescending(r => r.publishDate).ElementAt(i).Id" class="btn btn-primary">View App </a>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel data-interval=" false"">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators3" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators3" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators3" data-slide-to="2"></li>
+        </ol>
+        <div class="row justify-content-between mt-4">
+            <h1 class="text-center" style="font-family:fantasy">Popular</h1>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card" style="width: 500px;">
+                        <img src="@Model.ElementAt(0).Logo" class="card-img-top" alt="can't load image" style="max-width: 50%">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.OrderByDescending(r => r.countReview).ElementAt(0).Name</h5>
+                            <h6 class="card-title">Price: @Model.OrderByDescending(r => r.countReview).ElementAt(0).Price</h6>
+                            <h6 class="card-title">Raiting:@Model.OrderByDescending(r => r.countReview).ElementAt(0).countReview</h6>
+                            <a asp-action="details" asp-controller="Apps" asp-route-id="@Model.OrderByDescending(r => r.countReview).ElementAt(0).Id" class="btn btn-primary">View App </a>
+                        </div>
+                    </div>
+                </div>
+
+                @for (int i = 1; i < 3; i++)
+                {
+                    <div class="carousel-item">
+                        <div class="card" style="width: 500px; ">
+                            <img src="@Model.ElementAt(i).Logo" class="card-img-top" alt="can't load image" style="max-width: 50%">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.OrderByDescending(r => r.countReview).ElementAt(i).Name</h5>
+                                <h6 class="card-title">Price: @Model.OrderByDescending(r => r.countReview).ElementAt(i).Price</h6>
+                                <h6 class="card-title">Raiting:@Model.OrderByDescending(r => r.countReview).ElementAt(i).countReview</h6>
+                                <a asp-action="details" asp-controller="Apps" asp-route-id="@Model.OrderByDescending(r => r.countReview).ElementAt(i).Id" class="btn btn-primary">View App </a>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
 </center>
