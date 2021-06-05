@@ -19,15 +19,15 @@
         <div class="header container-fluid">
             <div class="d-flex justify-content-between">
                 <div class="row header__row align-items-center">
-                    <div class="col-sm">
+                    <div class="col-sm-2" style="text-align:center">
                         <a class="logoStyle" href="/Home">
-                            <img class="logo" src="~/LogoImage/ColmanAppStoreLogo.jpg" alt="logo" style="max-width: 20%;margin-left:40px;margin-bottom:5px;margin-top:5px" />
+                            <img class="logo" src="~/LogoImage/ColmanAppStoreLogo.jpg" alt="logo" style="max-width: 40%;margin:auto;" />
 
                             @*<h1>LOGO</h1>*@
                         </a>
                     </div>
-                    <div class="col-sm">
-                        <div class="input-group rounded">
+                    <div class="col-sm-8">
+                        <div class="input-group rounded justify-content-center">
                             <form asp-action="Search" asp-controller="Apps" class="d-flex">
                                 <input name="query" type="search" class="form-control" placeholder="Search" aria-label="Search"
                                        aria-describedby="search-addon" />
@@ -41,7 +41,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-sm header d-flex justify-content-end">
+                    <div class="col-sm-2 header d-flex justify-content-center">
                         @if (Context.User.Identity != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                         {
                             <div class="dropdown">
@@ -78,17 +78,20 @@
                     <aside class="col-sm-2 col-navbar">
 
                         <div class="d-flex align-items-stretch">
+                            <link rel="preconnect" href="https://fonts.gstatic.com">
+                            <link href="https://fonts.googleapis.com/css2?family=Days+One&family=Indie+Flower&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+
                             <nav class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <!-- <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>-->
-                                <a class="btn btn-primary " asp-action="index" asp-controller="Home" asp-route-id="4">Home</a>
+                                <a class="btn btn-primary " asp-action="index" asp-controller="Home" asp-route-id="4" style="font-family: 'Nunito' , sans-serif;font-size:medium">Home</a>
 
-                                <a class="btn_categories" asp-action="index" asp-controller="Categories"><h2 class="dropdown-header align-self-center">Categories</h2></a>
-                                <a class="btn btn-primary " asp-action="details" asp-controller="Categories" asp-route-id="4">News</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="3">Social</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="2">Sport</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="1">Kids</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="5">Games</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="6">Shopping</a>
+                                <a class="btn_categories" asp-action="index" asp-controller="Categories"><h2 class="dropdown-header align-self-center" style="font-family: 'Nunito' , sans-serif;font-size:medium">Categories</h2></a>
+                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="4" style="font-family: 'Nunito' , sans-serif;font-size:medium">News</a>
+                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="3" style="font-family: 'Nunito' , sans-serif;font-size:medium">Social</a>
+                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="2" style="font-family: 'Nunito' , sans-serif;font-size:medium">Sport</a>
+                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="1" style="font-family: 'Nunito' , sans-serif;font-size:medium">Kids</a>
+                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="5" style="font-family: 'Nunito' , sans-serif;font-size:medium">Games</a>
+                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="6" style="font-family: 'Nunito' , sans-serif;font-size:medium">Shopping</a>
 
                             </nav>
 

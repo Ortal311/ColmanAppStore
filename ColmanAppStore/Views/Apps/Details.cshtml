@@ -10,7 +10,7 @@
         margin-left: 10px;
         margin-bottom: 10px;">
     <div class="text-center">
-        <img src="@Model.Logo.Image" class="card-img-top alt="can't load image" style="max-width: 15%;">
+        <img src="@Model.Logo.Image" class="card-img-top" alt="can't load image" style="max-width: 15%;">
     </div>
     <div class="card-body">
         <h4 class="card-title" style="font-family:cursive;font-weight:bold;margin-right:auto;margin-left:auto;text-align:center">@Model.Name</h4>
@@ -99,7 +99,7 @@
                 {
                     <div class="rating-text" style="margin-top: 10px"><span>@Model.countReview ratings & @Model.Review.Count() reviews</span> </div>
                 }
-                <a href="/Reviews/Create" class="btn btn-primary" style="margin-top:30px">Add review</a>
+                <a href="/Reviews/Create" class="btn btn-warning" style="margin-top:30px">Add review</a>
             </div>
         </div>
 
@@ -115,7 +115,7 @@
                             <div class="col-md-2"> <img class="profile-pic" src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png" style="width:60px;height:50px;border-radius: 100%; margin-top:10px;margin-left:-20px"> </div>
                             <div class="col-md-4">
                                 <div class="d-flex flex-column">
-                                    <p class="mt-2 mb-0" style="font-weight:bold;text-align:left"> User name @*@item.UserName.Name*@</p> @*no user name in DB yet*@
+                                    <p class="mt-2 mb-0" style="font-weight:bold;text-align:left"> @item.UserName.Name</p> 
                                     <div>
                                         <p class="text-left">
                                             <span class="text-muted">@item.Raiting</span>

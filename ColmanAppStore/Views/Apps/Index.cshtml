@@ -5,9 +5,9 @@
     ViewData["Title"] = "Apps";
 }
 
-<center>
-    <h1>All apps</h1>
-</center>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Days+One&family=Indie+Flower&display=swap" rel="stylesheet">
+<h1 style="font-family: 'Days One', sans-serif;text-align:center">All apps</h1>
 
 <p>
     <a asp-action="Create">Create new app</a>
@@ -15,16 +15,16 @@
 
 <center>
     <div class="container px-3">
-        <div class="row align-items-center">
+        <div class="row justify-content-center">
             @foreach (var item in Model)
             {
                 <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
                     <div class="card-body">
                         <img src="@item.Logo.Image" class="card-img-top" alt="can't load image" style="margin-left:auto;margin-right:auto;width:70px;height:70px;margin-top:10px;">
-                        <h5 class="card-title">@item.Name</h5>
+                        <h5 class="card-title" style=" font-family:cursive;font-weight:bold;margin-right:auto;margin-left:auto;text-align:center">@item.Name</h5>
                         <p class="card-text">Price: @item.Price ₪</p>
                         <p class="card-text">Size: @item.Size MB</p>
-                        <p class="card-text">Rate: @item.AverageRaiting</p>
+                        <p class="card-text">Rate: @item.AverageRaiting  <span>&#9733;</span> </p>
                         <a href="/Apps/Details/@item.Id" class="btn btn-primary" style="margin-top:-10px">More info</a>
                     </div>
                 </div>

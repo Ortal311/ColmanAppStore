@@ -3,22 +3,26 @@
 @{
     ViewData["Title"] = "Categories";
 }
-<center>
-    <h1>All Categories</h1>
-</center>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Days+One&family=Indie+Flower&display=swap" rel="stylesheet">
+<h1 style="font-family: 'Days One', sans-serif;text-align:center">All Categories</h1>
+
 @*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
+        <a asp-action="Create">Create New</a>
+    </p>*@
 
 <center>
     <div class="container px-3">
-        <div class="row g-2 align-items-center">
+        <div class="row g-2 justify-content-center">
             @foreach (var item in Model)
             {
                 <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
                     <div class="card-body">
-                        <h5 class="card-title">@item.Name</h5>
-                        <a href="/Categories/Details/@item.Id" class="btn btn-primary">Go to apps</a>
+                        <h5 class="card-title" style="font-family: 'Nunito' , sans-serif;font-size:large">@item.Name</h5>
+                        <img src="~/LogoImage/@item.Name.ToString()Logo.jpg" class="card-img-top" alt="can't load image" style="margin-left: auto;margin-right:auto;width:230px;height:150px;margin-top:10px;margin-bottom:10px">
+
+                        <a href="/Categories/Details/@item.Id" class="btn btn-info stretched-link">Go to apps</a>
                     </div>
                 </div>
             }

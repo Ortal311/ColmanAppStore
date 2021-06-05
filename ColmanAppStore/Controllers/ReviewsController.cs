@@ -22,7 +22,7 @@ namespace ColmanAppStore.Controllers
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.Review.Include(r => r.App);
+            var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(u=>u.UserName);
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace ColmanAppStore.Controllers
             }
 
             var review = await _context.Review
-                .Include(r => r.App)
+                .Include(r => r.App).Include(u=>u.UserName)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
@@ -49,6 +49,8 @@ namespace ColmanAppStore.Controllers
         public IActionResult Create()
         {
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+            ViewData["UserName"] = new SelectList(_context.User, "Id", "Name");
+
             return View();
         }
 
@@ -57,7 +59,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,AppId")] Review review)
+        public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,AppId,UserName")] Review review)
         {
             if (ModelState.IsValid)
             {
@@ -71,6 +73,15 @@ namespace ColmanAppStore.Controllers
                         break;
                     }
                 }
+                foreach (var item in _context.User)
+                {
+                    if (review.UserName == item)
+                    {
+                        
+
+                        break;
+                    }
+                }
 
                 review.PublishDate = DateTime.Now;
 
@@ -79,6 +90,8 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
+            ViewData["UserName"] = new SelectList(_context.User, "Id", "Name",review.UserName);
+
             return View(review);
         }
 

@@ -17,8 +17,4 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\LogoImage\ColmanAppStoreLogo.jpg" />
-  </ItemGroup>
-
 </Project>

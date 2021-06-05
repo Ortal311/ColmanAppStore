@@ -21,10 +21,15 @@ namespace ColmanAppStore.Models
 
         public DateTime PublishDate { get; set; }
 
+        [Display(Name = "App name")]
         public int AppId { get; set; }
 
         public App App { get; set; }
 
+
+
+        [Display(Name = "User name")]
+        //[Required(ErrorMessage = "You must choose user")]
         public User UserName { get; set; }
 
     }

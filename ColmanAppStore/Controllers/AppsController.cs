@@ -42,8 +42,8 @@ namespace ColmanAppStore.Controllers
             }
 
             var app = await _context.Apps
-                .Include(a => a.Category).Include(l => l.Logo).Include(v=>v.Videos).Include(i=>i.Images).Include(r=>r.Review)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(a => a.Category).Include(l => l.Logo).Include(v=>v.Videos).Include(i=>i.Images).Include(r=>r.Review).
+                ThenInclude(u=>u.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {
                 return NotFound();
