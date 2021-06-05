@@ -22,7 +22,7 @@ namespace ColmanAppStore.Controllers
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(u=>u.UserName);
+            var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(r => r.UserName);
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
@@ -35,7 +35,8 @@ namespace ColmanAppStore.Controllers
             }
 
             var review = await _context.Review
-                .Include(r => r.App).Include(u=>u.UserName)
+                .Include(r => r.App)
+                .Include(r => r.UserName)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
@@ -49,8 +50,7 @@ namespace ColmanAppStore.Controllers
         public IActionResult Create()
         {
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
-            ViewData["UserName"] = new SelectList(_context.User, "Id", "Name");
-
+            ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name");
             return View();
         }
 
@@ -59,15 +59,16 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,AppId,UserName")] Review review)
+        public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,PublishDate,AppId,UserNameId")] Review review)
         {
             if (ModelState.IsValid)
             {
-                foreach(var item in _context.Apps)
+
+                foreach (var item in _context.Apps)
                 {
-                    if(item.Id==review.AppId)
+                    if (item.Id == review.AppId)
                     {
-                        item.AverageRaiting= ((item.AverageRaiting*item.countReview)+review.Raiting)/(item.countReview+1);
+                        item.AverageRaiting = ((item.AverageRaiting * item.countReview) + review.Raiting) / (item.countReview + 1);
                         item.countReview++;
 
                         break;
@@ -75,9 +76,9 @@ namespace ColmanAppStore.Controllers
                 }
                 foreach (var item in _context.User)
                 {
-                    if (review.UserName == item)
+                    if (review.UserNameId == item.Id)
                     {
-                        
+                        review.UserName = item;
 
                         break;
                     }
@@ -85,13 +86,13 @@ namespace ColmanAppStore.Controllers
 
                 review.PublishDate = DateTime.Now;
 
+
                 _context.Add(review);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
-            ViewData["UserName"] = new SelectList(_context.User, "Id", "Name",review.UserName);
-
+            ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name", review.UserNameId);
             return View(review);
         }
 
@@ -109,6 +110,7 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
+            ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name", review.UserNameId);
             return View(review);
         }
 
@@ -117,7 +119,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,Raiting,AppId")] Review review)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,Raiting,PublishDate,AppId,UserNameId")] Review review)
         {
             if (id != review.Id)
             {
@@ -128,30 +130,26 @@ namespace ColmanAppStore.Controllers
             {
                 try
                 {
-                    review.PublishDate = DateTime.Now;
-
                     _context.Update(review);
-
-                    await _context.SaveChangesAsync();
-
-                    //update Average raiting
-                    foreach (var item in _context.Apps)
+                    float sum = 0;
+                    foreach (var item in _context.Review)
+                    {
+                        if (item.AppId == review.AppId)
+                        {
+                            sum += item.Raiting;
+                        }
+                    }
+                    foreach (var item in _context.Apps) //updating the average raiting of the app
                     {
                         if (item.Id == review.AppId)
                         {
-                            float sum = 0;
-                            foreach (var r in _context.Review)
-                            {
-                                if (r.AppId == item.Id)
-                                {
-                                    sum += r.Raiting;
-                                }
-                            }
                             item.AverageRaiting = sum / item.countReview;
                             _context.Update(item);
                             break;
                         }
                     }
+
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -167,6 +165,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
+            ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name", review.UserNameId);
             return View(review);
         }
 
@@ -180,6 +179,7 @@ namespace ColmanAppStore.Controllers
 
             var review = await _context.Review
                 .Include(r => r.App)
+                .Include(r => r.UserName)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
@@ -195,7 +195,28 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var review = await _context.Review.FindAsync(id);
+            int reviewAppId = id;
             _context.Review.Remove(review);
+
+            float sum = 0;
+            foreach (var item in _context.Review)
+            {
+                if (item.AppId == reviewAppId)
+                {
+                    sum += item.Raiting;
+                }
+            }
+            foreach (var item in _context.Apps) //updating the average raiting of the app
+            {
+                if (item.Id == reviewAppId)
+                {
+                    item.countReview--; //deleted one review of the app
+                    item.AverageRaiting = sum / item.countReview;
+                    _context.Update(item);
+                    break;
+                }
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -79,7 +79,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <div class="d-flex justify-content-center" style="text-align:center">
             <div class="ratings" style="width: 20rem;height: 15rem;background-color: #fff;padding-top: 1px;border: 1px solid rgba(0, 0, 0, 0.1);box-shadow: 0px 10px 10px #E0E0E0;">
-                <span class="product-rating" style="font-size: 50px"> @Model.AverageRaiting </span><span>/5</span>
+                <span class="product-rating" style="font-size: 50px"> @string.Format("{0:0.00}", Model.AverageRaiting) </span><span>/5</span>
                 <div class="stars" style="font-size: 18px; color: #28a745">
                     @for (int i = 0; i < (int)Model.AverageRaiting; i++)
                     {

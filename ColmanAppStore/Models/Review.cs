@@ -26,7 +26,8 @@ namespace ColmanAppStore.Models
 
         public App App { get; set; }
 
-
+        [Display(Name = "User name")]
+        public int UserNameId { get; set; }
 
         [Display(Name = "User name")]
         //[Required(ErrorMessage = "You must choose user")]

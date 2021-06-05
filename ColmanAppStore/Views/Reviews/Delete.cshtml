@@ -39,7 +39,13 @@
             @Html.DisplayNameFor(model => model.App)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.App.Name)
+            @Html.DisplayFor(model => model.App.DeveloperName)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName.Email)
         </dd class>
     </dl>
     
