@@ -31,7 +31,7 @@ namespace ColmanAppStore.Models
         //Many to many
         public List<User> User { get; set; }
 
-        //public int UserId { get; set; }
+       
 
 
     }

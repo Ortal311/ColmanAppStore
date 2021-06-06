@@ -23,12 +23,20 @@ namespace ColmanAppStore.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public  IActionResult Index()
         {
 
             /*ViewData["top"] = _context.Apps.ToList();
+             return View();*/
 
-            return View();*/
+            /*var app =  _context.Apps.Include(a => a.Category).Include(l => l.Logo).Include(v => v.Videos).Include(i => i.Images).Include(r => r.Review).
+               ThenInclude(u => u.UserName).FirstOrDefaultAsync(m => m.Id == id);
+            if (app == null)
+            {
+                return NotFound();
+            }
+
+            return View(app);*/
 
             return View(_context.Apps.ToList());
         }

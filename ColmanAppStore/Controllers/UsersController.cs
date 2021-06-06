@@ -40,6 +40,13 @@ namespace ColmanAppStore.Controllers
             
         }
 
+        
+        public  async Task<IActionResult> Account(string str)
+        {
+            return View();
+   
+        }
+
         // POST: Users/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -136,5 +143,9 @@ namespace ColmanAppStore.Controllers
         {
             return View();
         }
+    
+
+
+
     }
 }
