@@ -29,7 +29,7 @@ namespace ColmanAppStore.Controllers
             /*ViewData["top"] = _context.Apps.ToList();
              return View();*/
 
-            /*var app =  _context.Apps.Include(a => a.Category).Include(l => l.Logo).Include(v => v.Videos).Include(i => i.Images).Include(r => r.Review).
+            /*var app =  _context.Apps.Include(a => a.CategoryId).Include(l => l.Logo).Include(v => v.Videos).Include(i => i.Images).Include(r => r.Review).
                ThenInclude(u => u.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {

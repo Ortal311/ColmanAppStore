@@ -204,5 +204,11 @@ namespace ColmanAppStore.Controllers
         {
             return _context.Apps.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> HomePage()
+        {
+            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo);
+            return View(await colmanAppStoreContext.ToListAsync());
+        }
     }
 }

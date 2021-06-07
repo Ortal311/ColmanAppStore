@@ -41,12 +41,7 @@ namespace ColmanAppStore.Controllers
         }
 
         
-        public  async Task<IActionResult> Account(string str)
-        {
-            return View();
    
-        }
-
         // POST: Users/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -143,9 +138,94 @@ namespace ColmanAppStore.Controllers
         {
             return View();
         }
-    
+
+        /*public async Task<IActionResult> Account()
+        {
+            return View();
+
+        }*/
+
+        public async Task<IActionResult> Account(string id)/* needs to be id, but i dont have accsses to the id in Layout*/
+        {
+
+           if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User.Include(x=>x.PaymentMethod).Include(x=>x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
+            //var user = await _context.User.Include(c => c.Name).Include(c=>c.Password).Include(c=>c.PaymentMethod).Include(c=>c.AppListUser).FirstOrDefaultAsync(x => x.Name == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+           // ViewData["Logo"] = new SelectList(_context.Logo, "Id", "Name");
+
+            return View(user);
+               
+
+        }
 
 
+        // GET: Users/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password")] User user)
+        {
+            if (id != user.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index), "Home");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(user.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+             
+            }
+            return View(user);
+        }
+
+
+        private bool UserExists(int id)
+        {
+            return _context.User.Any(e => e.Id == id);
+        }
 
     }
 }
