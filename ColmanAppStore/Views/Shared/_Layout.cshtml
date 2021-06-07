@@ -20,7 +20,7 @@
             <div class="d-flex justify-content-between">
                 <div class="row header__row align-items-center">
                     <div class="col-sm-2" style="text-align:center">
-                        <a class="logoStyle" href="/Home">
+                        <a class="logoStyle" asp-action="HomePage" asp-controller="Apps">
                             <img class="logo" src="~/LogoImage/ColmanAppStoreLogo.jpg" alt="logo" style="max-width: 40%;margin:auto;" />
 
                             @*<h1>LOGO</h1>*@
@@ -50,7 +50,7 @@
 
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a asp-action="Account" asp-controller="Users" style="font-family: 'Nunito' , sans-serif;font-size:medium">My Account</a></li>
+                                    <li><a asp-action="Account" asp-controller="Users" asp-route-id="@User.Identity.Name" style="font-family: 'Nunito' , sans-serif;font-size:medium">My Account</a></li>
                                     <li><a asp-action="Logout" asp-controller="Users" style="font-family: 'Nunito' , sans-serif;font-size:medium">Logout</a></li>
 
                                 </ul>
@@ -81,7 +81,7 @@
 
                             <nav class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <!-- <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>-->
-                                <a class="btn btn-primary " asp-action="index" asp-controller="Home" asp-route-id="4" style="font-family: 'Nunito' , sans-serif;font-size:medium">Home</a>
+                                <a class="btn btn-primary " asp-action="HomePage" asp-controller="Apps" asp-route-id="4" style="font-family: 'Nunito' , sans-serif;font-size:medium">Home</a>
 
                                 <a class="btn_categories" asp-action="index" asp-controller="Categories"><h2 class="dropdown-header align-self-center" style="font-family: 'Nunito' , sans-serif;font-size:medium">Categories</h2></a>
                                 <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="4" style="font-family: 'Nunito' , sans-serif;font-size:medium">News</a>

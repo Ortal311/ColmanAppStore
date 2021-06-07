@@ -107,6 +107,7 @@ html {
     margin-top: 100px;*/
 }
 
+
 .carousel-control-prev,
 .carousel-control-next {
     height: 100px;
@@ -145,7 +146,7 @@ html {
 body {
     margin-top: 20px;
 }
-/*-------- 27. My account style ---------*/
+/*-------- My account style ---------*/
 .myaccount-tab-menu {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -173,7 +174,7 @@ body {
             border-color: blue;
         }
 
-        .myaccount-tab-menu a i.fa {
+      /*  .myaccount-tab-menu a i.fa {
             font-size: 14px;
             text-align: center;
             width: 25px;
@@ -291,4 +292,4 @@ body {
         padding: 10px;
         vertical-align: middle;
         border-color: #ccc;
-    }
+    }*/
