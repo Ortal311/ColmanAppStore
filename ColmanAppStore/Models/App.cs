@@ -24,7 +24,7 @@ namespace ColmanAppStore.Models
         public Category Category { get; set; }
 
         [Required]
-        [Display(Name = "Category Id")]
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
         public float Size { get; set; }

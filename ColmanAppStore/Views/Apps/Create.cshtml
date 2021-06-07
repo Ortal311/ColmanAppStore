@@ -1,12 +1,11 @@
 ﻿@model ColmanAppStore.Models.App
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "App create";
 }
 
-<h1>Create</h1>
+<h1 id="PageHeader">Create new App</h1>
 
-<h4>App</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -46,19 +45,16 @@
                 <input asp-for="DeveloperName" class="form-control" />
                 <span asp-validation-for="DeveloperName" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="Images" class="control-label">Choose app images (optional)</label>
+                <label asp-for="Images" class="control-label">Choose 3 app images</label>
                 <select asp-for="Images" class="form-control" asp-items="ViewBag.Images"></select>
                 <span asp-validation-for="Images" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="Videos" class="control-label">Choose app videos (optional)</label>
+                <label asp-for="Videos" class="control-label">Choose 1 app videos</label>
                 <select asp-for="Videos" class="form-control" asp-items="ViewBag.Videos"></select>
                 <span asp-validation-for="Videos" class="text-danger"></span>
             </div>
-
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

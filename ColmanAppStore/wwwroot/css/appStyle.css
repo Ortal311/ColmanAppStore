@@ -1,0 +1,140 @@
+﻿body {
+}
+
+/*------------------Index--------------------*/
+#AppHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: center
+}
+
+#AppCard {
+    width: 18rem;
+    height: 19rem;
+    margin: 10px;
+}
+
+#AppLogo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70px;
+    height: 70px;
+    margin-top: 10px;
+}
+
+#AppTitle {
+    font-family: cursive;
+    font-weight: bold;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center
+}
+
+#AppButton {
+    margin-top: -10px
+}
+
+/*------------------Details--------------------*/
+
+#CardApp {
+    width: 70rem;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#AppLogoImg {
+    max-width: 15%;
+}
+
+#AppContent {
+    text-align: left;
+}
+
+#CarouselImg {
+    height: 300px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 3%
+}
+
+#CarouselArrows {
+    margin:auto;
+}
+
+#RatingAvg {
+    text-align: center;
+}
+
+#Ratings {
+    width: 20rem;
+    height: 15rem;
+    background-color: #E6FFFF;
+    padding-top: 1px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 10px #E0E0E0;
+}
+
+#ProductRating {
+    font-size: 50px;
+}
+
+#RateStars {
+    font-size: 18px;
+    color: #28a745;
+}
+
+#StarChecked {
+    color: orange;
+}
+
+#StarUnchecked {
+    color: black;
+}
+
+#ReviewCaption {
+    margin-top: 10px;
+}
+
+#ReviewAddButton {
+    margin-top: 30px;
+}
+
+#ReviewCard {
+    width: 30rem;
+    height: 11rem;
+    border-radius: 5px;
+    background-color: #E6FFFF;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#ReviewImg {
+    width: 60px;
+    height: 50px;
+    border-radius: 100%;
+    margin-top: 10px;
+    margin-left: -20px;
+}
+
+#ReviewUserName {
+    font-weight: bold;
+    text-align: left;
+}
+
+#ReviewPublishDate {
+    text-align: right;
+    margin-right: -50px;
+}
+
+#ReviewBody {
+    font-size: 14px;
+}
+
+#PageFooter {
+    margin-top: 10px;
+    text-align: center;
+}

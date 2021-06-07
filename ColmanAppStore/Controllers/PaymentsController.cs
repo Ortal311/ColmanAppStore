@@ -22,7 +22,8 @@ namespace ColmanAppStore.Controllers
         // GET: Payments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Payment.ToListAsync());
+            var colmanAppStoreContext = _context.Payment.Include(p => p.App).Include(u=>u.User);
+            return View(await colmanAppStoreContext.ToListAsync());
         }
 
         // GET: Payments/Details/5
@@ -34,6 +35,7 @@ namespace ColmanAppStore.Controllers
             }
 
             var payment = await _context.Payment
+                .Include(p => p.App)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (payment == null)
             {
@@ -46,6 +48,9 @@ namespace ColmanAppStore.Controllers
         // GET: Payments/Create
         public IActionResult Create()
         {
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
+
             return View();
         }
 
@@ -54,14 +59,37 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CardNumber,ExpiredDate,CVV,Name,IdNumber")] Payment payment)
+        public async Task<IActionResult> Create([Bind("Id,Name,Address,City,CardNumber,ExpiredDate,CVV,IdNumber,UserId,AppId")] Payment payment)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(payment);
+
+                //NEED TO CHECK!!
+
+                App tmp=null;
+                foreach(var ap in _context.Apps)
+                {
+                    if(ap.Id==payment.AppId)
+                    {
+                        tmp = ap;
+                    }
+                }
+
+
+                foreach(var us in _context.User)
+                {
+                    if(us.Id==payment.UserId)
+                    {
+                        us.AppListUser.Add(tmp);
+                    }
+                }
+
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", payment.AppId);
             return View(payment);
         }
 
@@ -78,6 +106,7 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", payment.AppId);
             return View(payment);
         }
 
@@ -86,7 +115,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CardNumber,ExpiredDate,CVV,Name,IdNumber")] Payment payment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address,City,CardNumber,ExpiredDate,CVV,IdNumber,UserId,AppId")] Payment payment)
         {
             if (id != payment.Id)
             {
@@ -113,6 +142,7 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", payment.AppId);
             return View(payment);
         }
 
@@ -125,6 +155,7 @@ namespace ColmanAppStore.Controllers
             }
 
             var payment = await _context.Payment
+                .Include(p => p.App)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (payment == null)
             {

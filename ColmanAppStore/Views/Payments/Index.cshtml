@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ColmanAppStore.Models.Payment>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All payments";
 }
 
 <h1>Index</h1>
@@ -13,6 +13,15 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.CardNumber)
             </th>
             <th>
@@ -22,10 +31,13 @@
                 @Html.DisplayNameFor(model => model.CVV)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.IdNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdNumber)
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.App)
             </th>
             <th></th>
         </tr>
@@ -33,6 +45,15 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CardNumber)
             </td>
@@ -43,10 +64,13 @@
                 @Html.DisplayFor(modelItem => item.CVV)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.IdNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdNumber)
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.App.DeveloperName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
