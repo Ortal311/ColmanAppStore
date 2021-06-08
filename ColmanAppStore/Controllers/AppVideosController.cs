@@ -85,7 +85,7 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", appVideo.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appVideo.AppId);
             return View(appVideo);
         }
 

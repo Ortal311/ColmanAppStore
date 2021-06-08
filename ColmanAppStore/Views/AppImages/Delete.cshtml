@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
+    <link rel="stylesheet" href="~/css/appImgStyle.css" />
 }
 
 <h1 id="PageHeader">Delete @Model.Name</h1>
@@ -20,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Image)
         </dt>
         <dd class="col-sm-10">
-            <img src="@Model.Image" class="card-img-top" alt="can't load image" style="margin-left:auto;margin-right:auto;height:150px;width:230px">
+            <img src="@Model.Image" class="card-img-top" alt="can't load image" id="Img">
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Image)

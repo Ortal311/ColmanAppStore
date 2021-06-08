@@ -1,0 +1,66 @@
+﻿body {
+}
+
+/*<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Days+One&family=Indie+Flower&display=swap" rel="stylesheet">*/
+
+/*----------------------Index----------------------*/
+#CategoryHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: center
+}
+
+#CardStyle {
+    width: 18rem;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px
+}
+
+#CardHeader {
+    font-family: 'Nunito', sans-serif;
+    font-size: large;
+    text-align: center;
+}
+
+#CardImg {
+    margin-left: auto;
+    margin-right: auto;
+    width: 230px;
+    height: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#CardBtn {
+    margin: auto;
+    display: table;
+}
+
+/*----------------------Index----------------------*/
+#CategoryTitle {
+    font-family: 'Days One', sans-serif;
+    text-align: center;
+}
+
+#AppLogo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75px;
+    height: 75px;
+    margin-top: 15px;
+    border-radius: 10%;
+}
+
+#AppTitle {
+    font-family: cursive;
+    font-weight: bold;
+    font-size: large;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+#AppBtn {
+    margin-bottom: 10px;
+}

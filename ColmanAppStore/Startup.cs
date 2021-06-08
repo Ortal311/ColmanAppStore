@@ -72,7 +72,7 @@ namespace ColmanAppStore
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Apps}/{action=Index}/{id?}"); 
+                    pattern: "{controller=Categories}/{action=Index}/{id?}"); 
             });
         }
     }

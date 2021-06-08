@@ -4,10 +4,9 @@
     ViewData["Title"] = "Review details";
 }
 
-<h1>Details</h1>
+<h1 id="PageHeader">Review details</h1>
 
 <div>
-    <h4>Review</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -26,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Raiting)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Raiting)
+            @Html.DisplayFor(model => model.Raiting) 
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PublishDate)

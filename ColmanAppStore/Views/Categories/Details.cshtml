@@ -1,40 +1,37 @@
 ﻿@model ColmanAppStore.Models.Category
 
-
 @{
     ViewData["Title"] = Model.Name + " apps";
+    <link rel="stylesheet" href="~/css/categoryStyle.css" />
 }
 
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Days+One&family=Indie+Flower&display=swap" rel="stylesheet">
-<h1 style="font-family: 'Days One', sans-serif;text-align:center">@Model.Name apps</h1>
+<h1 id="CategoryTitle">@Model.Name apps</h1>
 
 @if (Model.Apps != null && Model.Apps.Count > 0)
 {
-    <center>
-        <div class="container px-3">
-            <div class="row g-2 justify-content-center">
+    <div class="container px-3">
+        <div class="row g-2 justify-content-center">
 
-                @foreach (var item in Model.Apps)
-                {
-                    <div class="card col-3" style="width: 18rem;margin-right: 10px;margin-left:10px;margin-bottom:10px">
+            @foreach (var item in Model.Apps)
+            {
+                <div class="card col-3" id="CardStyle">
 
-                        <img src="@item.Logo.Image" class="card-img-top" alt="can't load image" style="margin-left: auto;margin-right:auto;width:70px;height:70px;margin-top:10px;">
-                        <div class="card-body">
-                            <h5 class="card-title" style="font-family:cursive;font-weight:bold;margin-right:auto;margin-left:auto;text-align:center">@item.Name</h5>
-                            <p class="card-text">Price: @item.Price ₪</p>
-                            <p class="card-text">Rate: @string.Format("{0:0.00}", item.AverageRaiting)  <span>&#9733;</span>  </p>
-                            <i class="fa fa-star" style="color:black"></i>
-                            <a href="/Apps/Details/@item.Id" class="btn btn-primary" style="margin-bottom:10px">More info</a>
-                        </div>
+                    <img src="@item.Logo.Image" class="card-img-top" alt="can't load image" id="AppLogo">
+                    <div class="card-body">
+                        <h5 class="card-title" id="AppTitle">@item.Name</h5>
+                        <p class="card-text">Price: @item.Price ₪</p>
+                        <p class="card-text">Rate: @string.Format("{0:0.00}", item.AverageRaiting)  <span>&#9733;</span>  </p>
+                        <i class="fa fa-star" style="color:black"></i>
+                        <a href="/Apps/Details/@item.Id" class="btn btn-primary stretched-link" id="AppBtn">More info</a>
                     </div>
-                }
+                </div>
+            }
 
-            </div>
         </div>
-    </center>
+    </div>
 }
 else
 {
-    <p class="text-center">no apps in this category</p>
+    <br />
+    <h2 class="text-center" id="PageHeader">Sorry, no apps in this category</h2>
 }

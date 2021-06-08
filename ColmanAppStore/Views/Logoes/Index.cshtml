@@ -2,11 +2,10 @@
 
 @{
     ViewData["Title"] = "All logoes";
+    <link rel="stylesheet" href="~/css/logoStyle.css" />
 }
 
-<center>
-    <h1>Index</h1>
-</center>
+<h1 id="PageHeader">All logoes</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,30 +13,31 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th class="col-sm-4">
                 @Html.DisplayNameFor(model => model.Image)
             </th>
-            <th>
+            <th class="col-sm-4">
                 @Html.DisplayNameFor(model => model.Apps)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apps.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@item.Image" class="card-img-top" alt="can't load image" id="Img">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apps.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
