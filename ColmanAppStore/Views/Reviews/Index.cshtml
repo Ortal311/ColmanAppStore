@@ -4,7 +4,7 @@
     ViewData["Title"] = "All reviews";
 }
 
-<h1>Index</h1>
+<h1 id="PageHeader">All reviews</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Body)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Raiting)
+                @Html.DisplayFor(modelItem => item.Raiting) <span>&#9733;</span>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishDate)

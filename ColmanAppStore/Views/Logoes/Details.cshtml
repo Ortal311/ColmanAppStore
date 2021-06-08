@@ -2,24 +2,31 @@
 
 @{
     ViewData["Title"] = "Logo details";
+    <link rel="stylesheet" href="~/css/logoStyle.css" />
 }
 
-<h1>Details</h1>
+<h1 id="PageHeader">Logo details</h1>
 
 <div>
     <h4>Logo</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-8">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Image)
         </dt>
-        <dd class = "col-sm-8">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Image)
         </dd>
-        <dt class = "col-sm-4">
+        <dt class="col-sm-2">
+            @*@Html.DisplayNameFor(model => model.Image)*@
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Model.Image" class="card-img-top" alt="can't load image" id="Img">
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Apps)
         </dt>
-        <dd class = "col-sm-4">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Apps.Name)
         </dd>
     </dl>

@@ -86,7 +86,6 @@ namespace ColmanAppStore.Controllers
 
                 review.PublishDate = DateTime.Now;
 
-
                 _context.Add(review);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

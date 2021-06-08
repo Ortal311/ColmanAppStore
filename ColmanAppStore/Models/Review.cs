@@ -18,7 +18,8 @@ namespace ColmanAppStore.Models
         [Range(0, 5)]
         [Required(ErrorMessage = "You must enter raiting")]
         public float Raiting { get; set; }
-
+        
+        [Display(Name = "Publish date")]
         public DateTime PublishDate { get; set; }
 
         [Display(Name = "App name")]
