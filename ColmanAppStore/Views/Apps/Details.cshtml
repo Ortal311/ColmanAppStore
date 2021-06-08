@@ -23,7 +23,7 @@
                 <p class="card-text" id="AppContent"> <b>Publish date: </b> @Model.publishDate.Date</p>
                 <p class="card-text" id="AppContent"> <b>Developer name: </b> @Model.DeveloperName</p>
 
-                <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-controller="Payments">Download</a>
+                <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create"  asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
 
                 @*<div class="modal-body"> MODAL WINDOW OF PAYMENT
                           @Html.Partial("~/Views/Payments/Create.cshtml", new ColmanAppStore.Models.Payment())

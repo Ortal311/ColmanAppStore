@@ -72,11 +72,14 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Apps/Create
+        
         public IActionResult Create()
         {
+            
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
             ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
+           
 
             return View();
         }

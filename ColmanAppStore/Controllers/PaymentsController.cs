@@ -46,9 +46,10 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Payments/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+            ViewData["AppId"] = id;
+            // ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
 
             return View();
@@ -59,7 +60,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address,City,CardNumber,ExpiredDate,CVV,IdNumber,UserId,AppId")] Payment payment)
+        public async Task<IActionResult> Create([Bind("Id,Name,Address,City,CardNumber,ExpiredDate,CVV,IdNumber,UserId,AppId")] Payment payment, int AppId)
         {
             if (ModelState.IsValid)
             {
