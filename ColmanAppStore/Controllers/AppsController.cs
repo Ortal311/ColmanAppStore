@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
 
+
 namespace ColmanAppStore.Controllers
 {
     public class AppsController : Controller
@@ -16,23 +17,40 @@ namespace ColmanAppStore.Controllers
 
         public AppsController(ColmanAppStoreContext context)
         {
-            _context = context;            
-   
+            _context = context;
+
         }
 
         // GET: Apps
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l=>l.Logo);
+            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo); //.Include(i=>i.Images)
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Search(string query, string queryBody)
+
+        public async Task<IActionResult> Search(string query)//search by name 
         {
-            var searchContext = _context.Apps.Where(a => (a.Name.Contains(query) || query == null) && (a.Description.Contains(queryBody) || queryBody == null));
-            return View("Index", await searchContext.ToListAsync());
+            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Name.Contains(query)) || (query == null));
+            return View("Search",await searchContext.ToListAsync());
         }
-        
+        public async Task<IActionResult> SearchViaCategory(string query)
+        {
+            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => a.Category.Name.Contains(query));
+            return View("Search", await searchContext.ToListAsync());
+        }
+        public async Task<IActionResult> SearchViaPrice(string query)
+        {
+            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Price.ToString().Contains(query)) );
+            return View("Search", await searchContext.ToListAsync());
+        }
+
+        //JSON SEARCH DOES NOT WORK
+        /*public async Task<IActionResult> Search(string query)
+        {
+            return Json("Search", await _context.Apps.Include(l=>l.Logo).Where(a => a.Name.Contains(query)).ToListAsync());
+        }*/
+
         // GET: Apps/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -50,6 +68,7 @@ namespace ColmanAppStore.Controllers
             }
 
             return View(app);
+       
         }
 
         // GET: Apps/Create

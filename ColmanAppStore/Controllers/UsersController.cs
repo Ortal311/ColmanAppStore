@@ -62,7 +62,8 @@ namespace ColmanAppStore.Controllers
                     var u = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                     Signin(u);
 
-                    return RedirectToAction(nameof(Index), "Home");
+                    /*return RedirectToAction(nameof(Index), "Home");*/
+                    return RedirectToAction("HomePage", "Apps");
                 }
                 else
                 {
@@ -102,7 +103,8 @@ namespace ColmanAppStore.Controllers
 
                     Signin(q.First());
 
-                    return RedirectToAction(nameof(Index), "Home");
+                    /*return RedirectToAction(nameof(Index), "Home");*/
+                    return RedirectToAction("HomePage","Apps");
                 }
                 else
                 {
