@@ -10,46 +10,51 @@
     <div class="card-body">
         <div class="row">
             <div class="col-75">
-                <div class="container" styel="background-color: #f2f2f2;padding: 5px 20px 15px 20px;border: 1px solid lightgrey;border-radius: 3px;">
+                <div class="container" style="background-color: #f2f2f2;padding: 5px 20px 15px 20px;border: 1px solid lightgrey;border-radius: 3px;">
                     <form asp-action="Create">
                         @*NEED TO CHANGE WHERE TO GO AFTER SUBMIT*@
                         <input type="hidden" name="AppId" value="@ViewBag.AppId" />
+                        <input type="hidden" name="UserName" value="@User.Identity.Name" />
+
                         <div class="row">
                             <div class="col-md-4">
                                 <h3>Billing Address</h3>
                                 <div class="form-group">
-                                    <br />
-                                    <br />
                                     <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                                    <input asp-for="Name" class="form-control" />
+                                    <input asp-for="Name" class="form-control" autocomplete="off" />
                                     <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                                    <input asp-for="Address" class="form-control" />
+                                    <input asp-for="Address" class="form-control" autocomplete="off" />
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="city"><i class="fa fa-institution"></i> City</label>
-                                    <input asp-for="City" class="form-control" />
+                                    <input asp-for="City" class="form-control" autocomplete="off" />
                                     <span asp-validation-for="City" class="text-danger"></span>
                                 </div>
                                 @*<div class="form-group">
-                    <label asp-for="UserId" class="control-label"></label>
-                    <input asp-for="UserId" class="form-control" />
-                    <span asp-validation-for="UserId" class="text-danger"></span>
-                </div>*@
-                                <div class="form-group">
-                                    <label asp-for="UserId" class="control-label"></label>
-                                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                                </div>
+                                        <label asp-for="UserId" class="control-label"></label>
+                                        <input asp-for="UserId" class="form-control" />
+                                        <span asp-validation-for="UserId" class="text-danger"></span>
+                                    </div>*@
+                                @*<div class="form-group">
+                                            <label asp-for="UserPaymentMethod" class="control-label"></label>
+                                            <select asp-for="UserPaymentMethod" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
+                                    </div>*@
+                                @*NEED TO CONNECT TO USER PAYMENT METHODS*@
                             </div>
 
                             <div class="col-md-4">
                                 <h3>Payment</h3>
                                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-                                @*<label for="fname" style="margin-bottom:0px">Accepted Cards</label>*@
+                                <div class="form-group">
+                                    <label asp-for="PaymentMethodId" class="control-label"></label>
+                                    <select asp-for="PaymentMethodId" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
+                                </div>
+
                                 <div class="icon-container" style="font-size: 24px;">
                                     <label for="fname" style="margin-bottom:7px;font-size:15px">Accepted Cards</label>
                                     <i class="fa fa-cc-visa" style="color:navy;"></i>
@@ -58,26 +63,25 @@
                                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                                 </div>
 
-                                <div class="form-group">
-                                    <label asp-for="CardNumber" class="control-label"></label>
-                                    <input asp-for="CardNumber" class="form-control" placeholder="1111-2222-3333-4444" />
-                                    <span asp-validation-for="CardNumber" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="ExpiredDate" class="control-label"></label>
-                                    <input asp-for="ExpiredDate" class="form-control" placeholder="MM/YYYY" />
-                                    <span asp-validation-for="ExpiredDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
+                                @*<div class="form-group">
+                                        <label asp-for="UserPaymentMethod.CardNumber" class="control-label"></label>
+                                        <select asp-for="PaymentMethodId" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="ExpiredDate" class="control-label"></label>
+                                        <input asp-for="ExpiredDate" class="form-control" placeholder="MM/YYYY" />
+                                        <span asp-validation-for="ExpiredDate" class="text-danger"></span>
+                                    </div>*@
+                                <!--<div class="form-group">
                                     <label asp-for="CVV" class="control-label"></label>
                                     <input asp-for="CVV" class="form-control" placeholder="352" />
                                     <span asp-validation-for="CVV" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="IdNumber" class="control-label"></label>
+                                    <label asp-for="PayIdNumber" class="control-label"></label>
                                     <input asp-for="IdNumber" class="form-control" placeholder="123456789" />
                                     <span asp-validation-for="IdNumber" class="text-danger"></span>
-                                </div>
+                                </div>-->
                             </div>
 
                             <div class="col-md-4">
@@ -89,12 +93,10 @@
                                     </span>
                                 </h4>
                                 <br />
-                                <p><a style="font-size:medium">App name</a> <span class="price" style="float: right; color: grey;">20$</span></p>
-                                @*<p><a>@Model.App.Name</a> <span class="price">@Model.App.Price</span></p>*@
 
+                                <p><a style="font-size:medium"></a> @ViewBag.App.Name<span class="price" style="float: right; color: grey;"> @ViewBag.App.Price ₪</span></p>
                                 <hr>
-                                @*<p>Total <span class="price" style="color:black"><b>@Model.App.Price</b></span></p>*@
-                                <p style="font-size:medium">Total <span class="price" style="color:black;"><b> 20$</b></span></p>
+                                <p style="font-size:medium;font-weight:bold">Total <span class="price" style="float: right; color: black;"><b> @ViewBag.App.Price ₪</b></span></p>
 
                             </div>
                         </div>

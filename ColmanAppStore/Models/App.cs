@@ -48,5 +48,6 @@ namespace ColmanAppStore.Models
         [Required]
         [Display(Name="Developer Name")]
         public string DeveloperName { get; set; }
+
     }
 }

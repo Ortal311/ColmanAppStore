@@ -10,22 +10,22 @@ using ColmanAppStore.Models;
 
 namespace ColmanAppStore.Controllers
 {
-    public class CategoriesController : Controller
+    public class PaymentMethodsController : Controller
     {
         private readonly ColmanAppStoreContext _context;
 
-        public CategoriesController(ColmanAppStoreContext context)
+        public PaymentMethodsController(ColmanAppStoreContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: PaymentMethods
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            return View(await _context.PaymentMethod.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: PaymentMethods/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,43 +33,51 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category.Include(c => c.Apps).ThenInclude(c => c.Logo).FirstOrDefaultAsync(x => x.Id == id);
-
-            if (category == null)
+            var paymentMethod = await _context.PaymentMethod
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (paymentMethod == null)
             {
                 return NotFound();
             }
-            
-            ViewData["Logo"] = new SelectList(_context.Logo, "Id", "Name");
 
-            return View(category);
+            return View(paymentMethod);
         }
 
-        // GET: Categories/Create
+        // GET: PaymentMethods/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: PaymentMethods/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,NameOnCard,CardNumber,ExpiredDate,CVV,IdNumber")] PaymentMethod paymentMethod, string userName)
         {
-            Console.WriteLine(ModelState.Values);
-
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                //need to add which user?
+                foreach(var item in _context.User)
+                {
+                    if(userName.CompareTo(item.Name)==0)
+                    {
+                        if (paymentMethod.Users == null)
+                            paymentMethod.Users = new List<User>();
+                        paymentMethod.Users.Add(item);
+                        break;
+                    }
+                }
+
+                _context.Add(paymentMethod);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(paymentMethod);
         }
 
-        // GET: Categories/Edit/5
+        // GET: PaymentMethods/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,22 +85,22 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
+            var paymentMethod = await _context.PaymentMethod.FindAsync(id);
+            if (paymentMethod == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(paymentMethod);
         }
 
-        // POST: Categories/Edit/5
+        // POST: PaymentMethods/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NameOnCard,CardNumber,ExpiredDate,CVV,IdNumber")] PaymentMethod paymentMethod)
         {
-            if (id != category.Id)
+            if (id != paymentMethod.Id)
             {
                 return NotFound();
             }
@@ -101,12 +109,12 @@ namespace ColmanAppStore.Controllers
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(paymentMethod);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!PaymentMethodExists(paymentMethod.Id))
                     {
                         return NotFound();
                     }
@@ -117,10 +125,10 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(paymentMethod);
         }
 
-        // GET: Categories/Delete/5
+        // GET: PaymentMethods/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -128,30 +136,30 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
+            var paymentMethod = await _context.PaymentMethod
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (paymentMethod == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(paymentMethod);
         }
 
-        // POST: Categories/Delete/5
+        // POST: PaymentMethods/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
+            var paymentMethod = await _context.PaymentMethod.FindAsync(id);
+            _context.PaymentMethod.Remove(paymentMethod);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool PaymentMethodExists(int id)
         {
-            return _context.Category.Any(e => e.Id == id);
+            return _context.PaymentMethod.Any(e => e.Id == id);
         }
     }
 }

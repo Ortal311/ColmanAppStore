@@ -29,5 +29,7 @@ namespace ColmanAppStore.Data
         public DbSet<ColmanAppStore.Models.AppVideo> AppVideo { get; set; }
 
         public DbSet<ColmanAppStore.Models.Review> Review { get; set; }
+
+        public DbSet<ColmanAppStore.Models.PaymentMethod> PaymentMethod { get; set; }
     }
 }

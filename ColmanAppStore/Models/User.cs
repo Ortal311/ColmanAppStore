@@ -14,12 +14,13 @@ namespace ColmanAppStore.Models
     }
     public class User
     {
-
+        [Key]
         public int Id { get; set; }
 
+        [Display(Name = "User name")]
         [StringLength(15, MinimumLength= 5)]
         [Required(ErrorMessage = "You must enter user name")]
-        public string Name { get; set; }
+        public string Name { get; set; } //user name
 
 
         [DataType(DataType.EmailAddress)]
@@ -33,8 +34,10 @@ namespace ColmanAppStore.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        //public List<Payment> Payments { get; set; }
+        
         //Many to many
-        public List<Payment> PaymentMethod { get; set; }
+        public List<PaymentMethod> PaymentMethods { get; set; }
 
         public List<App> AppListUser { get; set; }
 
