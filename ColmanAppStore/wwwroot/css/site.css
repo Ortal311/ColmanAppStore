@@ -11,6 +11,7 @@ header {
     /*margin-top: 3px;*/
     width: 100%;
     background-color: #E1F0FA;
+   
 }
 
 main {
@@ -73,12 +74,14 @@ html {
     height: 100%;*/
 
     background-color: #D3E0EA;
+   
 }
 
 .col-lines {
     /* height: 100%;
     width: 100%;*/
     background-color: #F6F5F5;
+    /*background-image: linear-gradient(#e8e8e8, #F6F5F5);*/
 }
 
 .nav {
@@ -110,6 +113,7 @@ html {
     background-color: #E1F0FA;
     line-height: 60px;
     width: 100%;
+   
     /*position: fixed;
     bottom: 0;
     white-space: normal;

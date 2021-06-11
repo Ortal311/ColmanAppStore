@@ -33,11 +33,26 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+           /* var review = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
+                       join usr in _context.User on r.UserNameId equals usr.Id
+                       where id == r.UserNameId
+                       select new { r };*/
 
-            var review = await _context.Review
+         /*  var review = await _context.Review
                 .Include(r => r.App)
-                .Include(r => r.UserName)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(r => r.UserName).
+                Join(_context.User,
+                r => r.UserNameId,
+                u => u.Id,
+                 (r,u) => new { Review = r , User=u})
+                .FirstOrDefaultAsync(m => m.Review.UserNameId== id); */
+
+         
+             var review = await _context.Review
+                 .Include(r => r.App)
+                 .Include(r => r.UserName)
+                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (review == null)
             {
                 return NotFound();
@@ -46,6 +61,7 @@ namespace ColmanAppStore.Controllers
             return View(review);
         }
 
+      
         // GET: Reviews/Create
         public IActionResult Create()
         {
@@ -223,6 +239,55 @@ namespace ColmanAppStore.Controllers
         private bool ReviewExists(int id)
         {
             return _context.Review.Any(e => e.Id == id);
+        }
+
+       /* public IActionResult UsersReview(int? q)
+        {
+            q = 1;
+            var user = from r in _context.Review
+                       join usr in _context.User on r.UserNameId equals usr.Id
+                       where q == r.UserNameId
+                       select  new { r };
+
+           
+            return View();
+
+
+        }*/
+        public async Task<IActionResult> UsersReview(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            //REVIEW is correct!!!! but the view is not
+            var review = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
+                         join usr in _context.User on r.UserNameId equals usr.Id
+                         where id == r.UserNameId
+                         select new { r };
+           
+        
+             /* var review =  _context.Review
+                   .Include(r => r.App)
+                   .Include(r => r.UserName).
+                   Join(_context.User,
+                   r => r.UserNameId,
+                   u => u.Id,
+                    (r,u) => new { Review = r , User=u})
+                   .FirstOrDefaultAsync(m => m.Review.UserNameId== id); */
+
+
+           /* var review = await _context.Review
+                .Include(r => r.App)
+                .Include(r => r.UserName)
+                .FirstOrDefaultAsync(m => m.Id == id);*/
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+            
+            return View(review);
         }
     }
 }

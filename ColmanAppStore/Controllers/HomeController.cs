@@ -38,7 +38,8 @@ namespace ColmanAppStore.Controllers
 
             return View(app);*/
 
-            return View(_context.Apps.ToList());
+            /*return View(_context.Apps.ToList());*/
+            return View("About");
         }
 
         [Authorize]

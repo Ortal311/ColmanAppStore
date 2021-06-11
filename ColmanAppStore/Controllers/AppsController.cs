@@ -29,30 +29,30 @@ namespace ColmanAppStore.Controllers
         }
 
 
-        public async Task<IActionResult> Search(string query)//search by name 
+        public async Task<IActionResult> Search(string query)//search by name , category and description ( price is not working)
         {
-            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Name.Contains(query)) || (query == null));
+
+            /*(a.Price.CompareTo(float.Parse(query)) <= 0)*/
+            /* a.Description.Contains(query)*/
+            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category)
+               .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || (query == null));
+             
             return View("Search",await searchContext.ToListAsync());
         }
-        public async Task<IActionResult> SearchViaCategory(string query)
-        {
-            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => a.Category.Name.Contains(query));
-            return View("Search", await searchContext.ToListAsync());
-        }
-        public async Task<IActionResult> SearchViaPrice(string query)
-        {
-            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Price.ToString().Contains(query)) );
-            return View("Search", await searchContext.ToListAsync());
-        }
 
-        //JSON SEARCH DOES NOT WORK
-        /*public async Task<IActionResult> Search(string query)
-        {
-            return Json("Search", await _context.Apps.Include(l=>l.Logo).Where(a => a.Name.Contains(query)).ToListAsync());
-        }*/
+        /* public async Task<IActionResult> SearchViaCategory(string query)
+         {
+             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => a.Category.Name.Contains(query));
+             return View("Search", await searchContext.ToListAsync());
+         }
+         public async Task<IActionResult> SearchViaPrice(string query)
+         {
+             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Price.CompareTo(float.Parse(query))<=0 );
+             return View("Search", await searchContext.ToListAsync());
+         }*/
 
-        // GET: Apps/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: Apps/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {

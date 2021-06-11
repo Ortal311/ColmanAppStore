@@ -23,11 +23,11 @@
                 <p class="card-text" id="AppContent"> <b>Publish date: </b> @Model.publishDate.Date</p>
                 <p class="card-text" id="AppContent"> <b>Developer name: </b> @Model.DeveloperName</p>
 
-                <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create"  asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
+                <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
 
                 @*<div class="modal-body"> MODAL WINDOW OF PAYMENT
-                          @Html.Partial("~/Views/Payments/Create.cshtml", new ColmanAppStore.Models.Payment())
-                    </div>*@
+                      @Html.Partial("~/Views/Payments/Create.cshtml", new ColmanAppStore.Models.Payment())
+                </div>*@
 
             </div>
 
@@ -98,52 +98,54 @@
         <!-- Adding review -->
         @if (Model.Review != null)
         {
-            foreach (var item in Model.Review)
-            {
-                <div class="col d-flex justify-content-center">
-                    <div class="card" id="ReviewCard">
-                        <div class="row d-flex">
-                            <div class="col-md-2">
-                                <img class="profile-pic" id="ReviewImg" src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png">
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex flex-column">
-                                    <p class="mt-2 mb-0" id="ReviewUserName"> @item.UserName.Name</p>
-                                    <div>
-                                        <p class="text-left">
-                                            <span class="text-muted">@item.Raiting</span>
-                                            @for (int i = 0; i < (int)item.Raiting; i++)
-                                            {
-                                                <i class="fa fa-star checked" id="StarChecked"></i>
-                                            }
-                                            @for (int i = 0; i < 5 - (int)item.Raiting; i++)
-                                            {
-                                                <i class="fa fa-star" id="StarUnchecked"></i>
-                                            }
-                                        </p>
+
+                foreach (var item in Model.Review)
+                {
+                    <div class="col d-flex justify-content-center">
+                        <div class="card" id="ReviewCard">
+                            <div class="row d-flex">
+                                <div class="col-md-2">
+                                    <img class="profile-pic" id="ReviewImg" src="https://www.pngkit.com/png/detail/281-2812821_user-account-management-logo-user-icon-png.png">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex flex-column">
+                                        <p class="mt-2 mb-0" id="ReviewUserName"> @item.UserName.Name</p>
+                                        <div>
+                                            <p class="text-left">
+                                                <span class="text-muted">@item.Raiting</span>
+                                                @for (int i = 0; i < (int)item.Raiting; i++)
+                                                {
+                                                    <i class="fa fa-star checked" id="StarChecked"></i>
+                                                }
+                                                @for (int i = 0; i < 5 - (int)item.Raiting; i++)
+                                                {
+                                                    <i class="fa fa-star" id="StarUnchecked"></i>
+                                                }
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <p class="text-muted pt-5 pt-sm-3" id="ReviewPublishDate">@item.PublishDate</p>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <p class="text-muted pt-5 pt-sm-3" id="ReviewPublishDate" >@item.PublishDate</p>
+                            <div class="row text-left">
+                                <h4 class="blue-text mt-3">@item.Title</h4>
+                                <p class="content" id="ReviewBody">@item.Body</p>
                             </div>
-                        </div>
-                        <div class="row text-left">
-                            <h4 class="blue-text mt-3">@item.Title</h4>
-                            <p class="content" id="ReviewBody">@item.Body</p>
                         </div>
                     </div>
-                </div>
+                }
             }
-        }
+ 
 
-        <div id="PageFooter">
-            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-            <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
-            <a asp-action="Index">Back to List</a>
+            <div id="PageFooter">
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+
         </div>
-
-    </div>
 </div>
 
 
