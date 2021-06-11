@@ -170,18 +170,20 @@ namespace ColmanAppStore.Controllers
 
 
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)//string id
         {
+            
             if (id == null)
             {
                 return NotFound();
             }
-
+            //var user= await _context.User.Where(u => u.Name.Equals(id)).FirstAsync();
             var user = await _context.User.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
+           
             return View(user);
         }
 
@@ -196,6 +198,11 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            /*if (id != user.Name)
+            {
+                return NotFound();
+            }*/
+            
 
             if (ModelState.IsValid)
             {
@@ -203,7 +210,7 @@ namespace ColmanAppStore.Controllers
                 {
                     _context.Update(user);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index), "Home");
+                    return RedirectToAction("HomePage", "Apps");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
