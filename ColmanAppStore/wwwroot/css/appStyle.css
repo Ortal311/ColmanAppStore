@@ -7,6 +7,11 @@
     text-align: center
 }
 
+#LayoutBG {
+    background-image: url(../LogoImage/3.jpg);
+    background-size: auto;
+}
+
 #AppCard {
     width: 18rem;
     height: 19rem;

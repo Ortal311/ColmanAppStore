@@ -33,15 +33,14 @@ namespace ColmanAppStore.Controllers
         }
 
         //GET: Users/Register
-
         public IActionResult Register()
         {
             return View();
-            
+
         }
 
-        
-   
+
+
         // POST: Users/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -52,7 +51,7 @@ namespace ColmanAppStore.Controllers
 
             if (ModelState.IsValid)
             {
-                var q = _context.User.FirstOrDefault(u => u.Email == user.Email);
+                var q = _context.User.FirstOrDefault(u => u.Email == user.Email || u.Name == user.Name);
 
                 if (q == null)
                 {
@@ -104,7 +103,7 @@ namespace ColmanAppStore.Controllers
                     Signin(q.First());
 
                     /*return RedirectToAction(nameof(Index), "Home");*/
-                    return RedirectToAction("HomePage","Apps");
+                    return RedirectToAction("HomePage", "Apps");
                 }
                 else
                 {
@@ -130,10 +129,10 @@ namespace ColmanAppStore.Controllers
                 //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
             };
 
-          await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+            await HttpContext.SignInAsync(
+                  CookieAuthenticationDefaults.AuthenticationScheme,
+                  new ClaimsPrincipal(claimsIdentity),
+                  authProperties);
         }
 
         public IActionResult AccessDenied()
@@ -144,18 +143,17 @@ namespace ColmanAppStore.Controllers
         /*public async Task<IActionResult> Account()
         {
             return View();
-
         }*/
 
         public async Task<IActionResult> Account(string id)/* needs to be id, but i dont have accsses to the id in Layout*/
         {
 
-           if (id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.User.Include(x=>x.PaymentMethod).Include(x=>x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
+            var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
             //var user = await _context.User.Include(c => c.Name).Include(c=>c.Password).Include(c=>c.PaymentMethod).Include(c=>c.AppListUser).FirstOrDefaultAsync(x => x.Name == id);
 
             if (user == null)
@@ -163,10 +161,10 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-           // ViewData["Logo"] = new SelectList(_context.Logo, "Id", "Name");
+            // ViewData["Logo"] = new SelectList(_context.Logo, "Id", "Name");
 
             return View(user);
-               
+
 
         }
 
@@ -218,7 +216,7 @@ namespace ColmanAppStore.Controllers
                         throw;
                     }
                 }
-             
+
             }
             return View(user);
         }

@@ -13,40 +13,40 @@
     <div class="col-md-4">
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-               @* <div class="form-group">
+            @* <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
-                </div>*@   
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <input type="hidden" name="Name" value="aaaaa" />
-                <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-primary" />
-                </div>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <input type="hidden" name="Name" value="aaaaa" />
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
 
-            </form>
-            @if (ViewBag.Error != null)
-            {
-                <div class="text-danger">@ViewBag.Error</div>
-            }
-        </div>
-
+        </form>
+        @if (ViewBag.Error != null)
+        {
+            <div class="text-danger">@ViewBag.Error</div>
+        }
     </div>
 
+</div>
 
-    <div>
-        Not registered?<a asp-action="Register">Click here to register</a>
-    </div>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+<div>
+    Not registered?<a asp-action="Register">Click here to register</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

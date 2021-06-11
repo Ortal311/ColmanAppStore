@@ -1,4 +1,4 @@
-﻿@model ColmanAppStore.Models.Payment
+﻿@model ColmanAppStore.Models.PaymentMethod
 
 @{
     ViewData["Title"] = "Details";
@@ -7,38 +7,38 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Payment</h4>
+    <h4>PaymentMethod</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.NameOnCard)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.NameOnCard)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.CardNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
+            @Html.DisplayFor(model => model.CardNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
+            @Html.DisplayNameFor(model => model.ExpiredDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
+            @Html.DisplayFor(model => model.ExpiredDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentMethod)
+            @Html.DisplayNameFor(model => model.CVV)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaymentMethod.ExpiredDate)
+            @Html.DisplayFor(model => model.CVV)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.App)
+            @Html.DisplayNameFor(model => model.IdNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.App.DeveloperName)
+            @Html.DisplayFor(model => model.IdNumber)
         </dd>
     </dl>
 </div>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ColmanAppStore.Models.Payment>
+﻿@model IEnumerable<ColmanAppStore.Models.PaymentMethod>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.NameOnCard)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.CardNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @Html.DisplayNameFor(model => model.ExpiredDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PaymentMethod)
+                @Html.DisplayNameFor(model => model.CVV)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.App)
+                @Html.DisplayNameFor(model => model.IdNumber)
             </th>
             <th></th>
         </tr>
@@ -34,19 +34,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.NameOnCard)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.CardNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City)
+                @Html.DisplayFor(modelItem => item.ExpiredDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PaymentMethod.ExpiredDate)
+                @Html.DisplayFor(modelItem => item.CVV)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.App.DeveloperName)
+                @Html.DisplayFor(modelItem => item.IdNumber)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

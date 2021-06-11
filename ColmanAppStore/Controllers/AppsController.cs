@@ -24,7 +24,7 @@ namespace ColmanAppStore.Controllers
         // GET: Apps
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo); //.Include(i=>i.Images)
+            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo); 
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
@@ -72,10 +72,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Apps/Create
-        
         public IActionResult Create()
         {
-            
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
             ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
