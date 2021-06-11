@@ -34,16 +34,6 @@
                                     <input asp-for="City" class="form-control" autocomplete="off" />
                                     <span asp-validation-for="City" class="text-danger"></span>
                                 </div>
-                                @*<div class="form-group">
-                                        <label asp-for="UserId" class="control-label"></label>
-                                        <input asp-for="UserId" class="form-control" />
-                                        <span asp-validation-for="UserId" class="text-danger"></span>
-                                    </div>*@
-                                @*<div class="form-group">
-                                            <label asp-for="UserPaymentMethod" class="control-label"></label>
-                                            <select asp-for="UserPaymentMethod" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
-                                    </div>*@
-                                @*NEED TO CONNECT TO USER PAYMENT METHODS*@
                             </div>
 
                             <div class="col-md-4">
@@ -62,26 +52,6 @@
                                     <i class="fa fa-cc-mastercard" style="color:red;"></i>
                                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                                 </div>
-
-                                @*<div class="form-group">
-                                        <label asp-for="UserPaymentMethod.CardNumber" class="control-label"></label>
-                                        <select asp-for="PaymentMethodId" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="ExpiredDate" class="control-label"></label>
-                                        <input asp-for="ExpiredDate" class="form-control" placeholder="MM/YYYY" />
-                                        <span asp-validation-for="ExpiredDate" class="text-danger"></span>
-                                    </div>*@
-                                <!--<div class="form-group">
-                                    <label asp-for="CVV" class="control-label"></label>
-                                    <input asp-for="CVV" class="form-control" placeholder="352" />
-                                    <span asp-validation-for="CVV" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="PayIdNumber" class="control-label"></label>
-                                    <input asp-for="IdNumber" class="form-control" placeholder="123456789" />
-                                    <span asp-validation-for="IdNumber" class="text-danger"></span>
-                                </div>-->
                             </div>
 
                             <div class="col-md-4">
@@ -107,70 +77,11 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
-
-
-
-
-    @*<div class="row">
-            <div class="col-md-4">
-                <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Address" class="control-label"></label>
-                        <input asp-for="Address" class="form-control" />
-                        <span asp-validation-for="Address" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="City" class="control-label"></label>
-                        <input asp-for="City" class="form-control" />
-                        <span asp-validation-for="City" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CardNumber" class="control-label"></label>
-                        <input asp-for="CardNumber" class="form-control" />
-                        <span asp-validation-for="CardNumber" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ExpiredDate" class="control-label"></label>
-                        <input asp-for="ExpiredDate" class="form-control" />
-                        <span asp-validation-for="ExpiredDate" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CVV" class="control-label"></label>
-                        <input asp-for="CVV" class="form-control" />
-                        <span asp-validation-for="CVV" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="IdNumber" class="control-label"></label>
-                        <input asp-for="IdNumber" class="form-control" />
-                        <span asp-validation-for="IdNumber" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="UserId" class="control-label"></label>
-                        <input asp-for="UserId" class="form-control" />
-                        <span asp-validation-for="UserId" class="text-danger"></span>
-                    </div>
-            <div class="form-group">
-                <label asp-for="AppId" class="control-label"></label>
-                <select asp-for="AppId" class ="form-control" asp-items="ViewBag.AppId"></select>
-            </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-                </form>
-            </div>
-        </div>*@
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
