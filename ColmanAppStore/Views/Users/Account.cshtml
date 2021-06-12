@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Account";
+    <link rel="stylesheet" href="~/css/Account.css" />
 
 }
 
@@ -19,7 +20,7 @@
 
                             <a href="#orders" data-toggle="tab" class="">Orders</a>
                             <a href="#payment-method" data-toggle="tab">Payment Method</a>
-                            <a href="#account-info" data-toggle="tab" class=""> Account Details</a>
+                            <a href="#account-info" data-toggle="tab" class=""> Account details</a>
                             <a asp-action="Logout" asp-controller="Users">Logout</a>
                         </div>
                     </div>
@@ -93,6 +94,7 @@
                                                             <th>Card Number</th>
                                                             <th>Name</th>
                                                             <th>View Full Details</th>
+                                                            <th>Edit Payment Method</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -102,7 +104,8 @@
                                                             <tr>
                                                                 <td>@item.CardNumber</td>
                                                                 <td>@item.NameOnCard</td>
-                                                                <td><a asp-action="details" asp-controller="Payments" asp-route-id="@item.Id" class="btn btn-primary"> Details </a></td>
+                                                                <td><a asp-action="details" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Card Details </a></td>
+                                                                <td><a asp-action="edit" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Edit </a></td>
                                                             </tr>
 
                                                         }
@@ -121,18 +124,35 @@
                             <div class="tab-pane fade" id="account-info" role="tabpanel">
                                 <div class="myaccount-content">
                                     <h3>Account Details</h3>
-                                    <div class="account-details-form">
-                                        @{
-                                            if (Model != null)
-                                            {
-                                                <!--asp-route-id needs to USER ID!!!!!!!-->
-                                                <a asp-action="Edit" asp-controller="Users" asp-route-id="@Model.Id">Edit </a>
+                                    @{
+                                        if (Model != null)
+                                        {
+
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Change password</th>
+                                                        
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                      
+                                                            <tr>
+                                                                <td>@Model.Name</td>
+                                                                <td>@Model.Email</td>
+                                                               
+                                                                <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a></td>
+                                                            </tr>
 
 
+                                                    </tbody>
+
+                                                </table>
                                             }
-                                        }
-
-                                    </div>
+                                     
+                                    }
                                 </div>
                             </div> <!-- Single Tab Content End -->
                         </div>
@@ -142,3 +162,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

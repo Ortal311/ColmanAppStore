@@ -49,6 +49,7 @@ namespace ColmanAppStore.Controllers
         // GET: Payments/Create
         public IActionResult Create(int id)
         {
+            var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
             ViewData["AppId"] = id;
             foreach (var item in _context.Apps)
             {

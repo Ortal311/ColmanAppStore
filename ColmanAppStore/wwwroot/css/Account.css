@@ -1,0 +1,27 @@
+﻿
+.myaccount-tab-menu {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+    .myaccount-tab-menu a {
+        border: 1px solid #ccc;
+        border-bottom: none;
+        font-weight: 600;
+        font-size: 13px;
+        display: block;
+        padding: 10px 15px;
+        text-transform: uppercase;
+    }
+
+        .myaccount-tab-menu a:last-child {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .myaccount-tab-menu a:hover, .myaccount-tab-menu a.active {
+            background-color: white;
+            border-color: blue;
+        }
