@@ -62,14 +62,17 @@ namespace ColmanAppStore.Controllers
 
             String userName = User.Identity.Name;
             User connectedUser = null;
-            List<PaymentMethod> pm = new List<PaymentMethod>();
             foreach (var item in _context.User)
             {
                 if (item.Name.CompareTo(userName) == 0)
                 {
                     connectedUser = item;
+                    break;
                 }
             }
+
+            var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+            List<PaymentMethod> pm = new List<PaymentMethod>();
 
             foreach (var item in usr)
             {
@@ -79,20 +82,12 @@ namespace ColmanAppStore.Controllers
                     {
                         pm.Add(us);
                     }
+                    break;
                 }
             }
 
-
-            //foreach (var item in _context.User)
-            //{
-            //    if(item.Users.Contains(connectedUser))
-            //    {
-            //        pm.Add(item);
-            //    }
-            //}
-            //context.StudentCourses.Include(x => x.Student).Where(entry => entry.CourseId == theIdYouWant).Select(entry => entry.Student).
             ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
-            ViewData["PaymentMethodId"] = new SelectList(pm, "Id", "CardNumber"); //TO CHANGE TO pm
+            ViewData["PaymentMethodId"] = new SelectList(pm, "Id", "CardNumber"); 
 
             return View();
         }
@@ -102,18 +97,19 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address,City,PaymentMethodId,AppId")] Payment payment)
+        public async Task<IActionResult> Create([Bind("Id,Name,Address,City,PaymentMethodId,AppId")] Payment payment, string userName)
         {
             if (ModelState.IsValid)
             {
+
                 _context.Add(payment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", payment.AppId);
-            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "ExpiredDate", payment.PaymentMethodId);
             return View(payment);
         }
+
 
         // GET: Payments/Edit/5
         public async Task<IActionResult> Edit(int? id)
