@@ -47,7 +47,11 @@ html {
     font-weight: bold;
     margin-right: auto;
     margin-left: auto;
-    text-align: center
+    text-align: center;
+}
+
+#subTitleHeader {
+    text-align: center;
 }
 
 #LayoutBG{

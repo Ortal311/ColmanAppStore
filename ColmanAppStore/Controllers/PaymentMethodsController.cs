@@ -59,9 +59,10 @@ namespace ColmanAppStore.Controllers
             if (ModelState.IsValid)
             {
                 //need to add which user?
-                foreach(var item in _context.User)
+                var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+                foreach (var item in usr)
                 {
-                    if(userName.CompareTo(item.Name)==0)
+                    if(userName.Equals(item.Name))
                     {
                         if (paymentMethod.Users == null)
                             paymentMethod.Users = new List<User>();
