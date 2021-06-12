@@ -18,7 +18,7 @@
                     <div class="col-lg-3 col-md-4">
                         <div class="myaccount-tab-menu nav" role="tablist">
 
-                            <a href="#orders" data-toggle="tab" class="">Orders</a>
+                            <a href="#orders" data-toggle="tab" class="" >Orders</a>
                             <a href="#payment-method" data-toggle="tab">Payment Method</a>
                             <a href="#account-info" data-toggle="tab" class=""> Account details</a>
                             <a asp-action="Logout" asp-controller="Users">Logout</a>
@@ -30,13 +30,15 @@
                         <div class="tab-content" id="myaccountContent">
 
                             <!-- Single Tab Content Start -->
-                            <div class="tab-pane fade" id="orders" role="tabpanel">
-                                <div class="myaccount-content">
+                            <div class="tab-pane fade" id="orders" role="tabpanel" >
+                                <div class="myaccount-content" >
                                     <h3>Orders</h3>
-                                    <div class="myaccount-table table-responsive text-center">
+                                    <div class="myaccount-table table-responsive text-center ">
                                         @{
                                             if (Model != null)
                                             {
+                                                int i = 1;
+
                                                 if (Model.AppListUser.Count == 0)
                                                 {
                                                     <h4>You have not purchased any apps yet </h4>
@@ -53,11 +55,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                           
                                                             @foreach (var item in Model.AppListUser)
                                                             {
-                                                                int i = 1;
+                                                              
                                                                 <tr>
-                                                                    <td>i</td>
+                                                                    <td>@i</td>
                                                                     <td>@item.Name</td>
                                                                     <td>@item.Price</td>
                                                                     <td><a asp-action="details" asp-controller="Apps" asp-route-id="@item.Id" class="btn btn-primary">View App </a></td>

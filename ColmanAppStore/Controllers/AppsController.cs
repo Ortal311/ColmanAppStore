@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace ColmanAppStore.Controllers
@@ -24,7 +25,7 @@ namespace ColmanAppStore.Controllers
         // GET: Apps
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo); 
+            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo);
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
@@ -36,23 +37,19 @@ namespace ColmanAppStore.Controllers
             /* a.Description.Contains(query)*/
             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category)
                .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || (query == null));
-             
-            return View("Search",await searchContext.ToListAsync());
+
+            return View("Search", await searchContext.ToListAsync());
         }
 
-        /* public async Task<IActionResult> SearchViaCategory(string query)
-         {
-             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => a.Category.Name.Contains(query));
-             return View("Search", await searchContext.ToListAsync());
-         }
-         public async Task<IActionResult> SearchViaPrice(string query)
+        /* 
+         public async Task<IActionResult> SearchByPrice(string query)
          {
              var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Price.CompareTo(float.Parse(query))<=0 );
              return View("Search", await searchContext.ToListAsync());
          }*/
 
-            // GET: Apps/Details/5
-            public async Task<IActionResult> Details(int? id)
+        // GET: Apps/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -60,24 +57,26 @@ namespace ColmanAppStore.Controllers
             }
 
             var app = await _context.Apps
-                .Include(a => a.Category).Include(l => l.Logo).Include(v=>v.Videos).Include(i=>i.Images).Include(r=>r.Review).
-                ThenInclude(u=>u.UserName).FirstOrDefaultAsync(m => m.Id == id);
+                .Include(a => a.Category).Include(l => l.Logo).Include(v => v.Videos).Include(i => i.Images).Include(r => r.Review).
+                ThenInclude(u => u.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {
                 return NotFound();
             }
 
             return View(app);
-       
+
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         // GET: Apps/Create
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
             ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
-           
+
 
             return View();
         }
@@ -87,6 +86,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size," +
                                                 "AverageRaiting,countReview,DeveloperName,Images")] App app, int[] Images, int[] Videos)
         {
@@ -135,9 +135,22 @@ namespace ColmanAppStore.Controllers
             return View(app);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         // GET: Apps/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            string userName = User.Identity.Name;
+            string appDevName = _context.Apps.Find(id).DeveloperName;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != appDevName) && !isAdmin )
+            {
+      
+                return Unauthorized("No Access");
+                //return NotFound();
+
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -159,8 +172,18 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,CategoryId,Size,AverageRaiting,countReview,DeveloperName")] App app)
         {
+            string userName = User.Identity.Name;
+            string appDevName = _context.Apps.Find(id).DeveloperName;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != appDevName) && !isAdmin)
+            {
+                return Unauthorized();
+                //return NotFound();
+
+            }
             if (id != app.Id)
             {
                 return NotFound();
@@ -191,8 +214,19 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Apps/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
+            string userName = User.Identity.Name;
+            string appDevName = _context.Apps.Find(id).DeveloperName;
+            if ((userName != appDevName))
+            {
+
+                return Unauthorized("No Access");
+                //return NotFound();
+
+            }
             if (id == null)
             {
                 return NotFound();
@@ -212,6 +246,7 @@ namespace ColmanAppStore.Controllers
         // POST: Apps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var app = await _context.Apps.FindAsync(id);
