@@ -2,22 +2,22 @@
 
 @{
     ViewData["Title"] = "Create payment";
+    <link rel="stylesheet" href="~/css/paymentStyle.css" />
 }
 
-<h1 style="font-family: 'Days One', sans-serif;text-align:center">App payment</h1>
+<h1 id="paymentHeader">App payment</h1>
 
-<div class="card_payment col-12" style="width: 70rem;margin-top: 10px;margin-right: 10px;margin-left: 10px;margin-bottom: 10px;">
+<div class="card_payment col-12" id="cardStyle">
     <div class="card-body">
         <div class="row">
             <div class="col-75">
-                <div class="container" style="background-color: #f2f2f2;padding: 5px 20px 15px 20px;border: 1px solid lightgrey;border-radius: 3px;">
+                <div class="container" id="containerStyle">
                     <form asp-action="Create">
-                        @*NEED TO CHANGE WHERE TO GO AFTER SUBMIT*@
                         <input type="hidden" name="AppId" value="@ViewBag.AppId" />
                         <input type="hidden" name="UserName" value="@User.Identity.Name" />
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4"> 
                                 <h3>Billing Address</h3>
                                 <div class="form-group">
                                     <label for="fname"><i class="fa fa-user"></i> Full Name</label>
@@ -38,40 +38,42 @@
 
                             <div class="col-md-4">
                                 <h3>Payment</h3>
-                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> @*credit card icons link*@
 
                                 <div class="form-group">
                                     <label asp-for="PaymentMethodId" class="control-label"></label>
                                     <select asp-for="PaymentMethodId" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
                                 </div>
 
-                                <div class="icon-container" style="font-size: 24px;">
-                                    <label for="fname" style="margin-bottom:7px;font-size:15px">Accepted Cards</label>
-                                    <i class="fa fa-cc-visa" style="color:navy;"></i>
-                                    <i class="fa fa-cc-amex" style="color:blue;"></i>
-                                    <i class="fa fa-cc-mastercard" style="color:red;"></i>
-                                    <i class="fa fa-cc-discover" style="color:orange;"></i>
+                                <div class="icon-container" id="cardTitle">
+                                    <label for="fname" id="AcceptedTitle">Accepted Cards</label>
+                                    <i class="fa fa-cc-visa" id="visaStyle"></i>
+                                    <i class="fa fa-cc-amex" id="amexStyle"></i>
+                                    <i class="fa fa-cc-mastercard" id="mastercardStyle"></i>
+                                    <i class="fa fa-cc-discover" id="discoverStyle"></i>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <h4>
                                     Cart
-                                    <span class="price" style="color:black">
+                                    <span class="price" id="cartTitle">
+                                        &ensp; @*move 2 spaces for style*@
                                         <i class="fa fa-shopping-cart"></i>
                                         <b>1</b>
                                     </span>
                                 </h4>
                                 <br />
 
-                                <p><a style="font-size:medium"></a> @ViewBag.App.Name<span class="price" style="float: right; color: grey;"> @ViewBag.App.Price ₪</span></p>
+                                <p><a id="cartApp"></a> @ViewBag.App.Name<span class="price" id="cartAppPrice"> @ViewBag.App.Price ₪</span></p>
                                 <hr>
-                                <p style="font-size:medium;font-weight:bold">Total <span class="price" style="float: right; color: black;"><b> @ViewBag.App.Price ₪</b></span></p>
+                                <p id="totalCart">Total <span class="price" id="totalPriceCart"><b> @ViewBag.App.Price ₪</b></span></p>
 
                             </div>
                         </div>
 
-                        <input type="submit" value="Continue to checkout" class="btn" style=" background-color: #04AA6D; color: white; padding: 12px; margin: 10px 0; border: none; width: 100%; border-radius: 3px; cursor: pointer; font-size: 17px;">
+                        <input type="submit" value="Continue to checkout" class="btn" id="submitButton">
                     </form>
                 </div>
             </div>

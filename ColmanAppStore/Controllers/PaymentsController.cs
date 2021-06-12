@@ -64,7 +64,7 @@ namespace ColmanAppStore.Controllers
             User connectedUser = null;
             foreach (var item in _context.User)
             {
-                if (item.Name.CompareTo(userName) == 0)
+                if (item.Name.Equals(userName))
                 {
                     connectedUser = item;
                     break;
@@ -101,7 +101,32 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
+                App purchasedApp = null;
+                foreach(var item in _context.Apps)
+                {
+                    if(item.Id==payment.AppId)
+                    {
+                        purchasedApp = item;
+                        break;
+                    }
+                }
 
+
+                var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+                foreach (var item in usr)
+                {
+                    if(item.Name.Equals(userName))
+                    {
+                        item.AppListUser = new List<App>();
+                        if (item.AppListUser == null)
+                            item.AppListUser = new List<App>();
+                        item.AppListUser.Add(purchasedApp);
+                        _context.Update(item);
+                        break;
+                    }
+                }
+
+                payment.Id = 0; //be updated after added to DB
                 _context.Add(payment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -192,6 +217,29 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var payment = await _context.Payment.FindAsync(id);
+
+            App purchasedApp = null;
+            foreach (var item in _context.Apps)
+            {
+                if (item.Id == payment.AppId)
+                {
+                    purchasedApp = item;
+                    break;
+                }
+            }
+
+            String userName = User.Identity.Name;
+            var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+            foreach(var item in usr)
+            {
+                if(item.Name.Equals(userName))
+                {
+                    item.AppListUser.Remove(purchasedApp);
+                    _context.Update(item);
+                    break;
+                }
+            }
+
             _context.Payment.Remove(payment);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

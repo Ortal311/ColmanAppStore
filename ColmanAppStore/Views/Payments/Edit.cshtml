@@ -1,12 +1,18 @@
 ﻿@model ColmanAppStore.Models.Payment
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit payment";
 }
 
-<h1>Edit</h1>
+<br />
+<h1 id="PageHeader">Sorry, you can't edit completed payment</h1>
 
-<h4>Payment</h4>
+<div>
+    <br />
+    <a asp-action="Index">Back to all payment</a>
+</div>
+
+@*<h4>Payment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -51,4 +57,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}*@

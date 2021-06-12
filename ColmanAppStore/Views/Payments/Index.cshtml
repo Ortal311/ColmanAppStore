@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<ColmanAppStore.Models.Payment>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All payments";
+    <link rel="stylesheet" href="~/css/paymentStyle.css" />
 }
 
-<h1>Index</h1>
+<h1 id="paymentHeader">All payments</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -22,7 +20,13 @@
                 @Html.DisplayNameFor(model => model.City)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PaymentMethod)
+                @Html.DisplayNameFor(model => model.PaymentMethod.CardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentMethod.ExpiredDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.App.Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.App)
@@ -31,7 +35,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -43,17 +48,22 @@
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.PaymentMethod.CardNumber)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PaymentMethod.ExpiredDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.App.DeveloperName)
+                @Html.DisplayFor(modelItem => item.App.Price)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                @Html.DisplayFor(modelItem => item.App.Name)
+            </td>
+            <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

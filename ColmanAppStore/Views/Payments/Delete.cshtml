@@ -1,51 +1,67 @@
 ﻿@model ColmanAppStore.Models.Payment
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete payment";
+    <link rel="stylesheet" href="~/css/paymentStyle.css" />
 }
 
-<h1>Delete</h1>
+<h1 id="paymentHeader">Delete @Model.App.Name</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h4 id="subTitleHeader">Are you sure you want to delete this payment?</h4>
 <div>
-    <h4>Payment</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentMethod)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaymentMethod.ExpiredDate)
-        </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.App)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.App.DeveloperName)
-        </dd class>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="card_payment col-12" id="cardDetails">
+         <div class="card-body">
+             <dl class="row">
+                 <dt class="col-sm-6">
+                     @Html.DisplayNameFor(model => model.Name)
+                 </dt>
+                 <dd class="col-sm-6">
+                     @Html.DisplayFor(model => model.Name)
+                 </dd>
+                 <dt class="col-sm-6">
+                     @Html.DisplayNameFor(model => model.Address)
+                 </dt>
+                 <dd class="col-sm-6">
+                     @Html.DisplayFor(model => model.Address)
+                 </dd>
+                 <dt class="col-sm-6">
+                     @Html.DisplayNameFor(model => model.City)
+                 </dt>
+                 <dd class="col-sm-6">
+                     @Html.DisplayFor(model => model.City)
+                 </dd>
+                 <dt class="col-sm-6">
+                     @Html.DisplayNameFor(model => model.PaymentMethod.CardNumber)
+                 </dt>
+                 <dd class="col-sm-6">
+                     @Html.DisplayFor(model => model.PaymentMethod.CardNumber)
+                 </dd>
+                 <dt class="col-sm-6">
+                     @Html.DisplayNameFor(model => model.PaymentMethod.ExpiredDate)
+                 </dt>
+                 <dd class="col-sm-6">
+                     @Html.DisplayFor(model => model.PaymentMethod.ExpiredDate)
+                 </dd>
+                 <dt class="col-sm-6">
+                     @Html.DisplayNameFor(model => model.App.Price)
+                 </dt>
+                 <dd class="col-sm-6">
+                     @Html.DisplayFor(model => model.App.Price)
+                 </dd>
+                 <dt class="col-sm-6">
+                     @Html.DisplayNameFor(model => model.App)
+                 </dt>
+                 <dd class="col-sm-6">
+                     @Html.DisplayFor(model => model.App.Name)
+                 </dd>
+             </dl>
+             <br />
+             <form asp-action="Delete">
+                 <input type="hidden" asp-for="Id" />
+                 <input type="submit" value="Delete" class="btn btn-danger" /> |
+                 <a asp-action="Index">Back to all payments</a>
+             </form>
+         </div>
+    </div>
 </div>

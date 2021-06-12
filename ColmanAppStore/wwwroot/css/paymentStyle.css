@@ -1,0 +1,89 @@
+﻿body {
+}
+/*---------------------------------Create------------------------------------------*/
+#paymentHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: center;
+    margin: 15px;
+}
+
+#cardStyle {
+    width: 70rem;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#containerStyle {
+    background-color: #f2f2f2;
+    padding: 5px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+#cardTitle {
+    font-size: 24px;
+}
+
+#AcceptedTitle {
+    margin-bottom: 7px;
+    font-size: 15px;
+}
+
+#visaStyle {
+    color: navy;
+}
+
+#amexStyle {
+    color: blue;
+}
+
+#mastercardStyle {
+    color: red;
+}
+
+#discoverStyle {
+    color: orange;
+}
+
+#cartTitle {
+    color: black;
+}
+
+#cartApp {
+    font-size: medium;
+}
+
+#cartAppPrice {
+    float: right;
+    color: grey;
+}
+
+#totalCart {
+    font-size: medium;
+    font-weight: bold;
+}
+
+#totalPriceCart {
+    float: right;
+    color: black;
+}
+
+#submitButton {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+/*---------------------------------Details------------------------------------------*/
+#cardDetails {
+    width: 25rem;
+    margin: auto;
+}

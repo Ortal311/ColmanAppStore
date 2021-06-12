@@ -1,48 +1,67 @@
 ﻿@model ColmanAppStore.Models.Payment
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.App.Name + " payment";
+    <link rel="stylesheet" href="~/css/paymentStyle.css" />
 }
 
-<h1>Details</h1>
+<h1 id="paymentHeader">@Model.App.Name payment</h1>
 
 <div>
-    <h4>Payment</h4>
+
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentMethod)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaymentMethod.ExpiredDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.App)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.App.DeveloperName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="card_payment col-12" id="cardDetails">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.City)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.City)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.PaymentMethod.CardNumber)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.PaymentMethod.CardNumber)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.PaymentMethod.ExpiredDate)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.PaymentMethod.ExpiredDate)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.App.Price)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.App.Price)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.App)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.App.Name)
+                </dd>
+            </dl>
+            <br />
+            <a href="/Apps/Details/@Model.AppId" class="btn btn-primary">Go to @Model.App.Name</a>
+            <br />
+            <div>
+                <a asp-action="Index">Back to all payments</a>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,13 @@
+﻿body {
+}
+
+#paymentHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: center;
+    margin: 15px;
+}
+
+#cardDetails {
+    width: 25rem;
+    margin: auto;
+}

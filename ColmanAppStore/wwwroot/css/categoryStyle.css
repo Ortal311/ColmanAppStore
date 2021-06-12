@@ -9,6 +9,7 @@
     font-family: 'Days One', sans-serif;
     text-align: center;
     color: black;
+    margin: 15px;
 }
 
 #CardStyle {
@@ -42,6 +43,7 @@
 #CategoryTitle {
     font-family: 'Days One', sans-serif;
     text-align: center;
+    margin: 15px;
 }
 
 #AppLogo {
