@@ -8,14 +8,6 @@
 <h1 id="CategoryTitle">@Model.Name apps</h1>
 
 
-    @if (User.IsInRole("Admin"))
-    {
-     <div class="text-center">
-        <a class="btn btn-primary " data-bs-toggle="exampleModal" asp-action="edit" asp-route-id="@Model.Id" asp-controller="Categories">Edit</a>
-    </div>
-    }
-
-
 @if (Model.Apps != null && Model.Apps.Count > 0)
 {
     <div class="container px-3">
@@ -39,6 +31,12 @@
 
         </div>
     </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="text-center">
+            <a class="btn btn-primary " data-bs-toggle="exampleModal" asp-action="edit" asp-route-id="@Model.Id" asp-controller="Categories">Edit</a>
+        </div>
+    }
 }
 else
 {
