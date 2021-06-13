@@ -22,6 +22,16 @@ namespace ColmanAppStore.Controllers
         // GET: Payments
         public async Task<IActionResult> Index()
         {
+            //String userName = User.Identity.Name;
+            //foreach(var item in _context.User)
+            //{
+            //    if(item.Name.Equals(userName))
+            //    {                    
+            //        var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).ThenInclude(u=>u.Users).ThenInclude(u=>u.Name.Equals(userName);
+            //        return View(await payments.ToListAsync());
+            //    }
+            //}
+
             var colmanAppStoreContext = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod);
             return View(await colmanAppStoreContext.ToListAsync());
         }
@@ -85,7 +95,7 @@ namespace ColmanAppStore.Controllers
                 }
             }
 
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
+            //ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
             ViewData["PaymentMethodId"] = new SelectList(pm, "Id", "CardNumber"); 
 
             return View();

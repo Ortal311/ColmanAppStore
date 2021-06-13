@@ -5,19 +5,20 @@
     <link rel="stylesheet" href="~/css/paymentStyle.css" />
 }
 
-  <!--if (ViewBag.PaymentMethod == null) //if user does not have payment method? - check
-      {
-
-         <h1> You need To add Payment method first</h1>
-         <a asp-action="create" asp-controller="PaymentMethods" asp-route-id="@User.Identity.Name"> Click here to add credit card</a>
-       }
-    else
+<!--if (ViewBag.PaymentMethod == null) //if user does not have payment method? - check
     {
-      //Create(in PaymentMaethods controller) that gets string does not work :(
-      //everything below
-      <div......>
-     }-->
 
+       <h1> You need To add Payment method first</h1>
+       <a asp-action="create" asp-controller="PaymentMethods" asp-route-id="@User.Identity.Name"> Click here to add credit card</a>
+     }
+  else
+  {
+    //Create(in PaymentMaethods controller) that gets string does not work :(
+    //everything below
+    <div......>
+   }-->
+
+<h1 id="paymentHeader">Create payment for @ViewBag.App.Name</h1>
 
 
 <div class="card_payment col-12" id="cardStyle">

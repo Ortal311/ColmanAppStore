@@ -107,7 +107,7 @@
                 {
                     <div class="rating-text" id="ReviewCaption"><span>@Model.countReview ratings & @Model.Review.Count() reviews</span> </div>
                 }
-                <a href="/Reviews/Create" class="btn btn-warning" id="ReviewAddButton">Add review</a>
+                <a class="btn btn-warning" asp-action="create" asp-route-id="@Model.Id" asp-controller="Reviews" id="ReviewAddButton">Add review</a>
             </div>
         </div>
 

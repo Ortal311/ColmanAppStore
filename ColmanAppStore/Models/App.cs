@@ -13,9 +13,11 @@ namespace ColmanAppStore.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
         [DataType(DataType.Currency)]
         public float Price { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
         [Display(Name = "Publish date")]
@@ -26,7 +28,8 @@ namespace ColmanAppStore.Models
         [Required]
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
-
+        
+        [Required]
         public float Size { get; set; }
 
         [Required]

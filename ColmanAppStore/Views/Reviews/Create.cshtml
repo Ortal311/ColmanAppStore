@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create review";
 }
 
-<h1 id="PageHeader">Create review</h1>
+<h1 id="PageHeader">Create review for @ViewBag.App.Name</h1>
 
 <hr />
 <div class="row">
@@ -26,14 +26,17 @@
                 <input asp-for="Raiting" class="form-control" />
                 <span asp-validation-for="Raiting" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AppId" class="control-label"></label>
-                <select asp-for="AppId" class ="form-control" asp-items="ViewBag.AppId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserNameId" class="control-label"></label>
-                <select asp-for="UserNameId" class ="form-control" asp-items="ViewBag.UserNameId"></select>
-            </div>
+            <input type="hidden" name="AppId" value="@ViewBag.AppId" />
+            <input type="hidden" name="UserName" value="@User.Identity.Name" />
+
+            @*<div class="form-group">
+                    <label asp-for="AppId" class="control-label"></label>
+                    <select asp-for="AppId" class ="form-control" asp-items="ViewBag.AppId"></select>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="UserNameId" class="control-label"></label>
+                    <select asp-for="UserNameId" class="form-control" asp-items="ViewBag.UserNameId"></select>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
