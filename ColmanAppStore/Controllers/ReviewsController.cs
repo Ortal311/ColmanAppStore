@@ -241,19 +241,6 @@ namespace ColmanAppStore.Controllers
             return _context.Review.Any(e => e.Id == id);
         }
 
-       /* public IActionResult UsersReview(int? q)
-        {
-            q = 1;
-            var user = from r in _context.Review
-                       join usr in _context.User on r.UserNameId equals usr.Id
-                       where q == r.UserNameId
-                       select  new { r };
-
-           
-            return View();
-
-
-        }*/
         public async Task<IActionResult> UsersReview(int? id)
         {
             if (id == null)

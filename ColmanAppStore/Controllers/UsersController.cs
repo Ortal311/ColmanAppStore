@@ -61,8 +61,9 @@ namespace ColmanAppStore.Controllers
                     var u = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                     Signin(u);
 
-                    /*return RedirectToAction(nameof(Index), "Home");*/
-                    return RedirectToAction("HomePage", "Apps");
+
+                    //return RedirectToAction("HomePage", "Apps");
+                    return RedirectToAction("Create", "PaymentMethods");
                 }
                 else
                 {
@@ -94,15 +95,9 @@ namespace ColmanAppStore.Controllers
                         where u.Password == user.Password && u.Email == user.Email
                         select u;
 
-                //  var q = _context.User.FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password && u.Email == user.Email);
-
                 if (q.Count() > 0)
                 {
-                    //HttpContext.Session.SetString("email", q.First().Email);
-
                     Signin(q.First());
-
-                    /*return RedirectToAction(nameof(Index), "Home");*/
                     return RedirectToAction("HomePage", "Apps");
                 }
                 else
@@ -140,44 +135,15 @@ namespace ColmanAppStore.Controllers
             return View();
         }
 
-        /*public async Task<IActionResult> Account()
-        {
-            return View();
-        }*/
-
-        public async Task<IActionResult> Account(string id)/* needs to be id, but i dont have accsses to the id in Layout*/
-        {
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
-            //var user = await _context.User.Include(c => c.Name).Include(c=>c.Password).Include(c=>c.PaymentMethod).Include(c=>c.AppListUser).FirstOrDefaultAsync(x => x.Name == id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            // ViewData["Logo"] = new SelectList(_context.Logo, "Id", "Name");
-
-            return View(user);
-
-
-        }
-
-
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)//string id
+        public async Task<IActionResult> Edit(int? id)
         {
             
             if (id == null)
             {
                 return NotFound();
             }
-            //var user= await _context.User.Where(u => u.Name.Equals(id)).FirstAsync();
+
             var user = await _context.User.FindAsync(id);
             if (user == null)
             {
@@ -192,18 +158,12 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password,UserType")] User user)
         {
             if (id != user.Id)
             {
                 return NotFound();
             }
-            /*if (id != user.Name)
-            {
-                return NotFound();
-            }*/
-            
-
             if (ModelState.IsValid)
             {
                 try
@@ -227,7 +187,28 @@ namespace ColmanAppStore.Controllers
             }
             return View(user);
         }
+        public async Task<IActionResult> Account(string id)//get to user account info by name
+        {
 
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
+            
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return View(user);
+
+
+        }
 
         private bool UserExists(int id)
         {
