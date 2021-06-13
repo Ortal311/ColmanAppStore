@@ -62,7 +62,8 @@ namespace ColmanAppStore.Controllers
                     Signin(u);
 
 
-                    return RedirectToAction("HomePage", "Apps");
+                    //return RedirectToAction("HomePage", "Apps");
+                    return RedirectToAction("Create", "PaymentMethods");
                 }
                 else
                 {
@@ -94,15 +95,9 @@ namespace ColmanAppStore.Controllers
                         where u.Password == user.Password && u.Email == user.Email
                         select u;
 
-                //  var q = _context.User.FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password && u.Email == user.Email);
-
                 if (q.Count() > 0)
                 {
-                    //HttpContext.Session.SetString("email", q.First().Email);
-
                     Signin(q.First());
-
-                    /*return RedirectToAction(nameof(Index), "Home");*/
                     return RedirectToAction("HomePage", "Apps");
                 }
                 else

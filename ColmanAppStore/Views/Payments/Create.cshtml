@@ -5,7 +5,20 @@
     <link rel="stylesheet" href="~/css/paymentStyle.css" />
 }
 
-<h1 id="paymentHeader">App payment</h1>
+  <!--if (ViewBag.PaymentMethod == null) //if user does not have payment method? - check
+      {
+
+         <h1> You need To add Payment method first</h1>
+         <a asp-action="create" asp-controller="PaymentMethods" asp-route-id="@User.Identity.Name"> Click here to add credit card</a>
+       }
+    else
+    {
+      //Create(in PaymentMaethods controller) that gets string does not work :(
+      //everything below
+      <div......>
+     }-->
+
+
 
 <div class="card_payment col-12" id="cardStyle">
     <div class="card-body">
@@ -17,7 +30,7 @@
                         <input type="hidden" name="UserName" value="@User.Identity.Name" />
 
                         <div class="row">
-                            <div class="col-md-4"> 
+                            <div class="col-md-4">
                                 <h3>Billing Address</h3>
                                 <div class="form-group">
                                     <label for="fname"><i class="fa fa-user"></i> Full Name</label>
@@ -83,6 +96,10 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
