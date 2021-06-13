@@ -129,7 +129,7 @@ namespace ColmanAppStore.Controllers
                     if (item.Name.Equals(userName))
                     {
                         if (item.AppListUser == null)
-                        item.AppListUser = new List<App>();
+                            item.AppListUser = new List<App>();
                         item.AppListUser.Add(purchasedApp);
                         _context.Update(item);
                         break;
@@ -142,7 +142,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("HomePage", "Apps");
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", payment.AppId);
-            
+
             return View(payment);
         }
 

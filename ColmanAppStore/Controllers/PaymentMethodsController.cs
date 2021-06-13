@@ -23,6 +23,17 @@ namespace ColmanAppStore.Controllers
         // GET: PaymentMethods
         public async Task<IActionResult> Index()
         {
+            String userName = User.Identity.Name;
+            var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+
+            foreach (var item in usr)
+            {
+                if (item.Name.Equals(userName))
+                {
+                    var paymentmethods = _context.PaymentMethod.Where(i => i.Users.Contains(item));
+                    return View(await paymentmethods.ToListAsync());
+                }
+            }
             return View(await _context.PaymentMethod.ToListAsync());
         }
 
