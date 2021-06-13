@@ -27,6 +27,7 @@
                     Boolean userId = User.Identity.IsAuthenticated;// true if user logged in
                     if (userId)
                     {
+                     
                         <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
 
                         if (!User.IsInRole("Client")) //hidden button for client user type

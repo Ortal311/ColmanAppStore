@@ -73,7 +73,7 @@ namespace ColmanAppStore.Controllers
 
                 _context.Add(paymentMethod);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("HomePage","Apps");
             }
             return View(paymentMethod);
         }
