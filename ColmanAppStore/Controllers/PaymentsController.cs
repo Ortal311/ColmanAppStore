@@ -22,15 +22,17 @@ namespace ColmanAppStore.Controllers
         // GET: Payments
         public async Task<IActionResult> Index()
         {
-            //String userName = User.Identity.Name;
-            //foreach(var item in _context.User)
-            //{
-            //    if(item.Name.Equals(userName))
-            //    {                    
-            //        var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).ThenInclude(u=>u.Users).ThenInclude(u=>u.Name.Equals(userName);
-            //        return View(await payments.ToListAsync());
-            //    }
-            //}
+            String userName = User.Identity.Name;
+            var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+
+            foreach (var item in usr)
+            {
+                if (item.Name.Equals(userName))
+                {
+                    var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(i => item.AppListUser.Contains(i.App));
+                    return View(await payments.ToListAsync());
+                }
+            }
 
             var colmanAppStoreContext = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod);
             return View(await colmanAppStoreContext.ToListAsync());
@@ -59,7 +61,7 @@ namespace ColmanAppStore.Controllers
         // GET: Payments/Create
         public IActionResult Create(int id)
         {
-         
+
             ViewData["AppId"] = id;
             foreach (var item in _context.Apps)
             {
@@ -80,7 +82,7 @@ namespace ColmanAppStore.Controllers
                     break;
                 }
             }
-           
+
             var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
             List<PaymentMethod> pm = new List<PaymentMethod>();
             foreach (var item in usr)
@@ -96,7 +98,7 @@ namespace ColmanAppStore.Controllers
             }
 
             //ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
-            ViewData["PaymentMethodId"] = new SelectList(pm, "Id", "CardNumber"); 
+            ViewData["PaymentMethodId"] = new SelectList(pm, "Id", "CardNumber");
 
             return View();
         }
@@ -111,9 +113,9 @@ namespace ColmanAppStore.Controllers
             if (ModelState.IsValid)
             {
                 App purchasedApp = null;
-                foreach(var item in _context.Apps)
+                foreach (var item in _context.Apps)
                 {
-                    if(item.Id==payment.AppId)
+                    if (item.Id == payment.AppId)
                     {
                         purchasedApp = item;
                         break;
@@ -124,9 +126,8 @@ namespace ColmanAppStore.Controllers
                 var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
                 foreach (var item in usr)
                 {
-                    if(item.Name.Equals(userName))
+                    if (item.Name.Equals(userName))
                     {
-                        item.AppListUser = new List<App>();
                         if (item.AppListUser == null)
                             item.AppListUser = new List<App>();
                         item.AppListUser.Add(purchasedApp);
@@ -239,9 +240,9 @@ namespace ColmanAppStore.Controllers
 
             String userName = User.Identity.Name;
             var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
-            foreach(var item in usr)
+            foreach (var item in usr)
             {
-                if(item.Name.Equals(userName))
+                if (item.Name.Equals(userName))
                 {
                     item.AppListUser.Remove(purchasedApp);
                     _context.Update(item);
