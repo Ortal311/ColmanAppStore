@@ -212,6 +212,16 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult> PopularityGraph()
         {
+            int len = _context.User.Count();//total users
+           for (int i=0; i<len; i++)
+           {
+               int numUserApps= _context.User.ToList().ElementAt(i).AppListUser.Count();//users apps
+                for(int j=0; j< numUserApps; j++)
+                {
+                    //......
+                }
+
+           }
             return View();
 
         }

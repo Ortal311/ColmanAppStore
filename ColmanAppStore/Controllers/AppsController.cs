@@ -276,5 +276,21 @@ namespace ColmanAppStore.Controllers
             var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo);
             return View(await colmanAppStoreContext.ToListAsync());
         }
+
+        public async Task<IActionResult> ReviewsGraph()
+        {
+            /*   float y=0;
+               string x="";
+               int len=_context.Apps.Count(); // total apps
+               for(int i=0; i< len; i++)
+               {
+                  x= _context.Apps.ToList().ElementAt(i).Name; // X axis
+                  y = _context.Apps.ToList().ElementAt(i).countReview; // Y axis
+
+               }
+
+               return View(x,y);*/
+            return View();
+        }
     }
 }
