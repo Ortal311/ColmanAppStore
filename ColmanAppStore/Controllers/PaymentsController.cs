@@ -7,19 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ColmanAppStore.Controllers
 {
     public class PaymentsController : Controller
     {
         private readonly ColmanAppStoreContext _context;
+                   
 
         public PaymentsController(ColmanAppStoreContext context)
         {
+          
             _context = context;
         }
 
         // GET: Payments
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Index()
         {
             String userName = User.Identity.Name;
@@ -39,6 +44,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Payments/Details/5
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,6 +66,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Payments/Create
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public IActionResult Create(int id)
         {
 
@@ -108,6 +117,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Create([Bind("Id,Name,Address,City,PaymentMethodId,AppId")] Payment payment, string userName)
         {
             if (ModelState.IsValid)
@@ -148,6 +158,8 @@ namespace ColmanAppStore.Controllers
 
 
         // GET: Payments/Edit/5
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -170,6 +182,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address,City,PaymentMethodId,AppId")] Payment payment)
         {
             if (id != payment.Id)
@@ -203,6 +216,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Payments/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -225,6 +240,7 @@ namespace ColmanAppStore.Controllers
         // POST: Payments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var payment = await _context.Payment.FindAsync(id);
