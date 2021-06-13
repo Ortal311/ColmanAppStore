@@ -175,6 +175,11 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,CategoryId,Size,AverageRaiting,countReview,DeveloperName")] App app)
         {
+    
+            if (id != app.Id)
+            {
+                return NotFound();
+            }
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
@@ -184,11 +189,6 @@ namespace ColmanAppStore.Controllers
                 //return NotFound();
 
             }
-            if (id != app.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try

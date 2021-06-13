@@ -23,26 +23,21 @@
                 <p class="card-text" id="AppContent"> <b>Publish date: </b> @Model.publishDate.Date</p>
                 <p class="card-text" id="AppContent"> <b>Developer name: </b> @Model.DeveloperName</p>
 
-                @{
-                    Boolean userId = User.Identity.IsAuthenticated;// true if user logged in
-                    if (userId)
-                    {
-                     
-                        <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
+                @{ Boolean userId = User.Identity.IsAuthenticated;// true if user logged in
+                                if (userId)
+                                {
 
-                        if (!User.IsInRole("Client")) //hidden button for client user type
-                        {
-                            if (User.Identity.Name.Equals(Model.DeveloperName) || User.IsInRole("Admin")) // show only for admin and the developer of the app
-                            {
-                                <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="edit" asp-route-id="@Model.Id" asp-controller="Apps">Edit</a>
-                            }
-                        }
-                    }
-                    else // user is not logged in - needs to register/log in before he can download the app
-                    {
-                        <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="login" asp-controller="Users">Login before download</a>
-                    }
-                }
+                    <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a> if (!User.IsInRole("Client")) //hidden button for client user type
+                                    {
+                                        if (User.Identity.Name.Equals(Model.DeveloperName) || User.IsInRole("Admin")) // show only for admin and the developer of the app
+                                        {
+                                            <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="edit" asp-route-id="@Model.Id" asp-controller="Apps">Edit</a>
+                                            <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="delete" asp-route-id="@Model.Id" asp-controller="Apps">Delete</a> }
+                                                            }
+                                                        }
+                                                        else // user is not logged in - needs to register/log in before he can download the app
+                                                        {
+                                            <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="login" asp-controller="Users">Login before download</a> } }
                 @*<div class="modal-body"> MODAL WINDOW OF PAYMENT
               @Html.Partial("~/Views/Payments/Create.cshtml", new ColmanAppStore.Models.Payment())
         </div>*@
@@ -108,7 +103,17 @@
                 {
                     <div class="rating-text" id="ReviewCaption"><span>@Model.countReview ratings & @Model.Review.Count() reviews</span> </div>
                 }
-                <a class="btn btn-warning" asp-action="create" asp-route-id="@Model.Id" asp-controller="Reviews" id="ReviewAddButton">Add review</a>
+                @{
+                    if (userId) // true if user logged in
+                    {
+                        <a href="/Reviews/Create" class="btn btn-warning" id="ReviewAddButton">Add review</a>
+                    }
+                    else // if not- you need to logn in/ register first
+                    {
+                        <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="login" asp-controller="Users">Login to write a review</a>
+                    }
+                }
+
             </div>
         </div>
 
@@ -158,8 +163,8 @@
  
 
             <div id="PageFooter">
-                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
+                <!--<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |-->
                 <a asp-action="Index">Back to List</a>
             </div>
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ColmanAppStore.Controllers
 {
@@ -20,6 +21,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: AppVideos
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Index()
         {
             var colmanAppStoreContext = _context.AppVideo.Include(a => a.App);
@@ -27,6 +30,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: AppVideos/Details/5
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +51,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: AppVideos/Create
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public IActionResult Create()
         {
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
@@ -57,6 +64,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Create([Bind("Id,Name,Video")] AppVideo appVideo)
         {
             if (ModelState.IsValid)
@@ -73,6 +81,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: AppVideos/Edit/5
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,6 +104,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Video,AppId")] AppVideo appVideo)
         {
             if (id != appVideo.Id)
@@ -126,6 +137,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: AppVideos/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,6 +160,7 @@ namespace ColmanAppStore.Controllers
         // POST: AppVideos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var appVideo = await _context.AppVideo.FindAsync(id);

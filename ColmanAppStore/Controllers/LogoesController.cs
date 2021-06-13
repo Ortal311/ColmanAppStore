@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ColmanAppStore.Controllers
 {
@@ -20,6 +21,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Logoes
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Index()
         {
             var colmanAppStoreContext = _context.Logo.Include(l => l.Apps);
@@ -27,6 +30,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Logoes/Details/5
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +51,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Logoes/Create
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public IActionResult Create()
         {
             ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name");
@@ -57,6 +64,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Create([Bind("Id,Image,AppsId")] Logo logo)
         {
             if (ModelState.IsValid)
@@ -70,6 +78,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Logoes/Edit/5
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,6 +101,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Image,AppsId")] Logo logo)
         {
             if (id != logo.Id)
@@ -123,6 +134,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Logoes/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,6 +157,7 @@ namespace ColmanAppStore.Controllers
         // POST: Logoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var logo = await _context.Logo.FindAsync(id);

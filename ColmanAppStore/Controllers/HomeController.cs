@@ -25,31 +25,12 @@ namespace ColmanAppStore.Controllers
 
         public  IActionResult Index()
         {
-
-            /*ViewData["top"] = _context.Apps.ToList();
-             return View();*/
-
-            /*var app =  _context.Apps.Include(a => a.CategoryId).Include(l => l.Logo).Include(v => v.Videos).Include(i => i.Images).Include(r => r.Review).
-               ThenInclude(u => u.UserName).FirstOrDefaultAsync(m => m.Id == id);
-            if (app == null)
-            {
-                return NotFound();
-            }
-
-            return View(app);*/
-
-            /*return View(_context.Apps.ToList());*/
             return View("About");
         }
 
         [Authorize]
         public IActionResult Privacy()
         {
-
-            /*  if(HttpContext.Session.GetString("email")==null)
-              {
-                  return RedirectToAction("Login", "Users");
-              }*/
             return View();
         }
 

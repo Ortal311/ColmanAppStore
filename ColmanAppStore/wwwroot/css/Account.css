@@ -25,3 +25,20 @@
             background-color: white;
             border-color: blue;
         }
+#TitlesHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: center;
+    margin: 15px;
+}
+
+#Titles {
+    font-family: 'Nunito', sans-serif;
+    font-size: small;
+    text-align: center;
+}
+
+#TableTitles {
+    font-family: 'Nunito', sans-serif;
+    font-size: large;
+    text-align: center;
+}

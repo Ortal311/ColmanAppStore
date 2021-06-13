@@ -27,6 +27,7 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Categories/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +48,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Categories/Create
-
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -58,7 +60,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
- 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             Console.WriteLine(ModelState.Values);
@@ -127,6 +129,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Categories/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,6 +151,7 @@ namespace ColmanAppStore.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await _context.Category.FindAsync(id);
