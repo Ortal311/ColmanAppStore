@@ -27,8 +27,8 @@
                     Boolean userId = User.Identity.IsAuthenticated;// true if user logged in
                     if (userId)
                     {
-                     
-                        <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
+
+                            <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
 
                         if (!User.IsInRole("Client")) //hidden button for client user type
                         {
@@ -108,7 +108,17 @@
                 {
                     <div class="rating-text" id="ReviewCaption"><span>@Model.countReview ratings & @Model.Review.Count() reviews</span> </div>
                 }
-                <a href="/Reviews/Create" class="btn btn-warning" id="ReviewAddButton">Add review</a>
+                @{
+                    if (userId) // true if user logged in
+                    {
+                        <a href="/Reviews/Create" class="btn btn-warning" id="ReviewAddButton">Add review</a>
+                    }
+                    else // if not- you need to logn in/ register first
+                    {
+                        <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="login" asp-controller="Users">Login to write a review</a>
+                    }
+                }
+
             </div>
         </div>
 

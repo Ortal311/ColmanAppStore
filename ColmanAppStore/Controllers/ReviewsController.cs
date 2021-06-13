@@ -114,11 +114,20 @@ namespace ColmanAppStore.Controllers
         // GET: Reviews/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();
             }
+            /*string userName = User.Identity.Name;
+            _context.Review.Find(id);
+            string reviewWriter = _context.Review.Find(id).UserName.Name;
+            if (userName != reviewWriter)
+            {
+                return Unauthorized();
+                //return NotFound();
 
+            }*/
             var review = await _context.Review.FindAsync(id);
             if (review == null)
             {
@@ -140,6 +149,15 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            /*var rev = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
+            string userName = User.Identity.Name;
+            string reviewWriter = _context.Review.Find(id).UserName.Name;
+            if (userName != reviewWriter)
+            {
+                return Unauthorized();
+                //return NotFound();
+
+            }*/
 
             if (ModelState.IsValid)
             {

@@ -86,8 +86,8 @@ namespace ColmanAppStore.Controllers
             }
 
             ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
-            ViewData["PaymentMethodId"] = new SelectList(pm, "Id", "CardNumber"); 
-
+            ViewData["PaymentMethodId"] = new SelectList(pm, "Id", "CardNumber");
+            
             return View();
         }
 
@@ -116,9 +116,8 @@ namespace ColmanAppStore.Controllers
                 {
                     if(item.Name.Equals(userName))
                     {
-                        item.AppListUser = new List<App>();
                         if (item.AppListUser == null)
-                            item.AppListUser = new List<App>();
+                        item.AppListUser = new List<App>();
                         item.AppListUser.Add(purchasedApp);
                         _context.Update(item);
                         break;
@@ -128,9 +127,10 @@ namespace ColmanAppStore.Controllers
                 payment.Id = 0; //be updated after added to DB
                 _context.Add(payment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("HomePage", "Apps");
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", payment.AppId);
+            
             return View(payment);
         }
 

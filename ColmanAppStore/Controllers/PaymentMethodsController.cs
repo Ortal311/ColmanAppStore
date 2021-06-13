@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ColmanAppStore.Controllers
 {
@@ -28,11 +29,19 @@ namespace ColmanAppStore.Controllers
         // GET: PaymentMethods/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+      
             if (id == null)
             {
                 return NotFound();
             }
+            /*string userName = User.Identity.Name;
+      string cardOwner = _context.PaymentMethod.Find(id).NameOnCard;
+      if ((userName != cardOwner))
+      {
+          return Unauthorized("No Access");
+          //return NotFound();
 
+      }*/
             var paymentMethod = await _context.PaymentMethod
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
@@ -73,9 +82,10 @@ namespace ColmanAppStore.Controllers
 
                 _context.Add(paymentMethod);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("HomePage","Apps");
+               
             }
-            return View(paymentMethod);
+            return RedirectToAction("HomePage","Apps");
+            //return View(paymentMethod);
         }
 
         // GET: PaymentMethods/Edit/5
@@ -85,6 +95,14 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            /*string userName = User.Identity.Name;
+      string cardOwner = _context.PaymentMethod.Find(id).NameOnCard;
+      if ((userName != cardOwner))
+      {
+          return Unauthorized("No Access");
+          //return NotFound();
+
+      }*/
 
             var paymentMethod = await _context.PaymentMethod.FindAsync(id);
             if (paymentMethod == null)
@@ -105,6 +123,14 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            /*string userName = User.Identity.Name;
+      string cardOwner = _context.PaymentMethod.Find(id).NameOnCard;
+      if ((userName != cardOwner))
+      {
+          return Unauthorized("No Access");
+          //return NotFound();
+
+      }*/
 
             if (ModelState.IsValid)
             {
@@ -136,6 +162,14 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+           /* string userName = User.Identity.Name;
+            string cardOwner = _context.PaymentMethod.
+            if ((userName != cardOwner))
+            {
+            return Unauthorized("No Access");
+            //return NotFound();
+
+             }*/
 
             var paymentMethod = await _context.PaymentMethod
                 .FirstOrDefaultAsync(m => m.Id == id);
