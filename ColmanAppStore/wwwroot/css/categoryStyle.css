@@ -39,7 +39,7 @@
     display: table;
 }
 
-/*----------------------Index----------------------*/
+/*----------------------Details----------------------*/
 #CategoryTitle {
     font-family: 'Days One', sans-serif;
     text-align: center;
@@ -66,4 +66,9 @@
 
 #AppBtn {
     margin-bottom: 10px;
+}
+
+#LayoutBG {
+    background-image: url(../LogoImage/blur1.jpg);
+    background-size: cover;
 }

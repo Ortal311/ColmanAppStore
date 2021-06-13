@@ -9,8 +9,8 @@
 }
 
 #LayoutBG {
-    background-image: url(../LogoImage/3.jpg);
-    background-size: auto;
+    background-image: url(../LogoImage/1.jpg);
+    background-size: cover;
 }
 
 #AppCard {
@@ -20,8 +20,7 @@
 }
 
 #AppLogo {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 10px;
     width: 70px;
     height: 70px;
     margin-top: 10px;

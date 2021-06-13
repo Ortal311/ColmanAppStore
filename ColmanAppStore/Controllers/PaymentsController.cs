@@ -71,9 +71,7 @@ namespace ColmanAppStore.Controllers
                 }
             }
 
-            var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
             List<PaymentMethod> pm = new List<PaymentMethod>();
-
             foreach (var item in usr)
             {
                 if (item.Equals(connectedUser))
