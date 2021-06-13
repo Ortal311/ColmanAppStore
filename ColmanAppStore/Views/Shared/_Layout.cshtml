@@ -78,38 +78,39 @@
     </header>
 
     <main>
-            <div class="d-flex align-items-stretch">
-                <div class="row">
-                    <aside class="col-sm-2 col-navbar">
+        <div class="d-flex ">
+            <!--align-items-stretch-->
+            <div class="row">
+                <aside class="col-sm-2 col-navbar">
 
-                        <div class="d-flex align-items-stretch">
-                            <link rel="preconnect" href="https://fonts.gstatic.com">
-                            <link href="https://fonts.googleapis.com/css2?family=Days+One&family=Indie+Flower&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+                    <div class="d-flex align-items-stretch">
+                        <link rel="preconnect" href="https://fonts.gstatic.com">
+                        <link href="https://fonts.googleapis.com/css2?family=Days+One&family=Indie+Flower&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
 
-                            <nav class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <!-- <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>-->
-                                <a class="btn btn-primary " asp-action="HomePage" asp-controller="Apps" style="font-family: 'Nunito' , sans-serif;font-size:medium">Home</a>
+                        <nav class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <!-- <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>-->
+                            <a id="col-btn" class="btn btn-primary " asp-action="HomePage" asp-controller="Apps" style="font-family: 'Nunito' , sans-serif;font-size:medium">Home</a>
 
-                                <a class="btn_categories" asp-action="index" asp-controller="Categories"><h2 class="dropdown-header align-self-center" style="font-family: 'Nunito' , sans-serif;font-size:medium">Categories</h2></a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="4" style="font-family: 'Nunito' , sans-serif;font-size:medium">News</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="3" style="font-family: 'Nunito' , sans-serif;font-size:medium">Social</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="2" style="font-family: 'Nunito' , sans-serif;font-size:medium">Sport</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="1" style="font-family: 'Nunito' , sans-serif;font-size:medium">Kids</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="5" style="font-family: 'Nunito' , sans-serif;font-size:medium">Games</a>
-                                <a class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="6" style="font-family: 'Nunito' , sans-serif;font-size:medium">Shopping</a>
+                            <a class="btn_categories" asp-action="index" asp-controller="Categories"><h2 class="dropdown-header align-self-center" style="font-family: 'Nunito' , sans-serif;font-size:medium">Categories</h2></a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="4" style="font-family: 'Nunito' , sans-serif;font-size:medium">News</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="3" style="font-family: 'Nunito' , sans-serif;font-size:medium">Social</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="2" style="font-family: 'Nunito' , sans-serif;font-size:medium">Sport</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="1" style="font-family: 'Nunito' , sans-serif;font-size:medium">Kids</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="5" style="font-family: 'Nunito' , sans-serif;font-size:medium">Games</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="6" style="font-family: 'Nunito' , sans-serif;font-size:medium">Shopping</a>
 
-                            </nav>
+                        </nav>
 
-                        </div>
-                    </aside>
-
-                    <div class="col-sm-10 col-lines" @*id="LayoutBG"*@>
-                        <main role="main" class="pb-3">
-                            @RenderBody()
-                        </main>
                     </div>
+                </aside>
+
+                <div class="col-sm-10 col-lines" @*id="LayoutBG"*@>
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 

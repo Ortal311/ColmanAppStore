@@ -74,12 +74,16 @@ html {
 
 
 .col-navbar {
-    /* width: 100%;
-    height: 100%;*/
+    /*width: 100%;*/
+   /* height: 100%;*/
 
     background-color: #D3E0EA;
-   
+  
 }
+#col-btn{
+    width:100%;
+}
+
 
 .col-lines {
     /* height: 100%;
