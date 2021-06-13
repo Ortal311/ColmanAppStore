@@ -92,7 +92,17 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name", logo.AppsId);
+
+            var apps = _context.Apps.Include(l => l.Logo);
+            foreach(var item in apps)
+            {
+                if (item.Logo.Id == id)
+                {
+                    ViewData["AppsId"] = item.Id;
+                    ViewData["App"] = item;
+                    break;
+                }
+            }
             return View(logo);
         }
 

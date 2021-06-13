@@ -41,6 +41,11 @@ html {
     height: 100%;*/
 }
 
+#navBarStyle {
+    padding: unset;
+}
+
+
 
 #PageHeader {
     font-family: cursive;
