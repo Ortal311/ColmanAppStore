@@ -17,13 +17,15 @@
     width: 18rem;
     height: 19rem;
     margin: 10px;
+    text-align: center;
 }
 
 #AppLogo {
-    margin-left: 10px;
+    margin-left: auto;
+    margin-right:auto;
     width: 70px;
     height: 70px;
-    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 #AppTitle {

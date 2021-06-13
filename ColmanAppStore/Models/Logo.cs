@@ -19,6 +19,5 @@ namespace ColmanAppStore.Models
 
         [Display(Name = "App name")]
         public App Apps { get; set; }
-
     }
 }

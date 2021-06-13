@@ -13,12 +13,13 @@ namespace ColmanAppStore.Models
         [Required(ErrorMessage = "You must enter name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "You must address")]
+        [Required(ErrorMessage = "You must enter address")]
         public String Address { get; set; }
 
-        [Required(ErrorMessage = "You must city")]
+        [Required(ErrorMessage = "You must enter city")]
         public String City { get; set; }
 
+        [Required]
         [Display(Name = "Payment methods")]
         public int PaymentMethodId { get; set; }
 

@@ -63,9 +63,19 @@ namespace ColmanAppStore.Controllers
 
       
         // GET: Reviews/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+            ViewData["AppId"] = id;
+
+            foreach(var item in _context.Apps)
+            {
+                if(item.Id==id)
+                {
+                    ViewData["App"]= item;
+                    break;
+                }
+            }
+
             ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name");
             return View();
         }
@@ -75,11 +85,11 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,PublishDate,AppId,UserNameId")] Review review)
+        public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,PublishDate,AppId,UserNameId")] Review review, string userName)
         {
             if (ModelState.IsValid)
             {
-
+                review.Id = 0;
                 foreach (var item in _context.Apps)
                 {
                     if (item.Id == review.AppId)
@@ -92,7 +102,7 @@ namespace ColmanAppStore.Controllers
                 }
                 foreach (var item in _context.User)
                 {
-                    if (review.UserNameId == item.Id)
+                    if (userName.Equals(item.Name))
                     {
                         review.UserName = item;
 
@@ -104,7 +114,7 @@ namespace ColmanAppStore.Controllers
 
                 _context.Add(review);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Redirect("/Apps/Details/" + review.AppId);
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
             ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name", review.UserNameId);
