@@ -64,6 +64,17 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
+            string userName = User.Identity.Name;
+            var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+            foreach (var item in usr)
+            {
+                if (item.Name.Equals(userName))
+                {
+                    ViewData["UserInfo"] = item;
+                    ViewData["UserPMcount"] = item.PaymentMethods.Count();
+                }
+            }
+
             return View(app);
 
         }
@@ -143,9 +154,9 @@ namespace ColmanAppStore.Controllers
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != appDevName) && !isAdmin )
+            if ((userName != appDevName) && !isAdmin)
             {
-      
+
                 return Unauthorized("No Access");
                 //return NotFound();
 
@@ -175,7 +186,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,CategoryId,Size,AverageRaiting,countReview,DeveloperName")] App app)
         {
-    
+
             if (id != app.Id)
             {
                 return NotFound();
