@@ -7,13 +7,12 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 <script type="text/javascript">
-const { map } = require("jquery");
+       // const { map } = require("jquery");
+            const map =@Html.Raw(ViewData["Graphs"]);
+            console.log(map);
 
-    //$(document).ready(function () {
-    //    //Call EmpDetails jsonResult Method
-    //    $.getJSON("Apps/AppsController",
-
-            window.onload = function () {
+              window.onload = function () {
+                var dataPoint = [];
                 var chart = new CanvasJS.Chart("chartContainer", {
                     theme: "light1", // "light2", "dark1", "dark2"
                     //move
@@ -25,11 +24,17 @@ const { map } = require("jquery");
                     data:
                         [{
                             type: "column",
-                            dataPoints: json
+                            dataPoints: map
+                        
                         }]
                 });
-                chart.render();
-    }
+                  $.each(function (key, value) {
+                      dataPoint.push({ x: value[0], y: parseInt(value[1]) });
+                  });
+                     chart.render();
+
+                //chart.render();
+            }
 </script>
 <body>
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>

@@ -278,23 +278,11 @@ namespace ColmanAppStore.Controllers
         }
 
 
-        public JsonResult Graph()
+       
+        public async Task<IActionResult> Graph()
         {
-            /*   float y=0;
-               string x="";
-               int len=_context.Apps.Count(); // total apps
-               for(int i=0; i< len; i++)
-               {
-                  x= _context.Apps.ToList().ElementAt(i).Name; // X axis
-                  y = _context.Apps.ToList().ElementAt(i).countReview; // Y axis
-
-               }
-
-               return View(x,y);*/
-
             var payedApps = _context.Payment.Include(a => a.App);
             Dictionary<String, int> map = new Dictionary<string, int>();
-
 
             foreach (var item in payedApps) //updating map of app(keys) and num of purchases(values)
             {
@@ -317,12 +305,10 @@ namespace ColmanAppStore.Controllers
                 sortedMap.Add(key, map[key]); //building the sorted ascending map
             }
 
-            var query = from key in list select new {label = key, y= map[key] };
+            var query = from key in list select new { label = key, y = map[key] };//string label, int y
+            ViewData["Graphs"] = JsonConvert.SerializeObject(query);
+            return View();
 
-            //ViewData["map"] = new Json(sortedMap);
-            //ViewData["map"] = new Json(query);
-
-            return Json(query);
         }
     }
 }

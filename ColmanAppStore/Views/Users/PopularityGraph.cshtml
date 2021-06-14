@@ -5,43 +5,50 @@
 }
 
 
+       <!--float y=0;
+               string x="";
+               int len=_context.Apps.Count(); // total apps
+               for(int i=0; i< len; i++)
+               {
+                  x= _context.Apps.ToList().ElementAt(i).Name; // X axis
+                  y = _context.Apps.ToList().ElementAt(i).countReview; // Y axis
+
+               }
+
+               return View(x,y);-->
 
 
+<script type="text/javascript">
+    window.onload = function () {
 
-    <script type="text/javascript">
-        window.onload = function () {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light1", // "light2", "dark1", "dark2"
+            //move
+            animationEnabled: true, // change to true
+            title: {
+                text: "Orders chart by category",
+                fontColor: "black"
+            },
+            data: [
+                {
 
-            var chart = new CanvasJS.Chart("chartContainer", {
-                theme: "light1", // "light2", "dark1", "dark2"
-                //move
-                animationEnabled: true, // change to true
-                title: {
-                    text: "Orders chart by category",
-                    fontColor: "black"
-                },
-                data: [
-                    {
+                    type: "column",
+                    dataPoints: [
+                        { label: "Facebook", y: 5 },
+                        { label: "Instagram", y: 10 },
+                        { label: "Telegram", y: 18 },
+                        { label: "Netflix", y: 20 },
+                        { label: "Mako", y: 25 },
+                        { label: "Walla", y: 27 },
+                    ]
+                }
+            ]
+        });
+        chart.render();
 
-                        type: "column",
-                        dataPoints: [
-                            { label: "Hummus", y: 5 },
-                            { label: "Mexican", y: 10 },
-                            { label: "Coffee Shops", y: 18 },
-                            { label: "Noodles", y: 20 },
-                            { label: "Asian", y: 25 },
-                            { label: "Pasta", y: 27 },
-                            { label: "Pizza", y: 40 },
-                            { label: "Burger", y: 45 },
-                            { label: "IceCream", y: 60 },
-                        ]
-                    }
-                ]
-            });
-            chart.render();
-
-        }
-    </script>
-    <body>
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    </body>
+    }
+</script>
+<body>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
