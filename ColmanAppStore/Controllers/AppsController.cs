@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using Newtonsoft.Json;
 
 namespace ColmanAppStore.Controllers
 {
@@ -277,7 +277,8 @@ namespace ColmanAppStore.Controllers
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
-        public async Task<IActionResult> ReviewsGraph()
+
+        public JsonResult Graph()
         {
             /*   float y=0;
                string x="";
@@ -290,7 +291,38 @@ namespace ColmanAppStore.Controllers
                }
 
                return View(x,y);*/
-            return View();
+
+            var payedApps = _context.Payment.Include(a => a.App);
+            Dictionary<String, int> map = new Dictionary<string, int>();
+
+
+            foreach (var item in payedApps) //updating map of app(keys) and num of purchases(values)
+            {
+                if (map.ContainsKey(item.App.Name))
+                {
+                    map[item.App.Name]++;
+                }
+                else
+                {
+                    map.Add(item.App.Name, 1);
+                }
+            }
+
+            var list = map.Keys.ToList();
+            list.Sort();
+            //list.Reverse(); //descending from most popular to less popular
+            Dictionary<String, int> sortedMap = new Dictionary<string, int>();
+            foreach (var key in list)
+            {
+                sortedMap.Add(key, map[key]); //building the sorted ascending map
+            }
+
+            var query = from key in list select new {label = key, y= map[key] };
+
+            //ViewData["map"] = new Json(sortedMap);
+            //ViewData["map"] = new Json(query);
+
+            return Json(query);
         }
     }
 }

@@ -125,7 +125,7 @@
                 @{
                     if (userId) // true if user logged in
                     {
-                        <a href="/Reviews/Create" class="btn btn-warning" id="ReviewAddButton">Add review</a>
+                        <a asp-action="Create" asp-controller="Reviews" class="btn btn-warning" asp-route-id="@Model.Id" id="ReviewAddButton">Add review</a>
                     }
                     else // if not- you need to logn in/ register first
                     {
