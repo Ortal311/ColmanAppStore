@@ -40,8 +40,10 @@
     margin-top: -10px
 }
 
+#marginbtn{
+    margin-top: 10px;
+}
 /*------------------Details--------------------*/
-
 #CardApp {
     width: 70rem;
     margin-top: 10px;
