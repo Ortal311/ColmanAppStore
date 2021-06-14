@@ -33,21 +33,7 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-           /* var review = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
-                       join usr in _context.User on r.UserNameId equals usr.Id
-                       where id == r.UserNameId
-                       select new { r };*/
 
-         /*  var review = await _context.Review
-                .Include(r => r.App)
-                .Include(r => r.UserName).
-                Join(_context.User,
-                r => r.UserNameId,
-                u => u.Id,
-                 (r,u) => new { Review = r , User=u})
-                .FirstOrDefaultAsync(m => m.Review.UserNameId== id); */
-
-         
              var review = await _context.Review
                  .Include(r => r.App)
                  .Include(r => r.UserName)
@@ -271,38 +257,29 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult> UsersReview(int? id)
         {
+            ViewModel model = new ViewModel();
+
+            // Init:
+            model.UserReviews = null;
+
             if (id == null)
             {
                 return NotFound();
             }
             //REVIEW is correct!!!! but the view is not
-            var review = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
+            var review  = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
                          join usr in _context.User on r.UserNameId equals usr.Id
                          where id == r.UserNameId
-                         select new { r };
-           
-        
-             /* var review =  _context.Review
-                   .Include(r => r.App)
-                   .Include(r => r.UserName).
-                   Join(_context.User,
-                   r => r.UserNameId,
-                   u => u.Id,
-                    (r,u) => new { Review = r , User=u})
-                   .FirstOrDefaultAsync(m => m.Review.UserNameId== id); */
-
-
-           /* var review = await _context.Review
-                .Include(r => r.App)
-                .Include(r => r.UserName)
-                .FirstOrDefaultAsync(m => m.Id == id);*/
+                         select r ; //r.Title , r.Body , r.Raiting , r.PublishDate , r.App, r.UserName
 
             if (review == null)
             {
                 return NotFound();
             }
-            
-            return View(review);
+
+            model.UserReviews = review.Distinct().Select(x => x).ToList(); ;// Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
+
+            return View(model);
         }
     }
 }

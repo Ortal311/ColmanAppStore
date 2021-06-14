@@ -3,5 +3,7 @@
 
 // Write your JavaScript code.
 
-
+$('#exampleModal1').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+})
 

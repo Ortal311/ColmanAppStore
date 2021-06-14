@@ -276,5 +276,36 @@ namespace ColmanAppStore.Controllers
         {
             return _context.Payment.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AppBuyers(int? id)
+        {
+            ViewModel model = new ViewModel();
+
+            // Init:
+            model.Users = null;
+
+            if (id == null)
+            {
+                return null;
+            }
+            //REVIEW is correct!!!! but the view is not
+            var buyers = from p in _context.Payment.Include(r => r.App).Include(r => r.PaymentMethod)
+                         join app in _context.Apps on p.AppId equals app.Id
+                         where id == p.AppId
+                         select p;
+
+            if (buyers == null)
+            {
+                return null;
+            }
+            
+            model.Users= buyers.Distinct().Select(x => x).ToList();// Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
+
+
+            return View(model);
+
+        }
     }
 }

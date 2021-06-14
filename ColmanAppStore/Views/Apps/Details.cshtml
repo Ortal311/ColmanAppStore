@@ -29,7 +29,7 @@
                         //checks if user has at least 1 payment mathod to pay with
                         if (ViewBag.UserPMcount == 0)
                         {
-                            <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-controller="PaymentMethods">Add payment method before download</a>
+                            <a id="marginbtn" class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-controller="PaymentMethods">Add payment method before download</a>
                         }
                         else
                         {
@@ -37,31 +37,33 @@
                             //check if user already downloaded the app
                             if (ViewBag.UserInfo.AppListUser.Contains(Model))
                             {
-                                <button type="button" class="btn btn-info" disabled>App already dowloaded</button>
+                                <button id="marginbtn" type="button" class="btn btn-info" disabled>App already dowloaded</button>
                             }
                             else
                             {
-                                <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
+                                <a id="marginbtn" class="btn btn-primary"  asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
                             }
                         }
                         if (!User.IsInRole("Client")) //hidden button for client user type
                         {
                             if (User.Identity.Name.Equals(Model.DeveloperName) || User.IsInRole("Admin")) // show only for admin and the developer of the app
                             {
-                                <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="edit" asp-route-id="@Model.Id" asp-controller="Apps">Edit</a>
-                                <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="delete" asp-route-id="@Model.Id" asp-controller="Apps">Delete</a>
+                                <a id="marginbtn" class="btn btn-primary" asp-action="edit" asp-route-id="@Model.Id" asp-controller="Apps">Edit</a>
+                                <a id="marginbtn" class="btn btn-primary"  asp-action="delete" asp-route-id="@Model.Id" asp-controller="Apps">Delete</a>
+                            }
+                            if (User.IsInRole("Admin")) // show only for admin who bought the app
+                            {
+                                <a id="marginbtn"class="btn btn-primary"asp-action="AppBuyers" asp-route-id="@Model.Id" asp-controller="Payments">List of buyers</a>
+                            }
+                        }
+                        else // user is not logged in - needs to register/log in before he can download the app
+                        {
+                            <a class="btn btn-primary" asp-action="login" asp-controller="Users">Login before download</a>
                             }
                         }
                     }
-                    else // user is not logged in - needs to register/log in before he can download the app
-                    {
-                        <a class="btn btn-primary" data-bs-toggle="exampleModal" asp-action="login" asp-controller="Users">Login before download</a>
-                    } }
-                @*<div class="modal-body"> MODAL WINDOW OF PAYMENT
-              @Html.Partial("~/Views/Payments/Create.cshtml", new ColmanAppStore.Models.Payment())
-        </div>*@
 
-            </div>
+                </div>
 
             <div class="col-md-7">
                 <!-- Adding pics & videos carousel -->

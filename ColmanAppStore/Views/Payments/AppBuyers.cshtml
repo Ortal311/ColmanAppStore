@@ -5,66 +5,67 @@
     <link rel="stylesheet" href="~/css/paymentStyle.css" />
 }
 
-<h1 id="paymentHeader">All Reviews</h1>
+<h1 id="paymentHeader">Buyers list</h1>
 
 <div>
 
     <div class="ManagerOverviewPageWrapper">
 
 
-        @if (Model.UserReviews.Count > 0)
+        @if (Model.Users.Count > 0)
         {
             <table class="table">
                 <thead>
                     <tr>
-
                         <th>
-                            Title
+                            ID
                         </th>
                         <th>
-                            Body
+                            Name
                         </th>
                         <th>
-                            Raiting
+                            Address
                         </th>
                         <th>
-                            Publish Date
+                            City
                         </th>
                         <th>
-                            App Name
+                            Payment Method Id
                         </th>
                         <th>
-                            Edit review
+                            App Id
                         </th>
-
-
+                        <th>
+                            App details
+                        </th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Review rev in Model.UserReviews)
+                    @foreach (Payment user in Model.Users)
                     {
                     <tr>
-
                         <td>
-                            @Html.DisplayFor(modelItem => rev.Title)
+                            @Html.DisplayFor(modelItem => user.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => rev.Body)
+                            @Html.DisplayFor(modelItem => user.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => rev.Raiting)
+                            @Html.DisplayFor(modelItem => user.Address)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => rev.PublishDate)
+                            @Html.DisplayFor(modelItem => user.City)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => rev.App.Name)
+                            @Html.DisplayFor(modelItem => user.PaymentMethodId)
                         </td>
                         <td>
-                            <a asp-action="edit" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Edit </a>
+                            @Html.DisplayFor(modelItem => user.AppId)
                         </td>
-                   
+                        <td>
+                            <a asp-controller="Apps" asp-action="Details" asp-route-id="@user.AppId">Back to app <i class="fas fa-info"></i></a> 
+                        </td>
                     </tr>
 
                     }
@@ -73,7 +74,7 @@
         }
         else
         {
-            <h3>You did not wrote reviews to any app!</h3>
+            <h3>No one bought this app!</h3>
         }
 
     </div>

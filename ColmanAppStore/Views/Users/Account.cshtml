@@ -131,30 +131,31 @@
                                         if (Model != null)
                                         {
 
-                                                <table class="table table-bordered">
-                                                    <thead class="thead-light">
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Change password</th>
-                                                        
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                      
-                                                            <tr>
-                                                                <td>@Model.Name</td>
-                                                                <td>@Model.Email</td>
-                                                               
-                                                                <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a></td>
-                                                            </tr>
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Change password</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>@Model.Name</td>
+                                                        <td>@Model.Email</td>
+
+                                                        <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a></td>
+                                                    </tr>
 
 
-                                                    </tbody>
+                                                </tbody>
 
-                                                </table>
-                                            }
-                                     
+                                            </table>
+                                        }
+
+                                        <a  id="marginbtn" asp-action="UsersReview" asp-controller="Reviews" asp-route-id="@Model.Id" class="btn btn-primary"> All my reviews </a>
                                     }
                                 </div>
                             </div> <!-- Single Tab Content End -->
