@@ -22,6 +22,18 @@ namespace ColmanAppStore.Controllers
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
+            String userName = User.Identity.Name;
+
+            foreach (var item in _context.User)
+            {
+                if (item.Name.Equals(userName))
+                {
+                    var reviews = _context.Review.Where(x=>x.UserNameId==item.Id).Include(a=>a.App);
+                    return View(await reviews.ToListAsync());
+                }
+            }
+
+
             var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(r => r.UserName);
             return View(await colmanAppStoreContext.ToListAsync());
         }
@@ -129,8 +141,8 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
-            ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name", review.UserNameId);
+            ViewData["AppId"] = review.AppId;
+            ViewData["UserNameId"] = review.UserNameId;
             return View(review);
         }
 
@@ -154,6 +166,15 @@ namespace ColmanAppStore.Controllers
                 //return NotFound();
 
             }*/
+            //string userName = User.Identity.Name; //updating user logged in
+            //foreach(var item in _context.User)
+            //{
+            //    if(item.Name.Equals(userName))
+            //    {
+            //        review.UserNameId = item.Id;
+            //        break;
+            //    }
+            //}
 
             if (ModelState.IsValid)
             {
@@ -178,7 +199,7 @@ namespace ColmanAppStore.Controllers
                         }
                     }
 
-                    await _context.SaveChangesAsync(); //DB falls!!
+                    await _context.SaveChangesAsync(); 
                 }
                 catch (DbUpdateConcurrencyException)
                 {
