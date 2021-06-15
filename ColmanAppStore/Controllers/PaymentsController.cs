@@ -28,18 +28,27 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Index()
         {
             String userName = User.Identity.Name;
-            var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+           // var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
 
-            foreach (var item in usr)
+            var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == userName);//found the user
+
+            foreach(var item in user.PaymentMethods)
             {
-                if (item.Name.Equals(userName))
-                {
-                    var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(i => item.AppListUser.Contains(i.App)).Where(p=>item.PaymentMethods.Contains(p.PaymentMethod));
-                    return View(await payments.ToListAsync());
-                }
+                var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p=>p.Name.Equals(userName));
+                return View(await payments.ToListAsync());
+
             }
 
-            var colmanAppStoreContext = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod);
+            /*      foreach (var item in usr)
+              {
+                  if (item.Name.Equals(userName))//if its the same user show all of his purchases
+                  {
+                      var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(i => item.AppListUser.Contains(i.App)).Where(p=>item.PaymentMethods.Contains(p.PaymentMethod));
+                      return View(await payments.ToListAsync());
+                  }
+              }*/
+
+            var colmanAppStoreContext = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod); // show everyone
             return View(await colmanAppStoreContext.ToListAsync());
         }
 

@@ -300,11 +300,11 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            //REVIEW is correct!!!! but the view is not
+    
             var review  = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
                          join usr in _context.User on r.UserNameId equals usr.Id
                          where id == r.UserNameId
-                         select r ; //r.Title , r.Body , r.Raiting , r.PublishDate , r.App, r.UserName
+                         select r ;
 
             if (review == null)
             {

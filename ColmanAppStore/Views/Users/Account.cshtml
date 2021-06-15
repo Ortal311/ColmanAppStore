@@ -52,19 +52,21 @@
                                                                 <th>App</th>
                                                                 <th>Price</th>
                                                                 <th>View App</th>
+                                                         
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             
                                                             @foreach (var item in Model.AppListUser)
                                                             {
-
-                                                                <tr>
-                                                                    <td>@i</td>
-                                                                    <td>@item.Name</td>
-                                                                    <td>@item.Price</td>
-                                                                    <td><a asp-action="details" asp-controller="Apps" asp-route-id="@item.Id" class="btn btn-primary">View App </a></td>
-                                                                </tr>
+                                                              
+                                                            <tr>
+                                                                <td>@i</td>
+                                                                <td>@item.Name</td>
+                                                                <td>@item.Price</td>
+                                                                <td><a asp-action="details" asp-controller="Apps" asp-route-id="@item.Id" class="btn btn-primary">View App </a></td>
+                                                                
+                                                            </tr>
                                                                 i++;
                                                             }
 
