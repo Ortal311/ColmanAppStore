@@ -1,5 +1,8 @@
 ﻿
-
+@{
+    ViewData["Title"] = "About";
+    <link rel="stylesheet" href="~/css/HomePage.css" />
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +10,10 @@
 </head>
 <body>
 
-    <h1 class="text-center" style="font-family:fantasy">
+    <h1 id="PageHeader"  >
         Welcome to Colman AppStore!<br /><br />
     </h1>
-    <h5 class="text-center">
+    <h5 style="font-family: Arial, Helvetica, sans-serif;" class="text-center">
         Colman AppStore is more than just a storefront — it’s an innovative destination focused on bringing you amazing experiences.
         And a big part of those experiences is ensuring that the apps we offer are held to the highest standards for privacy, security, and content.
         We offer 50 apps — and we want you to feel good about using every single one of them.<br /><br /><br />
@@ -18,18 +21,19 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h5>
+            <div class="col-sm-6">
+                <h5 id="font3">
                     Our location:
                 </h5>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3384.674062629023!2d34.77059851452917!3d31.96973798122321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b3f5eb44e1c1%3A0xfbe9b8c6bce59319!2sCollege%20of%20Management%20Academic%20Studies!5e0!3m2!1sen!2sil!4v1622722552732!5m2!1sen!2sil"
                         width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
+           
 
 
-            <div class="col">
-                <h5>
-                    <br /><br /> Weather:
+            <div class="col-sm-6">
+                <h5 id="font3">
+                    Weather:
                 </h5>
 
                 <a class="weatherwidget-io" href="https://forecast7.com/en/32d0934d78/tel-aviv-yafo/" data-label_1="TEL AVIV" data-label_2="WEATHER" data-font="Verdana" data-icons="Climacons Animated" data-mode="Current" data-days="3" data-theme="original" style="width: 260px">Tel Aviv weather</a>
@@ -46,6 +50,7 @@
             </div>
         </div>
     </div>
+
 
 </body>
 </html>

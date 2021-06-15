@@ -23,7 +23,6 @@
             }
             @foreach (var group in Model.GroupBy(i => i.Category.Name))
             {
-                 <!--Html.Encode(group.Key); -->
                 <h4> Category : @group.Key</h4>
                 @foreach (var item in group)
                 {

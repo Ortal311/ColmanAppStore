@@ -145,13 +145,12 @@
                                                 </thead>
                                                 <tbody>
 
-                                                                                        <tr>
-                                                                                            <td>@Model.Name</td>
-                                                                                            <td>@Model.Email</td>
-
-                                                                                            <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a></td>
-                                                                                            <td><a asp-action="delete" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Delete </a></td>
-                                                                                        </tr>
+                                                     <tr>
+                                                          <td>@Model.Name</td>
+                                                          <td>@Model.Email</td>
+                                                          <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a></td>
+                                                          <td><a asp-action="delete" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Delete </a></td>
+                                                     </tr>
 
 
                                                 </tbody>
