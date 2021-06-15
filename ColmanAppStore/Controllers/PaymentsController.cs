@@ -27,33 +27,15 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Index()
         {
-
-
-
-
             String userName = User.Identity.Name;
-            // var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
 
             var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == userName);//found the user
 
-            foreach (var item in user.PaymentMethods)
-            {
-                var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p=>p.Name.Contains(userName));
-                return View(await payments.ToListAsync());
+            var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p => p.Name.Contains(userName));
+            return View(await payments.ToListAsync());
 
-            }
-
-            /*      foreach (var item in usr)
-              {
-                  if (item.Name.Equals(userName))//if its the same user show all of his purchases
-                  {
-                      var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(i => item.AppListUser.Contains(i.App)).Where(p=>item.PaymentMethods.Contains(p.PaymentMethod));
-                      return View(await payments.ToListAsync());
-                  }
-              }*/
-
-            var colmanAppStoreContext = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod); // show everyone
-            return View(await colmanAppStoreContext.ToListAsync());
+            //var colmanAppStoreContext = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod); // show everyone
+            //return View(await colmanAppStoreContext.ToListAsync());
         }
 
         // GET: Payments/Details/5

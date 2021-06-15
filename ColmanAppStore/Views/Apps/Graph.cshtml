@@ -14,14 +14,8 @@
         const xValues = @Html.Raw(ViewData["GraphUsageX"]);
         const yValues = @Html.Raw(ViewData["GraphUsageY"]);
         var barColors = [
-
             "#e8c3b9",
             "#b91d47",
-            "#e8c3b9",
-            "#00aba9",
-            "#2b5797",
-            "#e8c3b9",
-            "#1e7145"
         ];
 
         new Chart("myChart", {
@@ -51,9 +45,7 @@
 @*@Graph 2@*@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
-            // const { map } = require("jquery");
             const map = @Html.Raw(ViewData["Graphs"]);
-           // console.log(map);
 
               window.onload = function () {
                 var dataPoint = [];

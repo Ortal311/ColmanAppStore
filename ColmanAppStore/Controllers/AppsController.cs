@@ -299,11 +299,6 @@ namespace ColmanAppStore.Controllers
             var list = map.Keys.ToList();
             list.Sort();
             //list.Reverse(); //descending from most popular to less popular
-            Dictionary<String, int> sortedMap = new Dictionary<string, int>();
-            foreach (var key in list)
-            {
-                sortedMap.Add(key, map[key]); //building the sorted ascending map
-            }
 
             var query = from key in list select new { label = key, y = map[key] };
             ViewData["Graphs"] = JsonConvert.SerializeObject(query);
