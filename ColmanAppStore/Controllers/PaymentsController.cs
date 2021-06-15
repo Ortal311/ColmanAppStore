@@ -28,9 +28,6 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Index()
         {
             String userName = User.Identity.Name;
-
-            var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == userName);//found the user
-
             var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p => p.Name.Contains(userName));
             return View(await payments.ToListAsync());
 

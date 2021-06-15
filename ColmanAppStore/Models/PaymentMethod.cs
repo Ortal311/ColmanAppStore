@@ -36,6 +36,7 @@ namespace ColmanAppStore.Models
         public List<Payment> Payments { get; set; }
 
         //Many to many
+        [Display(Name = "Choose users who can use the card")]
         public List<User> Users { get; set; }
     }
 }
