@@ -36,7 +36,6 @@ namespace ColmanAppStore.Controllers
                 }
             }
 
-
             var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(r => r.UserName);
             return View(await colmanAppStoreContext.ToListAsync());
         }
@@ -50,10 +49,7 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-             var review = await _context.Review
-                 .Include(r => r.App)
-                 .Include(r => r.UserName)
-                 .FirstOrDefaultAsync(m => m.Id == id);
+            var review = await _context.Review.Include(r => r.App).Include(r => r.UserName).FirstOrDefaultAsync(m => m.Id == id);
 
             if (review == null)
             {
@@ -80,7 +76,7 @@ namespace ColmanAppStore.Controllers
                 }
             }
 
-            ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name");
+            //ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name");
             return View();
         }
 
@@ -98,29 +94,28 @@ namespace ColmanAppStore.Controllers
                 foreach (var item in _context.Apps)
                 {
                     if (item.Id == review.AppId)
-                    {
-                        item.AverageRaiting = ((item.AverageRaiting * item.countReview) + review.Raiting) / (item.countReview + 1);
+                    { //updating the app's new avg raiting
+                        item.AverageRaiting = ((item.AverageRaiting * item.countReview) + review.Raiting) / (item.countReview + 1); 
                         item.countReview++;
-
                         break;
                     }
                 }
                 foreach (var item in _context.User)
                 {
                     if (userName.Equals(item.Name))
-                    {
+                    { //updating the review's user info 
                         review.UserName = item;
-
+                        review.UserNameId = item.Id;
                         break;
                     }
                 }
-
                 review.PublishDate = DateTime.Now;
 
                 _context.Add(review);
                 await _context.SaveChangesAsync();
                 return Redirect("/Apps/Details/" + review.AppId);
             }
+
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
             ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name", review.UserNameId);
             return View(review);
@@ -131,7 +126,6 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
-            
             if (id == null)
             {
                 return NotFound();
@@ -175,20 +169,12 @@ namespace ColmanAppStore.Controllers
                 //return NotFound();
 
             }*/
-            //string userName = User.Identity.Name; //updating user logged in
-            //foreach(var item in _context.User)
-            //{
-            //    if(item.Name.Equals(userName))
-            //    {
-            //        review.UserNameId = item.Id;
-            //        break;
-            //    }
-            //}
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    review.PublishDate = DateTime.Now;
                     _context.Update(review);
                     float sum = 0;
                     foreach (var item in _context.Review)
@@ -238,10 +224,7 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Review
-                .Include(r => r.App)
-                .Include(r => r.UserName)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var review = await _context.Review.Include(r => r.App).Include(r => r.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
                 return NotFound();
@@ -257,13 +240,13 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var review = await _context.Review.FindAsync(id);
-            int reviewAppId = id;
+            int reviewAppId = review.AppId;
             _context.Review.Remove(review);
 
             float sum = 0;
             foreach (var item in _context.Review)
             {
-                if (item.AppId == reviewAppId)
+                if ((item.AppId == reviewAppId) && (item.Id != id))
                 {
                     sum += item.Raiting;
                 }

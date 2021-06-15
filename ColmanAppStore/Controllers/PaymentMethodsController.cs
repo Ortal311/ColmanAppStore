@@ -57,8 +57,7 @@ namespace ColmanAppStore.Controllers
           //return NotFound();
 
       }*/
-            var paymentMethod = await _context.PaymentMethod
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var paymentMethod = await _context.PaymentMethod.FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
                 return NotFound();
