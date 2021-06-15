@@ -45,10 +45,7 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            var payment = await _context.Payment
-                .Include(p => p.App)
-                .Include(p => p.PaymentMethod)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var payment = await _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).FirstOrDefaultAsync(m => m.Id == id);
             if (payment == null)
             {
                 return NotFound();
@@ -85,21 +82,21 @@ namespace ColmanAppStore.Controllers
             }
 
             var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
-            List<PaymentMethod> pm = new List<PaymentMethod>();
+            List<PaymentMethod> paymentM = new List<PaymentMethod>();
             foreach (var item in usr)
             {
                 if (item.Equals(connectedUser))
                 {
                     foreach (var us in item.PaymentMethods)
                     {
-                        pm.Add(us);
+                        paymentM.Add(us);
                     }
                     break;
                 }
             }
 
             //ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
-            ViewData["PaymentMethodId"] = new SelectList(pm, "Id", "CardNumber");
+            ViewData["PaymentMethodId"] = new SelectList(paymentM, "Id", "CardNumber");
 
             return View();
         }
@@ -123,7 +120,6 @@ namespace ColmanAppStore.Controllers
                         break;
                     }
                 }
-
 
                 var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
                 foreach (var item in usr)
@@ -217,10 +213,7 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            var payment = await _context.Payment
-                .Include(p => p.App)
-                .Include(p => p.PaymentMethod)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var payment = await _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).FirstOrDefaultAsync(m => m.Id == id);
             if (payment == null)
             {
                 return NotFound();
