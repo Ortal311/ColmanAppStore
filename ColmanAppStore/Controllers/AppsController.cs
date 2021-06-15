@@ -307,6 +307,19 @@ namespace ColmanAppStore.Controllers
 
             var query = from key in list select new { label = key, y = map[key] };
             ViewData["Graphs"] = JsonConvert.SerializeObject(query);
+
+            List<int> listY = new List<int>();
+            listY.Add(map.Keys.Count);
+            listY.Add(_context.Apps.Count() - map.Keys.Count);
+            
+            List<String> listX = new List<string>();
+            listX.Add("Downloaded apps");
+            listX.Add("Not downloaded apps");
+
+            ViewData["GraphUsageX"] = JsonConvert.SerializeObject(listX);
+            ViewData["GraphUsageY"] = JsonConvert.SerializeObject(listY);
+
+
             return View();
 
         }

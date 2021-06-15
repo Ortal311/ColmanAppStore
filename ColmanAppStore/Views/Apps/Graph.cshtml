@@ -2,13 +2,56 @@
 
 @{
     ViewData["Title"] = "Graph";
+    <link rel="stylesheet" href="~/css/appStyle.css" />
+
 }
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
 
+    <canvas id="myChart" style="height: 370px; width: 100%; padding:20px;"></canvas>
+    <script>
+        const xValues = @Html.Raw(ViewData["GraphUsageX"]);
+        const yValues = @Html.Raw(ViewData["GraphUsageY"]);
+        var barColors = [
+
+            "#e8c3b9",
+            "#b91d47",
+            "#e8c3b9",
+            "#00aba9",
+            "#2b5797",
+            "#e8c3b9",
+            "#1e7145"
+        ];
+
+        new Chart("myChart", {
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Apps usage in Colamn App Store",
+                    fontSize: 40,
+                    fontColor: "black"
+                }
+            }
+        });
+    </script>
+
+</body>
+
+
+@*@Graph 2@*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
             // const { map } = require("jquery");
-            const map =@Html.Raw(ViewData["Graphs"]);
+            const map = @Html.Raw(ViewData["Graphs"]);
            // console.log(map);
 
               window.onload = function () {
@@ -25,13 +68,13 @@
                         [{
                             type: "column",
                             dataPoints: map
-                        
+
                         }]
                 });
                   /*$.each(function (key, value) {
                       dataPoint.push({ x: value[0], y: parseInt(value[1]) });
                   });*/
-    
+
                 chart.render();
             }
 </script>
