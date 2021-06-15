@@ -14,11 +14,11 @@ namespace ColmanAppStore.Controllers
     public class PaymentsController : Controller
     {
         private readonly ColmanAppStoreContext _context;
-                   
+
 
         public PaymentsController(ColmanAppStoreContext context)
         {
-          
+
             _context = context;
         }
 
@@ -27,14 +27,18 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Index()
         {
+
+
+
+
             String userName = User.Identity.Name;
-           // var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
+            // var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
 
             var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == userName);//found the user
 
-            foreach(var item in user.PaymentMethods)
+            foreach (var item in user.PaymentMethods)
             {
-                var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p=>p.Name.Equals(userName));
+                var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p => p.Name.Equals(userName));
                 return View(await payments.ToListAsync());
 
             }
@@ -309,8 +313,8 @@ namespace ColmanAppStore.Controllers
             {
                 return null;
             }
-            
-            model.Users= buyers.Distinct().Select(x => x).ToList();// Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
+
+            model.Users = buyers.Distinct().Select(x => x).ToList();// Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
 
 
             return View(model);
