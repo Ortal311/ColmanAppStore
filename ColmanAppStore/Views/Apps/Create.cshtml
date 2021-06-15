@@ -10,6 +10,11 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <h6> if you did not enter App images <a asp-action="Create" asp-controller="AppImages">Click here</a></h6>
+
+            <h6> if you did not enter App video <a asp-action="Create" asp-controller="AppVideos">Click here</a></h6>
+            <br />
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -40,11 +45,11 @@
                 <input asp-for="Size" class="form-control" />
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DeveloperName" class="control-label"></label>
-                <input asp-for="DeveloperName" class="form-control" />
-                <span asp-validation-for="DeveloperName" class="text-danger"></span>
-            </div>
+              <div class="form-group" >
+             <label asp-for="DeveloperName" class="control-label" ></label>
+             <input asp-for="DeveloperName" class="form-control" />
+             <span asp-validation-for="DeveloperName" class="text-danger" ></span>
+        </div> 
             <div class="form-group">
                 <label asp-for="Images" class="control-label">Choose 3 app images</label>
                 <select asp-for="Images" class="form-control" asp-items="ViewBag.Images"></select>
@@ -63,9 +68,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

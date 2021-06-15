@@ -139,17 +139,19 @@
                                                         <th>Name</th>
                                                         <th>Email</th>
                                                         <th>Change password</th>
+                                                        <th> Delete account</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
-                                                    <tr>
-                                                        <td>@Model.Name</td>
-                                                        <td>@Model.Email</td>
+                                                                                        <tr>
+                                                                                            <td>@Model.Name</td>
+                                                                                            <td>@Model.Email</td>
 
-                                                        <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a></td>
-                                                    </tr>
+                                                                                            <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a></td>
+                                                                                            <td><a asp-action="delete" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Delete </a></td>
+                                                                                        </tr>
 
 
                                                 </tbody>

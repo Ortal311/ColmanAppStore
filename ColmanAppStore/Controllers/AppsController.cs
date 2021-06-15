@@ -101,6 +101,7 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size," +
                                                 "AverageRaiting,countReview,DeveloperName,Images")] App app, int[] Images, int[] Videos)
         {
+           
             if (ModelState.IsValid)
             {
 

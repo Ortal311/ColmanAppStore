@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ColmanAppStore.Controllers
 {
@@ -23,10 +24,16 @@ namespace ColmanAppStore.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.User.ToListAsync());
+        }
+
+
         public async Task<IActionResult> Logout()
         {
-            //HttpContext.Session.Clear();
-
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Login");
@@ -38,8 +45,6 @@ namespace ColmanAppStore.Controllers
             return View();
 
         }
-
-
 
         // POST: Users/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -62,8 +67,8 @@ namespace ColmanAppStore.Controllers
                     Signin(u);
 
 
-                    //return RedirectToAction("HomePage", "Apps");
-                    return RedirectToAction("Create", "PaymentMethods");
+                    return RedirectToAction("HomePage", "Apps");
+                    //return RedirectToAction("Create", "PaymentMethods");
                 }
                 else
                 {
@@ -189,36 +194,65 @@ namespace ColmanAppStore.Controllers
         }
         public async Task<IActionResult> Account(string id)//get to user account info by name
         {
-
             if (id == null)
             {
                 return NotFound();
             }
 
             var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
-            
-
+       
             if (user == null)
             {
                 return NotFound();
             }
 
-
-
             return View(user);
 
 
         }
+        [HttpGet]
+        [Authorize(Roles = "Admin,Client,Programmer")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            } 
+            //only the user himself or admin can delete an account
+            string connected = User.Identity.Name;
+            string userName = _context.User.Find(id).Name;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if (connected!=userName && !isAdmin)
+            {
+                return Unauthorized();
+            }
 
-        public async Task<IActionResult> PopularityGraph() { 
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-            return View();
-
+            return View(user);
         }
-            private bool UserExists(int id)
+
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await _context.User.FindAsync(id);
+            _context.User.Remove(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool UserExists(int id)
         {
             return _context.User.Any(e => e.Id == id);
         }
+
 
     }
 }

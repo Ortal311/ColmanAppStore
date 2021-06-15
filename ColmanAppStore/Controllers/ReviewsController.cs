@@ -36,7 +36,6 @@ namespace ColmanAppStore.Controllers
                 }
             }
 
-
             var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(r => r.UserName);
             return View(await colmanAppStoreContext.ToListAsync());
         }
@@ -280,7 +279,8 @@ namespace ColmanAppStore.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+             return RedirectToAction(nameof(Index));
+           
         }
 
         private bool ReviewExists(int id)
