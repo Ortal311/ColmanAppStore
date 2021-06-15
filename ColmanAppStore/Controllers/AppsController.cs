@@ -305,7 +305,7 @@ namespace ColmanAppStore.Controllers
                 sortedMap.Add(key, map[key]); //building the sorted ascending map
             }
 
-            var query = from key in list select new { label = key, y = map[key] };//string label, int y
+            var query = from key in list select new { label = key, y = map[key] };
             ViewData["Graphs"] = JsonConvert.SerializeObject(query);
             return View();
 

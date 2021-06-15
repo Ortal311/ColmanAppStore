@@ -7,9 +7,9 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 <script type="text/javascript">
-       // const { map } = require("jquery");
+            // const { map } = require("jquery");
             const map =@Html.Raw(ViewData["Graphs"]);
-            console.log(map);
+           // console.log(map);
 
               window.onload = function () {
                 var dataPoint = [];
@@ -28,12 +28,11 @@
                         
                         }]
                 });
-                  $.each(function (key, value) {
+                  /*$.each(function (key, value) {
                       dataPoint.push({ x: value[0], y: parseInt(value[1]) });
-                  });
-                     chart.render();
-
-                //chart.render();
+                  });*/
+    
+                chart.render();
             }
 </script>
 <body>

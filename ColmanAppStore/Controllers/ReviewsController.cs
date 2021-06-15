@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ColmanAppStore.Controllers
 {
@@ -20,6 +21,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Reviews
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Index()
         {
             String userName = User.Identity.Name;
@@ -39,6 +42,7 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Reviews/Details/5
+     
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,8 +63,10 @@ namespace ColmanAppStore.Controllers
             return View(review);
         }
 
-      
+
         // GET: Reviews/Create
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public IActionResult Create(int id)
         {
             ViewData["AppId"] = id;
@@ -83,6 +89,7 @@ namespace ColmanAppStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Create([Bind("Id,Title,Body,Raiting,PublishDate,AppId,UserNameId")] Review review, string userName)
         {
             if (ModelState.IsValid)
@@ -120,6 +127,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Reviews/Edit/5
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
             
@@ -220,6 +229,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Reviews/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -242,6 +253,7 @@ namespace ColmanAppStore.Controllers
         // POST: Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var review = await _context.Review.FindAsync(id);
@@ -275,6 +287,7 @@ namespace ColmanAppStore.Controllers
         {
             return _context.Review.Any(e => e.Id == id);
         }
+
 
         public async Task<IActionResult> UsersReview(int? id)
         {

@@ -41,7 +41,7 @@
                             }
                             else
                             {
-                                <a id="marginbtn" class="btn btn-primary"  asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
+                                <a id="marginbtn" class="btn btn-primary" asp-action="create" asp-route-id="@Model.Id" asp-controller="Payments">Download</a>
                             }
                         }
                         if (!User.IsInRole("Client")) //hidden button for client user type
@@ -49,21 +49,21 @@
                             if (User.Identity.Name.Equals(Model.DeveloperName) || User.IsInRole("Admin")) // show only for admin and the developer of the app
                             {
                                 <a id="marginbtn" class="btn btn-primary" asp-action="edit" asp-route-id="@Model.Id" asp-controller="Apps">Edit</a>
-                                <a id="marginbtn" class="btn btn-primary"  asp-action="delete" asp-route-id="@Model.Id" asp-controller="Apps">Delete</a>
+                                <a id="marginbtn" class="btn btn-primary" asp-action="delete" asp-route-id="@Model.Id" asp-controller="Apps">Delete</a>
                             }
                             if (User.IsInRole("Admin")) // show only for admin who bought the app
                             {
-                                <a id="marginbtn"class="btn btn-primary"asp-action="AppBuyers" asp-route-id="@Model.Id" asp-controller="Payments">List of buyers</a>
-                            }
-                        }
-                        else // user is not logged in - needs to register/log in before he can download the app
-                        {
-                            <a class="btn btn-primary" asp-action="login" asp-controller="Users">Login before download</a>
+                                <a id="marginbtn" class="btn btn-primary" asp-action="AppBuyers" asp-route-id="@Model.Id" asp-controller="Payments">List of buyers</a>
                             }
                         }
                     }
+                    else // user is not logged in - needs to register/log in before he can download the app
+                    {
+                        <a class="btn btn-primary" asp-action="login" asp-controller="Users">Login before download</a>
+                    }
+                }
 
-                </div>
+            </div>
 
             <div class="col-md-7">
                 <!-- Adding pics & videos carousel -->
