@@ -36,6 +36,9 @@
                         <th>
                             Edit review
                         </th>
+                        <th>
+                            Delete review
+                        </th>
 
 
 
@@ -63,6 +66,9 @@
                         </td>
                         <td>
                             <a asp-action="edit" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Edit </a>
+                        </td>
+                        <td>
+                            <a asp-action="delete" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Delete </a>
                         </td>
                    
                     </tr>
