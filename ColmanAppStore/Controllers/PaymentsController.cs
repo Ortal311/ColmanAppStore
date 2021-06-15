@@ -34,7 +34,7 @@ namespace ColmanAppStore.Controllers
 
             foreach(var item in user.PaymentMethods)
             {
-                var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p=>p.Name.Equals(userName));
+                var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p=>p.Name.Contains(userName));
                 return View(await payments.ToListAsync());
 
             }
