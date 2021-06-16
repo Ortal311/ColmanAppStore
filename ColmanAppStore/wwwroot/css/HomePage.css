@@ -15,28 +15,21 @@
     margin-top: 10px;
 }
 
-/*
-.card-slide{
-
-    white-space:nowrap;
-    overflow-x:scroll;
-    display:block;
+#center {
+    margin: auto;
+    width:92%;
 }
-.slide{
-    height:100%;
-    width:100%;
-    animation: scrolling 13s ease-in-out infinite alternate;
-
+.card-subtitle {
+    text-align: center;
 }
-@keyframes scrolling{
-    0% {transform:translateX(0);}
-    10%{transform:translateX(0);}
-    90%{transform:translateX(-400%);}
-    100%{transform:translateX(-400%);}
+#font2 {
+    font-family: 'Days One', sans-serif;
+    text-align: center;
+    font-size: 36px;
 }
 
-.slide:hover{
-    animation-play-state:paused;
+#font3 {
+    font-family: 'Days One', sans-serif;
 }
-*/
+
 

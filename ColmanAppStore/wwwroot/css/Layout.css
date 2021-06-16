@@ -1,30 +1,18 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-
+﻿
 * {
     margin: 0;
     padding: 0;
 }
 
 header {
-    /*margin-top: 3px;*/
     width: 100%;
     background-color: #E1F0FA;
-   
 }
 
 main {
-    /*height: 100%;
-    width: 100%;*/
-    /*margin-bottom:100px;*/
     min-height: 500px;
 }
 
-body {
-    /*height: 100vh;*/
-    /*margin-bottom: 60px;*/
-}
 
 @media (min-width: 768px) {
     html {
@@ -36,16 +24,11 @@ body {
 html {
     position: relative;
     font-size: 14px;
-    /*min-height: 100%;*/
-    /*width: 100%;
-    height: 100%;*/
 }
 
 #navBarStyle {
     padding: unset;
 }
-
-
 
 #PageHeader {
     font-family: cursive;
@@ -79,22 +62,17 @@ html {
 
 
 .col-navbar {
-    /*width: 100%;*/
-   /* height: 100%;*/
-
     background-color: #D3E0EA;
-  
-}
-#col-btn{
-    width:100%;
 }
 
+#col-btn {
+    width: 100%;
+    font-family: 'Nunito' , sans-serif;
+    font-size: medium ;
+}
 
 .col-lines {
-    /* height: 100%;
-    width: 100%;*/
     background-color: #F6F5F5;
-    /*background-image: linear-gradient(#e8e8e8, #F6F5F5);*/
 }
 
 .nav {
@@ -104,9 +82,14 @@ html {
 
 
 .btn_categories {
-    height: 30px;
+    height: 30px; 
     text-align: center;
     text-decoration: underline;
+}
+
+#font {
+    font-family: 'Nunito', sans-serif;
+    font-size: medium;
 }
 
 .card {
@@ -118,7 +101,6 @@ html {
 
 .slider{
     max-width: 600px;
-   /* display: flex;*/
 }
 
 .footer {
@@ -126,11 +108,6 @@ html {
     background-color: #E1F0FA;
     line-height: 60px;
     width: 100%;
-   
-    /*position: fixed;
-    bottom: 0;
-    white-space: normal;
-    margin-top: 100px;*/
 }
 
 
@@ -142,7 +119,8 @@ html {
  color: black;
 }
 
-/****************************************/
 body {
     margin-top: 20px;
 }
+
+
