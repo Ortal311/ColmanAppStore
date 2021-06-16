@@ -76,7 +76,6 @@ namespace ColmanAppStore.Controllers
             }
 
             return View(app);
-
         }
 
         [HttpGet]
@@ -88,20 +87,16 @@ namespace ColmanAppStore.Controllers
             ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
             ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
 
-
             return View();
         }
 
         // POST: Apps/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size," +
                                                 "AverageRaiting,countReview,DeveloperName,Images")] App app, int[] Images, int[] Videos)
         {
-
             if (ModelState.IsValid)
             {
 
