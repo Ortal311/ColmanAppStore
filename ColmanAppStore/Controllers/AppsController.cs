@@ -101,7 +101,7 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size," +
                                                 "AverageRaiting,countReview,DeveloperName,Images")] App app, int[] Images, int[] Videos)
         {
-           
+
             if (ModelState.IsValid)
             {
 
@@ -114,28 +114,20 @@ namespace ColmanAppStore.Controllers
                 app.publishDate = DateTime.Now;
                 app.Logo = log;
 
-                if (Images.Length > 0) //check if developer added more pics of the app
+                app.Images = new List<AppImage>();
+                app.Images.AddRange(_context.AppsImage.Where(x => Images.Contains(x.Id)));
+                foreach (var item in app.Images)
                 {
-                    app.Images = new List<AppImage>();
-                    app.Images.AddRange(_context.AppsImage.Where(x => Images.Contains(x.Id)));
-
-                    foreach (var item in app.Images)
-                    {
-                        item.AppId = app.Id;
-                        item.App = app;
-                    }
+                    item.AppId = app.Id;
+                    item.App = app;
                 }
 
-                if (Videos.Length > 0) //check if developer added more videos of the app
+                app.Videos = new List<AppVideo>();
+                app.Videos.AddRange(_context.AppVideo.Where(x => Videos.Contains(x.Id)));
+                foreach (var item in app.Videos)
                 {
-                    app.Videos = new List<AppVideo>();
-                    app.Videos.AddRange(_context.AppVideo.Where(x => Videos.Contains(x.Id)));
-
-                    foreach (var item in app.Videos)
-                    {
-                        item.AppId = app.Id;
-                        item.App = app;
-                    }
+                    item.AppId = app.Id;
+                    item.App = app;
                 }
 
                 _context.Add(app);
@@ -157,10 +149,8 @@ namespace ColmanAppStore.Controllers
             Boolean isAdmin = User.IsInRole("Admin");
             if ((userName != appDevName) && !isAdmin)
             {
-
                 return Unauthorized("No Access");
                 //return NotFound();
-
             }
 
             if (id == null)
@@ -174,8 +164,21 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
-            ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
-            ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
+            //ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
+            //ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
+
+            Logo logo = null;
+            var apps = _context.Apps.Include(x => x.Logo).Include(y => y.Images).Include(z => z.Videos);
+            foreach (var item in apps)
+            {
+                if (item.Id == id)
+                {
+                    logo = item.Logo;
+                    break;
+                }
+            }
+            ViewData["Logo"] = logo;
+
             return View(app);
         }
 
@@ -185,26 +188,61 @@ namespace ColmanAppStore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,CategoryId,Size,AverageRaiting,countReview,DeveloperName")] App app)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size,AverageRaiting," +
+                                            "countReview,DeveloperName")] App app) 
         {
+            app.publishDate = DateTime.Now;
+            //app.Images = new List<AppImage>();
+            //foreach (var item in _context.AppsImage)
+            //{
+            //    if(item.Id == Images0 || item.Id == Images1 || item.Id == Images2)
+            //    {
+            //        item.AppId = app.Id;
+            //        app.Images.Add(item);
+            //        _context.Update(item);
+            //    }
+            //}
+            //app.Videos = new List<AppVideo>();
+            //foreach(var item in _context.AppVideo)
+            //{
+            //    if(item.Id==Videos)
+            //    {
+            //        item.AppId = app.Id;
+            //        app.Videos.Add(item);
+            //        _context.Update(item);
+            //        break;
+            //    }
+            ////}
+
+            foreach (var item in _context.Logo)
+            {
+                if (item.AppsId == app.Id)
+                {
+                    item.Image = app.Logo.Image;
+                    _context.Update(item);
+                    app.Logo = item;
+                    break;
+                }
+            }
+            await _context.SaveChangesAsync();
 
             if (id != app.Id)
             {
                 return NotFound();
             }
-            string userName = User.Identity.Name;
-            string appDevName = _context.Apps.Find(id).DeveloperName;
-            Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != appDevName) && !isAdmin)
-            {
-                return Unauthorized();
-                //return NotFound();
+            //string userName = User.Identity.Name;
+            //string appDevName = _context.Apps.Find(id).DeveloperName;
+            //Boolean isAdmin = User.IsInRole("Admin");
+            //if (!(userName.Equals(appDevName)) && !isAdmin)
+            //{
+            //    return Unauthorized();
+            //    return NotFound();
+            //}
 
-            }
             if (ModelState.IsValid)
             {
                 try
-                {
+                { 
                     _context.Update(app);
                     await _context.SaveChangesAsync();
                 }
@@ -234,19 +272,15 @@ namespace ColmanAppStore.Controllers
             string appDevName = _context.Apps.Find(id).DeveloperName;
             if ((userName != appDevName))
             {
-
                 return Unauthorized("No Access");
                 //return NotFound();
-
             }
             if (id == null)
             {
                 return NotFound();
             }
 
-            var app = await _context.Apps
-                .Include(a => a.Category)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var app = await _context.Apps.Include(a => a.Category).FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {
                 return NotFound();
@@ -279,7 +313,6 @@ namespace ColmanAppStore.Controllers
         }
 
 
-       
         public async Task<IActionResult> Graph()
         {
             var payedApps = _context.Payment.Include(a => a.App);
@@ -307,7 +340,7 @@ namespace ColmanAppStore.Controllers
             List<int> listY = new List<int>();
             listY.Add(map.Keys.Count);
             listY.Add(_context.Apps.Count() - map.Keys.Count);
-            
+
             List<String> listX = new List<string>();
             listX.Add("Downloaded apps");
             listX.Add("Not downloaded apps");
@@ -315,9 +348,7 @@ namespace ColmanAppStore.Controllers
             ViewData["GraphUsageX"] = JsonConvert.SerializeObject(listX);
             ViewData["GraphUsageY"] = JsonConvert.SerializeObject(listY);
 
-
             return View();
-
         }
     }
 }

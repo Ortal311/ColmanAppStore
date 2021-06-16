@@ -10,6 +10,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -24,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Logo.Image" class="control-label"></label>
-                <input asp-for="Logo.Image" class="form-control" />
+                <input asp-for="Logo.Image" class="form-control" placeholder="@ViewBag.Logo.Image" value="@ViewBag.Logo.Image" />
                 <span asp-validation-for="Logo.Image" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -42,16 +43,25 @@
                 <input asp-for="Size" class="form-control" />
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Images" class="control-label">Choose 3 app images</label>
-                <select asp-for="Images" class="form-control" asp-items="ViewBag.Images"></select>
-                <span asp-validation-for="Images" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Videos" class="control-label">Choose 1 app videos</label>
-                <select asp-for="Videos" class="form-control" asp-items="ViewBag.Videos"></select>
-                <span asp-validation-for="Videos" class="text-danger"></span>
-            </div>
+
+            <input type="hidden" name="Images0" value="@ViewBag.Images0" />
+            <input type="hidden" name="Images1" value="@ViewBag.Images1" />
+            <input type="hidden" name="Images2" value="@ViewBag.Images2" />
+
+
+            <input type="hidden" name="Videos" value="@ViewBag.Videos" />
+            <input type="hidden" name="DeveloperName" value="@User.Identity.Name" />
+
+            @*<div class="form-group">
+            <label asp-for="Images" class="control-label">Choose 3 app images</label>
+            <select asp-for="Images" class="form-control" asp-items="ViewBag.Images" ></select>
+            <span asp-validation-for="Images" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Videos" class="control-label">Choose 1 app videos</label>
+            <select asp-for="Videos" class="form-control" asp-items="ViewBag.Videos"></select>
+            <span asp-validation-for="Videos" class="text-danger"></span>
+        </div>*@
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
