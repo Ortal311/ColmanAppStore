@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ColmanAppStore.Models.Review>
+
+@{
+    ViewData["Title"] = "All reviews";
+    <link rel="stylesheet" href="~/css/ReviewStyle.css" />
+}
+
+<div class="row">
+    <div class="col-9">
+        <h1 id="reviewHeader">Search review result</h1>
+    </div>
+
+    <div class="col-3">
+        <form id="searchReview" asp-action="SearchReview" asp-controller="Reviews" class="d-flex">
+            <input id="font" name="query" type="search" class="form-control" placeholder="Search by app name" aria-label="Search" aria-describedby="search-addon" autocomplete="off" />
+            <div id="slider-range"></div>
+        </form>
+    </div>
+
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Body)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Raiting)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.App)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Body)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Raiting) <span>&#9733;</span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.App.Name)
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>

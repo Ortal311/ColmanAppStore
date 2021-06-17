@@ -3,12 +3,18 @@
 }
 
 /*------------------Index--------------------*/
+#AppHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: center;
+    margin: 15px;
 
-    #AppHeader {
-        font-family: 'Days One', sans-serif;
-        text-align: center;
-        margin: 15px;
-    }
+}
+#AppSearchHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: right;
+    margin: 15px;
+    padding-right: 30px;
+}
 
     #LayoutBG {
         background-image: url(../LogoImage/1.jpg);
@@ -23,8 +29,7 @@
     width: auto;
     height: auto;
 }
-
-#AppLogo { /*CHANGED*/
+#AppFrontLogo { /*CHANGED*/
 
     max-width: 50%;
     height: auto;
@@ -32,6 +37,15 @@
     margin-right: auto;
     /* width: 70px;
     height: 70px;*/
+    margin-bottom: 5px;
+}
+
+#AppLogo { /*CHANGED*/
+
+    margin-left: auto;
+    margin-right: auto;
+     width: 70px;
+    height: 70px;
     margin-bottom: 5px;
 }
 
@@ -51,6 +65,10 @@
         margin-top: 10px;
     }
 
+#searchprice {
+    padding-top: 25px;
+}
+
 
 /*------------------Details--------------------*/
 #CardApp {
@@ -63,10 +81,9 @@
 }
 
 #AppLogoImg {
-    /* max-width: 15%; */
-
-    width: auto;
-    height: auto;
+    max-width: 15%; 
+  /*  width: auto;
+    height: auto; */
     margin-left: auto;
     margin-right: auto;
 }

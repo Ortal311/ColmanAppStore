@@ -30,23 +30,15 @@ namespace ColmanAppStore.Controllers
         }
 
 
-        public async Task<IActionResult> Search(string query)//search by name , category and description ( price is not working)
+        public async Task<IActionResult> Search(string query)//search by name , category and description
         {
 
-            /*(a.Price.CompareTo(float.Parse(query)) <= 0)*/
-            /* a.Description.Contains(query)*/
             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category)
                .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || (query == null));
 
             return View("Search", await searchContext.ToListAsync());
         }
-
-        
-         public async Task<IActionResult> ByPrice(string query)
-         {
-             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Price.CompareTo(float.Parse(query))<=0 ) );
-             return View("Search", await searchContext.ToListAsync());
-         }
+  
 
         // GET: Apps/Details/5
         public async Task<IActionResult> Details(int? id)

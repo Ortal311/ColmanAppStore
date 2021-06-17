@@ -5,19 +5,8 @@
     <link rel="stylesheet" href="~/css/categoryStyle.css" />
 }
 
-<div class="row">
-    <div class="col-10"> <h1 id="CategoryTitle">@Model.Name apps</h1></div>
-    
-    <div class="col-2">
-        <form asp-action="ByPrice" asp-controller="Apps" class="d-flex">
-            <input id="font" name="query" class="form-control" placeholder="Search " autocomplete="off" />
-            <div id="slider-range"></div>
 
-        </form>
-    </div>
- 
-</div>
-
+<h1 id="CategoryTitle">@Model.Name apps</h1>
 
 
 @if (Model.Apps != null && Model.Apps.Count > 0)
