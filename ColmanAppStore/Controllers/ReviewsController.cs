@@ -214,6 +214,15 @@ namespace ColmanAppStore.Controllers
             return View(review);
         }
 
+        public async Task<IActionResult>SearchReview(string query)//search by app name
+        {
+
+            var searchContext = _context.Review.Include(l => l.App)
+            .Where(a => a.App.Name.Contains(query) || (query == null));
+
+            return View("SearchReview", await searchContext.ToListAsync());
+        }
+
         // GET: Reviews/Delete/5
         [HttpGet]
         [Authorize(Roles = "Client,Admin,Programer")]

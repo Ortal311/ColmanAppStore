@@ -42,6 +42,7 @@
                                                 if (Model.AppListUser.Count == 0)
                                                 {
                                                     <h4>You have not purchased any apps yet </h4>
+                                                   
                                                 }
                                                 else
                                                 {
@@ -52,21 +53,21 @@
                                                                 <th>App</th>
                                                                 <th>Price</th>
                                                                 <th>View App</th>
-                                                         
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            
+
                                                             @foreach (var item in Model.AppListUser)
                                                             {
-                                                              
-                                                            <tr>
-                                                                <td>@i</td>
-                                                                <td>@item.Name</td>
-                                                                <td>@item.Price</td>
-                                                                <td><a asp-action="details" asp-controller="Apps" asp-route-id="@item.Id" class="btn btn-primary">View App </a></td>
-                                                                
-                                                            </tr>
+
+                                                                <tr>
+                                                                    <td>@i</td>
+                                                                    <td>@item.Name</td>
+                                                                    <td>@item.Price</td>
+                                                                    <td><a asp-action="details" asp-controller="Apps" asp-route-id="@item.Id" class="btn btn-primary">View App </a></td>
+
+                                                                </tr>
                                                                 i++;
                                                             }
 
@@ -89,7 +90,8 @@
                                         {
                                             if (Model.PaymentMethods.Count == 0)
                                             {
-                                                <h4>You did not enter credit card information</h4>
+                                                <h4 id="text-center">You did not enter credit card information</h4>
+                                                <a id="text-center" asp-action="Create" asp-controller="PaymentMethods" class="btn btn-primary">Click here to add paymemt method! </a>
                                             }
                                             else
                                             {

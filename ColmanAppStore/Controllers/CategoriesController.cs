@@ -128,6 +128,13 @@ namespace ColmanAppStore.Controllers
             return View(category);
         }
 
+        public async Task<IActionResult> SearchByPrice(string query)
+        {
+            var searchContext = _context.Apps.Include(l => l.Logo).Where(a => (a.Price.CompareTo(float.Parse(query)) <= 0));
+            return View("SearchByPrice", await searchContext.ToListAsync());
+        } 
+
+
         // GET: Categories/Delete/5
         [HttpGet]
         [Authorize(Roles = "Admin")]
