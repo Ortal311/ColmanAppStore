@@ -45,18 +45,20 @@
                 <input asp-for="Size" class="form-control" />
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
-              <div class="form-group" >
-             <label asp-for="DeveloperName" class="control-label" ></label>
-             <input asp-for="DeveloperName" class="form-control" />
-             <span asp-validation-for="DeveloperName" class="text-danger" ></span>
-        </div> 
+            <input type="hidden" name="DeveloperName" value="@User.Identity.Name" />
+
+            @*<div class="form-group">
+                <label asp-for="DeveloperName" class="control-label"></label>
+                <input asp-for="DeveloperName" class="form-control" />
+                <span asp-validation-for="DeveloperName" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
-                <label asp-for="Images" class="control-label">Choose 3 app images</label>
+                <label asp-for="Images" class="control-label"></label>
                 <select asp-for="Images" class="form-control" asp-items="ViewBag.Images"></select>
                 <span asp-validation-for="Images" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Videos" class="control-label">Choose 1 app videos</label>
+                <label asp-for="Videos" class="control-label"></label>
                 <select asp-for="Videos" class="form-control" asp-items="ViewBag.Videos"></select>
                 <span asp-validation-for="Videos" class="text-danger"></span>
             </div>

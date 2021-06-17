@@ -36,10 +36,10 @@ namespace ColmanAppStore.Models
         [Display(Name = "App logo")]
         public Logo Logo { get; set; }
 
-        [Display(Name = "App images")]
+        [Display(Name = "Choose 3 app images")]
         public List<AppImage> Images { get; set; }
 
-        [Display(Name = "App videos")]
+        [Display(Name = "Choose 1 app video")]
         public List<AppVideo> Videos { get; set; }
 
         public float AverageRaiting { get; set; }
