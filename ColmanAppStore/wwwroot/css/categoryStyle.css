@@ -13,11 +13,16 @@
 }
 
 #CardStyle {
-    width: 18rem;
+    /* width: 18rem; 
+
     margin-right: 10px;
     margin-left: 10px;
     margin-bottom: 10px;
+    text-align: center; */
+    margin: 10px;
     text-align: center;
+    width: auto;
+    height: auto;
 }
 
 #CardHeader {
@@ -27,17 +32,27 @@
 }
 
 #CardImg {
-    margin-left: auto;
+    /* margin-left: auto;
     margin-right: auto;
     width: 230px;
     height: 150px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; */
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 70px;
+    height: 70px;*/
+    margin-bottom: 5px;
+    /*padding-left: 3px;
+    padding-right:3px;*/
 }
 
 #CardBtn {
     margin: auto;
     display: table;
+    /*margin-top: 10px; */
 }
 
 /*----------------------Details----------------------*/

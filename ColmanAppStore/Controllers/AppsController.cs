@@ -41,12 +41,12 @@ namespace ColmanAppStore.Controllers
             return View("Search", await searchContext.ToListAsync());
         }
 
-        /* 
-         public async Task<IActionResult> SearchByPrice(string query)
+        
+         public async Task<IActionResult> ByPrice(string query)
          {
-             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Price.CompareTo(float.Parse(query))<=0 );
+             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => (a.Price.CompareTo(float.Parse(query))<=0 ) );
              return View("Search", await searchContext.ToListAsync());
-         }*/
+         }
 
         // GET: Apps/Details/5
         public async Task<IActionResult> Details(int? id)

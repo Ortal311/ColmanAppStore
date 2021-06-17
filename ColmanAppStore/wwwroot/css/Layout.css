@@ -61,6 +61,7 @@ html {
 }
 
 
+
 .col-navbar {
     background-color: #D3E0EA;
 }
@@ -122,5 +123,14 @@ html {
 body {
     margin-top: 20px;
 }
+
+
+.weatherwidget-io {
+    width: auto;
+    /*position: sticky;*/
+
+  
+}
+
 
 

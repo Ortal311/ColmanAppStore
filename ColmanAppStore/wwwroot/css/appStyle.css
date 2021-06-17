@@ -1,51 +1,61 @@
 ﻿body {
+ 
 }
 
 /*------------------Index--------------------*/
-#AppHeader {
-    font-family: 'Days One', sans-serif;
-    text-align: center;
-    margin: 15px;
-}
 
-#LayoutBG {
-    background-image: url(../LogoImage/1.jpg);
-    background-size: cover;
-}
+    #AppHeader {
+        font-family: 'Days One', sans-serif;
+        text-align: center;
+        margin: 15px;
+    }
 
-#AppCard {
-    width: 18rem;
-    height: 19rem;
+    #LayoutBG {
+        background-image: url(../LogoImage/1.jpg);
+        background-size: cover;
+    }
+
+#AppCard { /*CHANGED*/
+    /*width: 18rem;
+    height: 19rem;*/
     margin: 10px;
     text-align: center;
+    width: auto;
+    height: auto;
 }
 
-#AppLogo {
+#AppLogo { /*CHANGED*/
+
+    max-width: 50%;
+    height: auto;
     margin-left: auto;
-    margin-right:auto;
-    width: 70px;
-    height: 70px;
+    margin-right: auto;
+    /* width: 70px;
+    height: 70px;*/
     margin-bottom: 5px;
 }
 
-#AppTitle {
-    font-family: cursive;
-    font-weight: bold;
-    margin-right: auto;
-    margin-left: auto;
-    text-align: center
-}
+    #AppTitle {
+        font-family: cursive;
+        font-weight: bold;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center
+    }
 
-#AppButton {
-    margin-top: -10px
-}
+    #AppButton {
+        margin-top: -10px
+    }
 
-#marginbtn{
-    margin-top: 10px;
-}
+    #marginbtn {
+        margin-top: 10px;
+    }
+
+
 /*------------------Details--------------------*/
 #CardApp {
     width: 70rem;
+    height: auto;
     margin-top: 10px;
     margin-right: 10px;
     margin-left: 10px;
@@ -53,7 +63,12 @@
 }
 
 #AppLogoImg {
-    max-width: 15%;
+    /* max-width: 15%; */
+
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #AppContent {

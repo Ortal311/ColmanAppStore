@@ -87,24 +87,35 @@
                         <link href="https://fonts.googleapis.com/css2?family=Days+One&family=Indie+Flower&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
 
                         <nav class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                         
+
                             <a id="col-btn" class="btn btn-primary " asp-action="HomePage" asp-controller="Apps">Home</a>
 
-                            <a  class="btn_categories" asp-action="index" asp-controller="Categories"><h2 id="font" class="dropdown-header align-self-center">Categories</h2></a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="4" >News</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="3" >Social</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="2" >Sport</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="1" >Kids</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="5" >Games</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="6" >Shopping</a>
+                            <a class="btn_categories" asp-action="index" asp-controller="Categories"><h2 id="font" class="dropdown-header align-self-center">Categories</h2></a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="4">News</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="3">Social</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="2">Sport</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="1">Kids</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="5">Games</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="6">Shopping</a>
                             @if (User.IsInRole("Admin"))
                             {
-                                  <a id="col-btn" class="btn btn-primary" asp-action="Graph" asp-controller="Apps" asp-route-id="6" >Statistics</a>
+                                <a id="col-btn" class="btn btn-primary" asp-action="Graph" asp-controller="Apps" asp-route-id="6">Statistics</a>
                             }
 
                         </nav>
 
                     </div>
+                    <a class="weatherwidget-io" href="https://forecast7.com/en/32d0934d78/tel-aviv-yafo/" data-label_1="TEL AVIV" data-label_2="WEATHER" data-font="Verdana" data-icons="Climacons Animated" data-mode="Current" data-days="3" data-theme="original" >Tel Aviv weather</a>
+                    <script>
+                        !function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js';
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, 'script', 'weatherwidget-io-js');
+                    </script>
                 </aside>
 
                 <div class="col-sm-10 col-lines" @*id="LayoutBG"*@>
