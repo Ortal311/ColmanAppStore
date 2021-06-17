@@ -69,7 +69,8 @@
     margin-bottom: 10px;
 }
 
-#LayoutBG {
-    background-image: url(../LogoImage/blur1.jpg);
-    background-size: cover;
-}
+/*#LayoutBG {
+    background-image: linear-gradient(#92a8d1, #f0f0f0);*/
+    /*background-image: url(../LogoImage/blur1.jpg);
+    background-size: cover;*/
+/*}*/

@@ -1,5 +1,4 @@
-﻿
-* {
+﻿* {
     margin: 0;
     padding: 0;
 }
@@ -9,17 +8,15 @@ header {
     background-color: #E1F0FA;
 }
 
-main {
-    min-height: 500px;
-}
-
-
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
 }
 
+main {
+    min-height: 500px;
+}
 
 html {
     position: relative;
@@ -60,15 +57,14 @@ html {
     margin-left: 5px;
 }
 
-
 .col-navbar {
     background-color: #D3E0EA;
 }
 
 #col-btn {
     width: 100%;
-    font-family: 'Nunito' , sans-serif;
-    font-size: medium ;
+    font-family: 'Nunito', sans-serif;
+    font-size: medium;
 }
 
 .col-lines {
@@ -82,7 +78,7 @@ html {
 
 
 .btn_categories {
-    height: 30px; 
+    height: 30px;
     text-align: center;
     text-decoration: underline;
 }
@@ -99,7 +95,7 @@ html {
     align-items: center;
 }
 
-.slider{
+.slider {
     max-width: 600px;
 }
 
@@ -116,7 +112,7 @@ html {
     height: 100px;
     width: 100px;
     outline: black;
- color: black;
+    color: black;
 }
 
 body {
@@ -124,3 +120,81 @@ body {
 }
 
 
+.weatherwidget-io {
+    width: auto;
+    /*position: sticky;*/
+}
+
+#mainWindow {
+    padding: inherit;
+}
+
+/*#fullBG {
+    padding: 0px;
+}*/
+
+/*----------------------------Dark mode-----------------------------------------*/
+.dark {
+    background-color: #222;
+    color: #e6e6e6;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    float: right;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+    text-align: right;
+}
+
+    .theme-switch input {
+        display: none;
+    }
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+    .slider:before {
+        background-color: #fff;
+        bottom: 4px;
+        content: "";
+        height: 26px;
+        left: 4px;
+        position: absolute;
+        transition: .4s;
+        width: 26px;
+    }
+
+input:checked + .slider {
+    background-color: #66bb6a;
+}
+
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }
+
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+#labelMode {
+    margin: 10px;
+}
