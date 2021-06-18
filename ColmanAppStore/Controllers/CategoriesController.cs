@@ -130,8 +130,16 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult> SearchByPrice(string query)
         {
-            var searchContext = _context.Apps.Include(l => l.Logo).Where(a => (a.Price.CompareTo(float.Parse(query)) <= 0));
-            return View("SearchByPrice", await searchContext.ToListAsync());
+            try{
+                float.Parse(query);
+                var searchContext = _context.Apps.Include(l => l.Logo).Where(a => (a.Price.CompareTo(float.Parse(query)) <= 0));
+                return View("SearchByPrice", await searchContext.ToListAsync());
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index","Categories");
+            }
         } 
 
 

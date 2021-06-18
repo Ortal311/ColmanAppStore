@@ -94,6 +94,7 @@ namespace ColmanAppStore.Controllers
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("HomePage", "Apps");
+
             //return View(paymentMethod);
         }
 
@@ -147,6 +148,13 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(paymentMethod);
+        }
+        public async Task<IActionResult> SearchPaymentMethod(int query)//search by name , category and description
+        {
+
+            var searchContext = _context.PaymentMethod.Where(a => a.IdNumber==query || (query == null));
+
+            return View("searchPaymentMethod", await searchContext.ToListAsync());
         }
 
         // GET: PaymentMethods/Delete/5

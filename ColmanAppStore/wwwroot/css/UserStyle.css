@@ -16,4 +16,15 @@
     text-align: center;
 }
 
+#UserSearchHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: right;
+    padding-right: 100px;
+    margin: 15px;
+}
+
+#searchUser {
+    padding-top: 25px;
+}
+
 

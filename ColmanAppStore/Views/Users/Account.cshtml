@@ -18,9 +18,13 @@
                     <div class="col-lg-3 col-md-4">
                         <div class="myaccount-tab-menu nav" role="tablist">
 
-                            <a id="Titles" href="#orders" data-toggle="tab" class="" >My Orders</a>
+                            <a id="Titles" href="#orders" data-toggle="tab" class="">My Orders</a>
                             <a id="Titles" href="#payment-method" data-toggle="tab">Payment Method</a>
                             <a id="Titles" href="#account-info" data-toggle="tab" class=""> Account Details</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                            <a id="Titles" asp-action="Index" asp-controller="Users"> All Useres</a>
+                            }
                             <a id="Titles" asp-action="Logout" asp-controller="Users">Logout</a>
                         </div>
                     </div>
@@ -102,18 +106,20 @@
                                                             <th>Name</th>
                                                             <th>View Full Details</th>
                                                             <th>Edit Payment Method</th>
+                                                            <th>Delete Payment Method</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach (var item in Model.PaymentMethods)
                                                         {
 
-                                                            <tr>
-                                                                <td>@item.CardNumber</td>
-                                                                <td>@item.NameOnCard</td>
-                                                                <td><a asp-action="details" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Card Details </a></td>
-                                                                <td><a asp-action="edit" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Edit </a></td>
-                                                            </tr>
+                                                        <tr>
+                                                            <td>@item.CardNumber</td>
+                                                            <td>@item.NameOnCard</td>
+                                                            <td><a asp-action="details" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Card Details </a></td>
+                                                            <td><a asp-action="edit" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Edit </a></td>
+                                                            <td><a asp-action="delete" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Delete </a></td>
+                                                        </tr>
 
                                                         }
 

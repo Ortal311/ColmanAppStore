@@ -11,3 +11,14 @@
     width: 25rem;
     margin: auto;
 }
+
+#PaymentMethodHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: right;
+    padding-right: 60px;
+    margin: 15px;
+}
+
+#searchPaymentMethod {
+    padding-top: 25px;
+}

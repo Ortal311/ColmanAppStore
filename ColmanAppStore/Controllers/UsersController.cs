@@ -210,6 +210,14 @@ namespace ColmanAppStore.Controllers
 
 
         }
+
+        public async Task<IActionResult> SearchUser(string query)//search by name , category and description
+        {
+
+            var searchContext = _context.User.Where(a => a.Name.Contains(query) || (query == null));
+
+            return View("SearchUser", await searchContext.ToListAsync());
+        } 
         [HttpGet]
         [Authorize(Roles = "Admin,Client,Programmer")]
         public async Task<IActionResult> Delete(int? id)
