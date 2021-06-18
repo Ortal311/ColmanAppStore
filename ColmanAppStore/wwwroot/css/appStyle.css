@@ -16,11 +16,6 @@
     padding-right: 30px;
 }
 
-    #LayoutBG {
-        background-image: url(../LogoImage/1.jpg);
-        background-size: cover;
-    }
-
 #AppCard { /*CHANGED*/
     /*width: 18rem;
     height: 19rem;*/
