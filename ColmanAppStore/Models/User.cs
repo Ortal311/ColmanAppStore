@@ -33,13 +33,10 @@ namespace ColmanAppStore.Models
         [RegularExpression("^[A-Z]+[a-zA-Z0-9 ]*$", ErrorMessage = "The body must start with one or more uppercase letters")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        //public List<Payment> Payments { get; set; }
         
-        //Many to many
-        public List<PaymentMethod> PaymentMethods { get; set; }
+        public List<PaymentMethod> PaymentMethods { get; set; } //MANY users to MANY payment methods
 
-        public List<App> AppListUser { get; set; }
+        public List<App> AppListUser { get; set; } //ONE user to MANY apps
 
         public UserType UserType { get; set; } = UserType.Client;
     }

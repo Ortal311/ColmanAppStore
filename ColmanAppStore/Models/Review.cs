@@ -27,14 +27,14 @@ namespace ColmanAppStore.Models
         [Display(Name = "App name")]
         public int AppId { get; set; }
 
-        public App App { get; set; }
+        public App App { get; set; } //ONE app to MANY review
 
         [Display(Name = "User name")]
         public int UserNameId { get; set; }
 
         [Display(Name = "User name")]
         //[Required(ErrorMessage = "You must choose user")]
-        public User UserName { get; set; }
+        public User UserName { get; set; } 
 
     }
 }

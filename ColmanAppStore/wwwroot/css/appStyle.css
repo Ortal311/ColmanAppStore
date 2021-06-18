@@ -16,26 +16,22 @@
     padding-right: 70px;
 }
 
-#AppCard { /*CHANGED*/
-    /*width: 18rem;
-    height: 19rem;*/
+#AppCard { 
     margin: 10px;
     text-align: center;
     width: auto;
     height: auto;
 }
-#AppFrontLogo { /*CHANGED*/
+#AppFrontLogo {
 
     max-width: 50%;
     height: auto;
     margin-left: auto;
     margin-right: auto;
-    /* width: 70px;
-    height: 70px;*/
     margin-bottom: 5px;
 }
 
-#AppLogo { /*CHANGED*/
+#AppLogo { 
 
     margin-left: auto;
     margin-right: auto;
@@ -77,8 +73,6 @@
 
 #AppLogoImg {
     max-width: 15%; 
-  /*  width: auto;
-    height: auto; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -137,8 +131,6 @@
 }
 
 #ReviewCard {
-    /*width: 30rem;
-    height: 11rem;*/
     width:28rem;
     height:auto;
     border-radius: 5px;
@@ -161,12 +153,6 @@
 #ReviewUserName {
     font-weight: bold;
     text-align: left;
-}
-
-#ReviewPublishDate {
-    
-    /*text-align: right;
-    margin-right: -50px;*/
 }
 
 #ReviewBody {

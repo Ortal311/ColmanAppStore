@@ -128,24 +128,16 @@ body {
 
 .weatherwidget-io {
     width: auto;
-    /*position: sticky;*/
-
-  
 }
 
 
 .weatherwidget-io {
     width: auto;
-    /*position: sticky;*/
 }
 
 #mainWindow {
     padding: inherit;
 }
-
-/*#fullBG {
-    padding: 0px;
-}*/
 
 #darkBtnStyle {
     text-align:center;

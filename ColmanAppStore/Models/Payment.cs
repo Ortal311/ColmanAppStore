@@ -24,7 +24,7 @@ namespace ColmanAppStore.Models
         public int PaymentMethodId { get; set; }
 
         //one to many
-        public PaymentMethod PaymentMethod { get; set; }
+        public PaymentMethod PaymentMethod { get; set; } //ONE payment to ONE payment method
 
         [Display(Name = "App name")]
         public int AppId { get; set; }

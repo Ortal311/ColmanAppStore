@@ -30,9 +30,6 @@ namespace ColmanAppStore.Controllers
             String userName = User.Identity.Name;
             var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p => p.Name.Contains(userName));
             return View(await payments.ToListAsync());
-
-            //var colmanAppStoreContext = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod); // show everyone
-            //return View(await colmanAppStoreContext.ToListAsync());
         }
 
         // GET: Payments/Details/5
@@ -95,15 +92,12 @@ namespace ColmanAppStore.Controllers
                 }
             }
 
-            //ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
             ViewData["PaymentMethodId"] = new SelectList(paymentM, "Id", "CardNumber");
 
             return View();
         }
 
         // POST: Payments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client,Admin,Programer")]
@@ -166,8 +160,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: Payments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client,Admin,Programer")]
@@ -275,7 +267,6 @@ namespace ColmanAppStore.Controllers
             {
                 return null;
             }
-            //REVIEW is correct!!!! but the view is not
             var buyers = from p in _context.Payment.Include(r => r.App).Include(r => r.PaymentMethod)
                          join app in _context.Apps on p.AppId equals app.Id
                          where id == p.AppId
@@ -285,12 +276,10 @@ namespace ColmanAppStore.Controllers
             {
                 return null;
             }
-
-            model.Users = buyers.Distinct().Select(x => x).ToList();// Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
-
+            // Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
+            model.Users = buyers.Distinct().Select(x => x).ToList();
 
             return View(model);
-
         }
     }
 }

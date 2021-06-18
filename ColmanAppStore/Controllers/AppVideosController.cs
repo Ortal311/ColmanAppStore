@@ -60,8 +60,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: AppVideos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]
@@ -74,7 +72,7 @@ namespace ColmanAppStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appVideo.AppId);
+
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
 
             return View(appVideo);
@@ -100,8 +98,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: AppVideos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]

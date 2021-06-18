@@ -47,8 +47,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: Users/Register
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id,Name,Email,Password,UserType")] User user)
@@ -68,7 +66,6 @@ namespace ColmanAppStore.Controllers
 
 
                     return RedirectToAction("HomePage", "Apps");
-                    //return RedirectToAction("Create", "PaymentMethods");
                 }
                 else
                 {
@@ -86,8 +83,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: Users/Login
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Id,Name, Email,Password")] User user)
@@ -158,8 +153,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password,UserType")] User user)
@@ -206,15 +199,10 @@ namespace ColmanAppStore.Controllers
             }
 
             return View(user);
-
-
         }
 
-        public async Task<IActionResult> SearchUser(string query)//search by name , category and description
+        public async Task<IActionResult> SearchUser(string query)//search by name
         {
-            //var searchContext = _context.User.Where(a => a.Name.Contains(query) || (query == null));
-            //return View("SearchUser", await searchContext.ToListAsync());
-
             return Json(await _context.User.Where(a => a.Name.Contains(query)).ToListAsync());
         } 
 
@@ -261,7 +249,5 @@ namespace ColmanAppStore.Controllers
         {
             return _context.User.Any(e => e.Id == id);
         }
-
-
     }
 }

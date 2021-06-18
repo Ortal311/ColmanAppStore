@@ -70,8 +70,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: PaymentMethods/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client,Admin,Programer")]
@@ -94,8 +92,6 @@ namespace ColmanAppStore.Controllers
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("HomePage", "Apps");
-
-            //return View(paymentMethod);
         }
 
         // GET: PaymentMethods/Edit/5
@@ -152,7 +148,7 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> SearchPaymentMethod(int query)//search by name , category and description
         {
 
-            var searchContext = _context.PaymentMethod.Where(a => a.IdNumber==query || (query == null));
+            var searchContext = _context.PaymentMethod.Where(a => a.IdNumber==query );
 
             return View("searchPaymentMethod", await searchContext.ToListAsync());
         }

@@ -41,7 +41,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Reviews/Details/5
-     
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -75,14 +74,10 @@ namespace ColmanAppStore.Controllers
                     break;
                 }
             }
-
-            //ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name");
             return View();
         }
 
         // POST: Reviews/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client,Admin,Programer")]
@@ -130,15 +125,6 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            /*string userName = User.Identity.Name;
-            _context.Review.Find(id);
-            string reviewWriter = _context.Review.Find(id).UserName.Name;
-            if (userName != reviewWriter)
-            {
-                return Unauthorized();
-                //return NotFound();
-
-            }*/
             var review = await _context.Review.FindAsync(id);
             if (review == null)
             {
@@ -150,8 +136,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: Reviews/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,Raiting,PublishDate,AppId,UserNameId")] Review review)
@@ -160,15 +144,6 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            /*var rev = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
-            string userName = User.Identity.Name;
-            string reviewWriter = _context.Review.Find(id).UserName.Name;
-            if (userName != reviewWriter)
-            {
-                return Unauthorized();
-                //return NotFound();
-
-            }*/
 
             if (ModelState.IsValid)
             {
@@ -217,8 +192,7 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult>SearchReview(string query)//search by app name
         {
 
-            var searchContext = _context.Review.Include(l => l.App)
-            .Where(a => a.App.Name.Contains(query) || (query == null));
+            var searchContext = _context.Review.Include(l => l.App).Where(a => a.App.Name.Contains(query) || (query == null));
 
             return View("SearchReview", await searchContext.ToListAsync());
         }
@@ -304,7 +278,8 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            model.UserReviews = review.Distinct().Select(x => x).ToList(); ;// Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
+            // Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
+            model.UserReviews = review.Distinct().Select(x => x).ToList(); 
 
             return View(model);
         }

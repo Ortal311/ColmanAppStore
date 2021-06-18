@@ -31,11 +31,6 @@ namespace ColmanAppStore
             services.AddDbContext<ColmanAppStoreContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ColmanAppStoreContext")));
 
-          /*  services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(1);
-            });
-          */
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 options => { 
                     options.LoginPath = "/Users/Login";
@@ -62,8 +57,6 @@ namespace ColmanAppStore
 
             app.UseRouting();
 
-           // app.UseSession();
-
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -72,7 +65,7 @@ namespace ColmanAppStore
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Categories}/{action=Index}/{id?}"); 
+                    pattern: "{controller=Apps}/{action=HomePage}/{id?}"); 
             });
         }
     }

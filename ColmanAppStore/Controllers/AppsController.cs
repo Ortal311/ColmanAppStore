@@ -30,12 +30,11 @@ namespace ColmanAppStore.Controllers
         }
 
 
-        public async Task<IActionResult> Search(string query)//search by name , category and description
+        public async Task<IActionResult> Search(string query)//search by name and category 
         {
 
             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category)
                .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || (query == null));
-
             return View("Search", await searchContext.ToListAsync());
         }
   
@@ -137,7 +136,6 @@ namespace ColmanAppStore.Controllers
             if ((userName != appDevName) && !isAdmin)
             {
                 return Unauthorized("No Access");
-                //return NotFound();
             }
 
             if (id == null)
@@ -151,8 +149,6 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
-            //ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
-            //ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
 
             Logo logo = null;
             var apps = _context.Apps.Include(x => x.Logo).Include(y => y.Images).Include(z => z.Videos);
@@ -170,8 +166,6 @@ namespace ColmanAppStore.Controllers
         }
 
         // POST: Apps/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]
@@ -179,27 +173,6 @@ namespace ColmanAppStore.Controllers
                                             "countReview,DeveloperName")] App app) 
         {
             app.publishDate = DateTime.Now;
-            //app.Images = new List<AppImage>();
-            //foreach (var item in _context.AppsImage)
-            //{
-            //    if(item.Id == Images0 || item.Id == Images1 || item.Id == Images2)
-            //    {
-            //        item.AppId = app.Id;
-            //        app.Images.Add(item);
-            //        _context.Update(item);
-            //    }
-            //}
-            //app.Videos = new List<AppVideo>();
-            //foreach(var item in _context.AppVideo)
-            //{
-            //    if(item.Id==Videos)
-            //    {
-            //        item.AppId = app.Id;
-            //        app.Videos.Add(item);
-            //        _context.Update(item);
-            //        break;
-            //    }
-            ////}
 
             foreach (var item in _context.Logo)
             {
@@ -217,14 +190,6 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            //string userName = User.Identity.Name;
-            //string appDevName = _context.Apps.Find(id).DeveloperName;
-            //Boolean isAdmin = User.IsInRole("Admin");
-            //if (!(userName.Equals(appDevName)) && !isAdmin)
-            //{
-            //    return Unauthorized();
-            //    return NotFound();
-            //}
 
             if (ModelState.IsValid)
             {
@@ -260,7 +225,6 @@ namespace ColmanAppStore.Controllers
             if ((userName != appDevName))
             {
                 return Unauthorized("No Access");
-                //return NotFound();
             }
             if (id == null)
             {
@@ -319,7 +283,6 @@ namespace ColmanAppStore.Controllers
 
             var list = map.Keys.ToList();
             list.Sort();
-            //list.Reverse(); //descending from most popular to less popular
 
             var query = from key in list select new { label = key, y = map[key] };
             ViewData["Graphs"] = JsonConvert.SerializeObject(query);

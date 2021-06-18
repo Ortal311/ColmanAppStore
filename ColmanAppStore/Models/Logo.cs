@@ -18,6 +18,6 @@ namespace ColmanAppStore.Models
         public int AppsId { get; set; }
 
         [Display(Name = "App name")]
-        public App Apps { get; set; }
+        public App Apps { get; set; } //ONE app to ONE logo
     }
 }

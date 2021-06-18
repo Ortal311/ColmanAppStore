@@ -20,80 +20,80 @@
 
 </div>
 
-    <div>
+<div>
 
-        <div class="ManagerOverviewPageWrapper">
+    <div class="ManagerOverviewPageWrapper">
 
 
-            @if (Model.UserReviews.Count > 0)
-            {
-                <table class="table">
-                    <thead>
+        @if (Model.UserReviews.Count > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Body
+                        </th>
+                        <th>
+                            Raiting
+                        </th>
+                        <th>
+                            Publish Date
+                        </th>
+                        <th>
+                            App Name
+                        </th>
+                        <th>
+                            Edit review
+                        </th>
+                        <th>
+                            Delete review
+                        </th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Review rev in Model.UserReviews)
+                    {
                         <tr>
 
-                            <th>
-                                Title
-                            </th>
-                            <th>
-                                Body
-                            </th>
-                            <th>
-                                Raiting
-                            </th>
-                            <th>
-                                Publish Date
-                            </th>
-                            <th>
-                                App Name
-                            </th>
-                            <th>
-                                Edit review
-                            </th>
-                            <th>
-                                Delete review
-                            </th>
-
-
+                            <td>
+                                @Html.DisplayFor(modelItem => rev.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rev.Body)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rev.Raiting)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rev.PublishDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => rev.App.Name)
+                            </td>
+                            <td>
+                                <a asp-action="edit" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Edit </a>
+                            </td>
+                            <td>
+                                <a asp-action="delete" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Delete </a>
+                            </td>
 
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (Review rev in Model.UserReviews)
-                        {
-                            <tr>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => rev.Title)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => rev.Body)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => rev.Raiting)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => rev.PublishDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => rev.App.Name)
-                                </td>
-                                <td>
-                                    <a asp-action="edit" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Edit </a>
-                                </td>
-                                <td>
-                                    <a asp-action="delete" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Delete </a>
-                                </td>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h3 id="PageHeader">You did not write reviews to any app!</h3>
+        }
 
-                            </tr>
-
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <h3 id="PageHeader">You did not wrote reviews to any app!</h3>
-            }
-
-        </div>
     </div>
+</div>

@@ -23,7 +23,7 @@ namespace ColmanAppStore.Models
         [Display(Name = "Publish date")]
         public DateTime publishDate { get; set; }
 
-        public Category Category { get; set; }
+        public Category Category { get; set; } //ONE category to MANY apps
 
         [Required]
         [Display(Name = "Category")]
@@ -34,19 +34,19 @@ namespace ColmanAppStore.Models
 
         [Required]
         [Display(Name = "App logo")]
-        public Logo Logo { get; set; }
+        public Logo Logo { get; set; } //ONE app to ONE logo
 
         [Display(Name = "Choose 3 app images")]
-        public List<AppImage> Images { get; set; }
+        public List<AppImage> Images { get; set; } //ONE app to MANY images
 
         [Display(Name = "Choose 1 app video")]
-        public List<AppVideo> Videos { get; set; }
+        public List<AppVideo> Videos { get; set; } //ONE app to ONE video
 
         public float AverageRaiting { get; set; }
 
-        public List<Review> Review { get; set; }
+        public List<Review> Review { get; set; } //ONE app to MANY reviews
 
-        public int countReview { get; set; } //raiting
+        public int countReview { get; set; }
 
         [Required]
         [Display(Name="Developer Name")]

@@ -50,9 +50,8 @@
               window.onload = function () {
                 var dataPoint = [];
                 var chart = new CanvasJS.Chart("chartContainer", {
-                    theme: "light1", // "light2", "dark1", "dark2"
-                    //move
-                    animationEnabled: true, // change to true
+                    theme: "light1",
+                    animationEnabled: true,
                     title: {
                         text: "Popular downloaded apps",
                         fontColor: "black"
@@ -64,10 +63,6 @@
 
                         }]
                 });
-                  /*$.each(function (key, value) {
-                      dataPoint.push({ x: value[0], y: parseInt(value[1]) });
-                  });*/
-
                 chart.render();
             }
 </script>

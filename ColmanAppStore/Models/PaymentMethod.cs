@@ -32,11 +32,9 @@ namespace ColmanAppStore.Models
         [Range(100000000, 999999999, ErrorMessage = "The password must be 9 characters")]
         public long IdNumber { get; set; }
 
-        //One to many
-        public List<Payment> Payments { get; set; }
+        public List<Payment> Payments { get; set; } //ONE payment method to MANY payments
 
-        //Many to many
         [Display(Name = "Choose users who can use the card")]
-        public List<User> Users { get; set; }
+        public List<User> Users { get; set; } //MANY users to MANY payment methods
     }
 }

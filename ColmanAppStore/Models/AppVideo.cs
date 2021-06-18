@@ -20,6 +20,6 @@ namespace ColmanAppStore.Models
         [Display(Name = "App name")]
         public int AppId { get; set; }
 
-        public App App { get; set; }
+        public App App { get; set; } //ONE app to ONE video
     }
 }

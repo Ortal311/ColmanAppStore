@@ -13,7 +13,7 @@ namespace ColmanAppStore.Models
         [Required]
         public string Name { get; set; }
 
-        public List<App> Apps  { get; set; }
+        public List<App> Apps  { get; set; } //ONE category to MANY apps
 
     }
 }
