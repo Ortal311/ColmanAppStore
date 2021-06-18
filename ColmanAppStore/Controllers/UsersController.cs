@@ -92,7 +92,6 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Id,Name, Email,Password")] User user)
         {
-
             if (ModelState.IsValid)
             {
 
@@ -213,11 +212,13 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult> SearchUser(string query)//search by name , category and description
         {
+            //var searchContext = _context.User.Where(a => a.Name.Contains(query) || (query == null));
+            //return View("SearchUser", await searchContext.ToListAsync());
 
-            var searchContext = _context.User.Where(a => a.Name.Contains(query) || (query == null));
-
-            return View("SearchUser", await searchContext.ToListAsync());
+            return Json(await _context.User.Where(a => a.Name.Contains(query)).ToListAsync());
         } 
+
+
         [HttpGet]
         [Authorize(Roles = "Admin,Client,Programmer")]
         public async Task<IActionResult> Delete(int? id)

@@ -8,6 +8,8 @@ $(document).ready(function () {
         var element = document.body;
         element.classList.toggle("dark");
         document.getElementById("navBarStyle").classList.toggle("dark"); //dark mode for nav bar
+        //document.getElementsByClassName("col-navbar").classList.toggle("dark");
+
         document.getElementById("mainWindow").classList.toggle("dark");
     });
 });
