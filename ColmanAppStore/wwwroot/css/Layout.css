@@ -147,6 +147,9 @@ body {
     padding: 0px;
 }*/
 
+#darkBtnStyle {
+    text-align:center;
+}
 /*----------------------------Dark mode-----------------------------------------*/
 .dark {
     background-color: #222222bf;
