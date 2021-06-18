@@ -38,16 +38,16 @@
 
                                     @for (int i = 0; i < 3; i++)
                                     {
-                        <div class="col-md-4 mb-3">
-                            <div class="card" id="card-home">
-                                <img src="@order.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                <div class="card-body">
-                                    <h5 class="card-subtitle mb-2 text-muted">@order.ElementAt(i).Name</h5>
-                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                </div>
-                            </div>
-                        </div>}
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card" id="card-home">
+                                                <img src="@order.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>}
                                 </div>
                             </div>
                             <div class="carousel-item">
@@ -55,16 +55,16 @@
 
                                     @for (int i = 3; i < 6; i++)
                                     {
-                        <div class="col-md-4 mb-3">
-                            <div class="card" id="card-home">
-                                <img src="@order.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                <div class="card-body">
-                                    <h5 class="card-subtitle mb-2 text-muted">@order.ElementAt(i).Name</h5>
-                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                </div>
-                            </div>
-                        </div>}
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card" id="card-home">
+                                                <img src="@order.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>}
                                 </div>
                             </div>
                         </div>
@@ -104,17 +104,17 @@
 
                                     @for (int i = 0; i < 3; i++)
                                     {
-                        <div class="col-md-4 mb-3">
-                            <div class="card" id="card-home">
-                                <img src="@order2.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                <div class="card-body">
-                                    <h5 class="card-subtitle mb-2 text-muted">@order2.ElementAt(i).Name</h5>
-                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order2.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                    <!--<h6 class="card-title" type="date">Publish Date:@order2.ElementAt(i).publishDate.ToShortDateString()</h6>-->
-                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order2.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                </div>
-                            </div>
-                        </div>}
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card" id="card-home">
+                                                <img src="@order2.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order2.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order2.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <!--<h6 class="card-title" type="date">Publish Date:@order2.ElementAt(i).publishDate.ToShortDateString()</h6>-->
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order2.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>}
 
                                 </div>
                             </div>
@@ -124,18 +124,18 @@
                                     @for (int i = 3; i < 6; i++)
                                     {
 
-                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-4 mb-3">
 
-                            <div class="card" id="card-home">
-                                <img src="@order2.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                <div class="card-body">
-                                    <h5 class="card-subtitle mb-2 text-muted">@order2.ElementAt(i).Name</h5>
-                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order2.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                    <!--<h6 class="card-title" type="date">Publish Date:@order2.ElementAt(i).publishDate.ToShortDateString()</h6>-->
-                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order2.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                </div>
-                            </div>
-                        </div>}
+                                            <div class="card" id="card-home">
+                                                <img src="@order2.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order2.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order2.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <!--<h6 class="card-title" type="date">Publish Date:@order2.ElementAt(i).publishDate.ToShortDateString()</h6>-->
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order2.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>}
                                 </div>
                             </div>
                         </div>
@@ -176,17 +176,17 @@
 
                                     @for (int i = 0; i < 3; i++)
                                     {
-                        <div class="col-md-4 mb-3">
-                            <div class="card" id="card-home">
-                                <img src="@order3.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                <div class="card-body">
-                                    <h5 class="card-subtitle mb-2 text-muted">@order3.ElementAt(i).Name</h5>
-                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order3.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                    <!--<h6 class="card-title" type="date">Count: @order3.ElementAt(i).countReview</h6>-->
-                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order3.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                </div>
-                            </div>
-                        </div>}
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card" id="card-home">
+                                                <img src="@order3.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order3.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order3.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <!--<h6 class="card-title" type="date">Count: @order3.ElementAt(i).countReview</h6>-->
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order3.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>}
 
                                 </div>
                             </div>
@@ -196,18 +196,18 @@
                                     @for (int i = 3; i < 6; i++)
                                     {
 
-                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-4 mb-3">
 
-                            <div class="card" id="card-home">
-                                <img src="@order3.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                <div class="card-body">
-                                    <h5 class="card-subtitle mb-2 text-muted">@order3.ElementAt(i).Name</h5>
-                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order3.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                    <!--<h6 class="card-title" type="date">Count: @order3.ElementAt(i).countReview</h6>-->
-                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order3.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                </div>
-                            </div>
-                        </div>}
+                                            <div class="card" id="card-home">
+                                                <img src="@order3.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order3.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order3.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <!--<h6 class="card-title" type="date">Count: @order3.ElementAt(i).countReview</h6>-->
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order3.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>}
                                 </div>
                             </div>
                         </div>
@@ -224,7 +224,7 @@
 <!--Facebook Login + like Colmanappstore page-->
 
 
-<body>
+<body id="facebookLogin">
     <script>
         window.fbAsyncInit = function () {
             FB.init({
