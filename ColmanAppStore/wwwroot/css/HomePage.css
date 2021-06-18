@@ -4,7 +4,7 @@
     width: auto;
     height: auto;
     border-color: #D3E0EA;
-    border-width: 5px;
+    border-width: 3px;
 }
 
 #card-img-home {
@@ -17,11 +17,13 @@
 
 #center {
     margin: auto;
-    width:92%;
+    width:100%;
 }
+
 .card-subtitle {
     text-align: center;
 }
+
 #font2 {
     font-family: 'Days One', sans-serif;
     text-align: center;
