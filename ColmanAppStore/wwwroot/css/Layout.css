@@ -88,6 +88,11 @@ html {
     font-size: medium;
 }
 
+#font {
+    font-family: 'Nunito', sans-serif;
+    font-size: medium;
+}
+
 .card {
     height: 250px;
     display: flex;
