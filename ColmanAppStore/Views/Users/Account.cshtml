@@ -95,7 +95,7 @@
                                             if (Model.PaymentMethods.Count == 0)
                                             {
                                                 <h4 id="text-center">You did not enter credit card information</h4>
-                                                <a id="text-center" asp-action="Create" asp-controller="PaymentMethods" class="btn btn-primary">Click here to add paymemt method! </a>
+
                                             }
                                             else
                                             {
@@ -113,19 +113,21 @@
                                                         @foreach (var item in Model.PaymentMethods)
                                                         {
 
-                                                        <tr>
-                                                            <td>@item.CardNumber</td>
-                                                            <td>@item.NameOnCard</td>
-                                                            <td><a asp-action="details" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Card Details </a></td>
-                                                            <td><a asp-action="edit" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Edit </a></td>
-                                                            <td><a asp-action="delete" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Delete </a></td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td>@item.CardNumber</td>
+                                                                <td>@item.NameOnCard</td>
+                                                                <td><a asp-action="details" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Card Details </a></td>
+                                                                <td><a asp-action="edit" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Edit </a></td>
+                                                                <td><a asp-action="delete" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Delete </a></td>
+                                                            </tr>
 
                                                         }
 
                                                     </tbody>
 
                                                 </table>
+                                                <a id="text-center" asp-action="Create" asp-controller="PaymentMethods" class="btn btn-primary">Click here to add paymemt method! </a>
+
                                             }
                                         }
                                     }
