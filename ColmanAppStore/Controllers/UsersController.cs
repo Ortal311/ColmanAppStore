@@ -259,7 +259,7 @@ namespace ColmanAppStore.Controllers
                     break;
                 }
             }
-           
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);//sign out from cookie as well
             await _context.SaveChangesAsync();
             return RedirectToAction("HomePage", "Apps");
         }
