@@ -162,6 +162,20 @@ namespace ColmanAppStore.Controllers
             }
             ViewData["Logo"] = logo;
 
+            var AppReview = _context.Apps.Include(a => a.Review);
+            foreach(var item in AppReview)
+            {
+                if(item.Id==id)
+                {
+                    ViewData["countReview"] = item.countReview;
+                    ViewData["AverageRaiting"] = item.AverageRaiting;
+
+                    break;
+                }
+            }
+
+
+
             return View(app);
         }
 
@@ -170,7 +184,7 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size,AverageRaiting," +
-                                            "countReview,DeveloperName")] App app) 
+                                            "countReview, DeveloperName")] App app) 
         {
             app.publishDate = DateTime.Now;
 

@@ -240,9 +240,11 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var user = await _context.User.FindAsync(id);
+
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return RedirectToAction("HomePage", "Apps");
         }
 
         private bool UserExists(int id)
