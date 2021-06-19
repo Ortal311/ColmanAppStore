@@ -37,7 +37,7 @@ namespace ColmanAppStore.Controllers
                .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || (query == null));
             return View("Search", await searchContext.ToListAsync());
         }
-  
+
 
         // GET: Apps/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -163,9 +163,9 @@ namespace ColmanAppStore.Controllers
             ViewData["Logo"] = logo;
 
             var AppReview = _context.Apps.Include(a => a.Review);
-            foreach(var item in AppReview)
+            foreach (var item in AppReview)
             {
-                if(item.Id==id)
+                if (item.Id == id)
                 {
                     ViewData["countReview"] = item.countReview;
                     ViewData["AverageRaiting"] = item.AverageRaiting;
@@ -184,7 +184,7 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size,AverageRaiting," +
-                                            "countReview, DeveloperName")] App app) 
+                                            "countReview, DeveloperName")] App app)
         {
             app.publishDate = DateTime.Now;
 
@@ -208,7 +208,7 @@ namespace ColmanAppStore.Controllers
             if (ModelState.IsValid)
             {
                 try
-                { 
+                {
                     _context.Update(app);
                     await _context.SaveChangesAsync();
                 }

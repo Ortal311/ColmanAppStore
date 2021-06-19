@@ -137,7 +137,7 @@ namespace ColmanAppStore.Controllers
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            
+
             if (id == null)
             {
                 return NotFound();
@@ -148,7 +148,7 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-           
+
             return View(user);
         }
 
@@ -192,7 +192,7 @@ namespace ColmanAppStore.Controllers
             }
 
             var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
-       
+
             if (user == null)
             {
                 return NotFound();
@@ -204,7 +204,7 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> SearchUser(string query)//search by name
         {
             return Json(await _context.User.Where(a => a.Name.Contains(query)).ToListAsync());
-        } 
+        }
 
 
         [HttpGet]
@@ -214,12 +214,12 @@ namespace ColmanAppStore.Controllers
             if (id == null)
             {
                 return NotFound();
-            } 
+            }
             //only the user himself or admin can delete an account
             string connected = User.Identity.Name;
             string userName = _context.User.Find(id).Name;
             Boolean isAdmin = User.IsInRole("Admin");
-            if (connected!=userName && !isAdmin)
+            if (connected != userName && !isAdmin)
             {
                 return Unauthorized();
             }
@@ -239,11 +239,28 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.User.FindAsync(id);
+            var user = _context.User.Include(a => a.AppListUser);
 
-            _context.User.Remove(user);
+            foreach (var us in user)
+            {
+                if (us.Id == id)
+                {
+                    if (us.AppListUser.Count() > 0) //the user downloaded at least 1 app
+                    {
+                        foreach (var item in _context.Payment)
+                        {
+                            if (item.Name.Contains(us.Name))
+                            {
+                                _context.Remove(item); //delete each payment the removed user did
+                            }
+                        }
+                    }
+                    _context.User.Remove(us);
+                    break;
+                }
+            }
+           
             await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
             return RedirectToAction("HomePage", "Apps");
         }
 

@@ -19,6 +19,21 @@ namespace ColmanAppStore.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AppUser", b =>
+                {
+                    b.Property<int>("AppListUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppListUserId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("AppUser");
+                });
+
             modelBuilder.Entity("ColmanAppStore.Models.App", b =>
                 {
                     b.Property<int>("Id")
@@ -33,6 +48,7 @@ namespace ColmanAppStore.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DeveloperName")
@@ -49,9 +65,6 @@ namespace ColmanAppStore.Migrations
                     b.Property<float>("Size")
                         .HasColumnType("real");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("countReview")
                         .HasColumnType("int");
 
@@ -61,8 +74,6 @@ namespace ColmanAppStore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Apps");
                 });
@@ -229,6 +240,7 @@ namespace ColmanAppStore.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Body")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PublishDate")
@@ -238,6 +250,7 @@ namespace ColmanAppStore.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserNameId")
@@ -296,6 +309,21 @@ namespace ColmanAppStore.Migrations
                     b.ToTable("PaymentMethodUser");
                 });
 
+            modelBuilder.Entity("AppUser", b =>
+                {
+                    b.HasOne("ColmanAppStore.Models.App", null)
+                        .WithMany()
+                        .HasForeignKey("AppListUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ColmanAppStore.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ColmanAppStore.Models.App", b =>
                 {
                     b.HasOne("ColmanAppStore.Models.Category", "Category")
@@ -303,10 +331,6 @@ namespace ColmanAppStore.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ColmanAppStore.Models.User", null)
-                        .WithMany("AppListUser")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Category");
                 });
@@ -417,11 +441,6 @@ namespace ColmanAppStore.Migrations
             modelBuilder.Entity("ColmanAppStore.Models.PaymentMethod", b =>
                 {
                     b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("ColmanAppStore.Models.User", b =>
-                {
-                    b.Navigation("AppListUser");
                 });
 #pragma warning restore 612, 618
         }

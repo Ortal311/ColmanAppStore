@@ -21,6 +21,23 @@ namespace ColmanAppStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PaymentMethod",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NameOnCard = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CardNumber = table.Column<long>(type: "bigint", nullable: false),
+                    ExpiredDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CVV = table.Column<int>(type: "int", nullable: false),
+                    IdNumber = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentMethod", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -44,14 +61,13 @@ namespace ColmanAppStore.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     publishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Size = table.Column<float>(type: "real", nullable: false),
                     AverageRaiting = table.Column<float>(type: "real", nullable: false),
                     countReview = table.Column<int>(type: "int", nullable: false),
-                    DeveloperName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    DeveloperName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,12 +78,30 @@ namespace ColmanAppStore.Migrations
                         principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentMethodUser",
+                columns: table => new
+                {
+                    PaymentMethodsId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentMethodUser", x => new { x.PaymentMethodsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_Apps_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_PaymentMethodUser_PaymentMethod_PaymentMethodsId",
+                        column: x => x.PaymentMethodsId,
+                        principalTable: "PaymentMethod",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PaymentMethodUser_User_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,6 +121,30 @@ namespace ColmanAppStore.Migrations
                         name: "FK_AppsImage_Apps_AppId",
                         column: x => x.AppId,
                         principalTable: "Apps",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUser",
+                columns: table => new
+                {
+                    AppListUserId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUser", x => new { x.AppListUserId, x.UsersId });
+                    table.ForeignKey(
+                        name: "FK_AppUser_Apps_AppListUserId",
+                        column: x => x.AppListUserId,
+                        principalTable: "Apps",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppUser_User_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -141,6 +199,7 @@ namespace ColmanAppStore.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
                     AppId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -152,6 +211,12 @@ namespace ColmanAppStore.Migrations
                         principalTable: "Apps",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payment_PaymentMethod_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethod",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,8 +225,8 @@ namespace ColmanAppStore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Raiting = table.Column<float>(type: "real", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AppId = table.Column<int>(type: "int", nullable: false),
@@ -184,68 +249,20 @@ namespace ColmanAppStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PaymentMethod",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameOnCard = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CardNumber = table.Column<long>(type: "bigint", nullable: false),
-                    ExpiredDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CVV = table.Column<int>(type: "int", maxLength: 4, nullable: false),
-                    IdNumber = table.Column<long>(type: "bigint", maxLength: 9, nullable: false),
-                    PaymentId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PaymentMethod", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PaymentMethod_Payment_PaymentId",
-                        column: x => x.PaymentId,
-                        principalTable: "Payment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PaymentMethodUser",
-                columns: table => new
-                {
-                    PaymentMethodsId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PaymentMethodUser", x => new { x.PaymentMethodsId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_PaymentMethodUser_PaymentMethod_PaymentMethodsId",
-                        column: x => x.PaymentMethodsId,
-                        principalTable: "PaymentMethod",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PaymentMethodUser_User_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Apps_CategoryId",
                 table: "Apps",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Apps_UserId",
-                table: "Apps",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AppsImage_AppId",
                 table: "AppsImage",
                 column: "AppId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUser_UsersId",
+                table: "AppUser",
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppVideo_AppId",
@@ -264,9 +281,9 @@ namespace ColmanAppStore.Migrations
                 column: "AppId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PaymentMethod_PaymentId",
-                table: "PaymentMethod",
-                column: "PaymentId");
+                name: "IX_Payment_PaymentMethodId",
+                table: "Payment",
+                column: "PaymentMethodId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PaymentMethodUser_UsersId",
@@ -290,10 +307,16 @@ namespace ColmanAppStore.Migrations
                 name: "AppsImage");
 
             migrationBuilder.DropTable(
+                name: "AppUser");
+
+            migrationBuilder.DropTable(
                 name: "AppVideo");
 
             migrationBuilder.DropTable(
                 name: "Logo");
+
+            migrationBuilder.DropTable(
+                name: "Payment");
 
             migrationBuilder.DropTable(
                 name: "PaymentMethodUser");
@@ -305,16 +328,13 @@ namespace ColmanAppStore.Migrations
                 name: "PaymentMethod");
 
             migrationBuilder.DropTable(
-                name: "Payment");
-
-            migrationBuilder.DropTable(
                 name: "Apps");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "User");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Category");
         }
     }
 }

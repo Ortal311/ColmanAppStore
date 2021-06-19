@@ -52,5 +52,7 @@ namespace ColmanAppStore.Models
         [Display(Name="Developer Name")]
         public string DeveloperName { get; set; }
 
+        public List<User> Users { get; set; } //MANY users to MANY apps
+
     }
 }

@@ -36,7 +36,7 @@ namespace ColmanAppStore.Models
         
         public List<PaymentMethod> PaymentMethods { get; set; } //MANY users to MANY payment methods
 
-        public List<App> AppListUser { get; set; } //ONE user to MANY apps
+        public List<App> AppListUser { get; set; } //MANY users to MANY apps
 
         public UserType UserType { get; set; } = UserType.Client;
     }
