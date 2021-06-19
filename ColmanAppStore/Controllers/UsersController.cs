@@ -240,11 +240,13 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var user = _context.User.Include(a => a.AppListUser);
-
+            User u = null;
             foreach (var us in user)
             {
                 if (us.Id == id)
                 {
+                    u = us;
+
                     if (us.AppListUser.Count() > 0) //the user downloaded at least 1 app
                     {
                         foreach (var item in _context.Payment)
@@ -255,11 +257,29 @@ namespace ColmanAppStore.Controllers
                             }
                         }
                     }
-                    _context.User.Remove(us);
                     break;
                 }
             }
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);//sign out from cookie as well
+
+            var rev = _context.Review.Include(a => a.UserName);
+            foreach(var r in rev)
+            {
+                if(r.UserName == u)
+                {
+                    foreach(var a in _context.Apps)
+                    {
+                        if(a.Id == r.AppId)
+                        { //update the avg raiting of the app without the review of the deleted user
+                            a.AverageRaiting = (((a.AverageRaiting * a.countReview) - r.Raiting) / (a.countReview - 1));
+                            a.countReview--;
+                        }
+                    }
+                    _context.Remove(r);
+                }
+            }
+
+            _context.User.Remove(u);
+
             await _context.SaveChangesAsync();
             return RedirectToAction("HomePage", "Apps");
         }
