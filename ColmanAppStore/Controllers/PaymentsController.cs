@@ -258,7 +258,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AppBuyers(int? id)
         {
-            ViewModel model = new ViewModel();
+            Join model = new Join();
 
             // Init:
             model.Users = null;

@@ -258,7 +258,7 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult> UsersReview(int? id)
         {
-            ViewModel model = new ViewModel();
+            Join model = new Join();
 
             // Init:
             model.UserReviews = null;
