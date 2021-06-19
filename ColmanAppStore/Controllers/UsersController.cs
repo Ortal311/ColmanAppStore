@@ -275,6 +275,7 @@ namespace ColmanAppStore.Controllers
                         }
                     }
                     _context.Remove(r);
+                    break;
                 }
             }
 
