@@ -280,7 +280,7 @@ namespace ColmanAppStore.Controllers
             }
 
             _context.User.Remove(u);
-
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await _context.SaveChangesAsync();
             return RedirectToAction("HomePage", "Apps");
         }
