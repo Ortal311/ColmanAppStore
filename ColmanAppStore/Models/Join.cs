@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ColmanAppStore.Models
 {
-    //View Model for join
     public class Join
     {
         [ForeignKey("UserID")]
