@@ -239,7 +239,7 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = _context.User.Include(a => a.AppListUser);
+            var user = _context.User.Include(a => a.AppListUser).Include(p=>p.PaymentMethods);
             User u = null;
             foreach (var us in user)
             {
@@ -257,6 +257,22 @@ namespace ColmanAppStore.Controllers
                             }
                         }
                     }
+
+                    if(us.PaymentMethods.Count() > 0)
+                    {
+                        var pm = _context.PaymentMethod.Include(u => u.Users);
+                        foreach(var p in pm)
+                        {
+                            if(us.PaymentMethods.Contains(p))
+                            {
+                                if(p.Users.Count==1) //the deleted user is the only owner of the payment method
+                                {
+                                    _context.Remove(p);
+                                }
+                            }
+                        }
+                    }
+
                     break;
                 }
             }

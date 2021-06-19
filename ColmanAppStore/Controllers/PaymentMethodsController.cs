@@ -179,7 +179,31 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var paymentMethod = await _context.PaymentMethod.FindAsync(id);
-            _context.PaymentMethod.Remove(paymentMethod);
+            var pm = _context.PaymentMethod.Include(u => u.Users);
+            
+            foreach(var p in pm)
+            {
+                if(p.Id==id)
+                {
+                    if(p.Users.Count() == 1) //connected to only one user
+                    {
+                        _context.PaymentMethod.Remove(paymentMethod);
+                    }
+                    else
+                    {
+                        String userName = User.Identity.Name;
+                        var usr = _context.User.Include(p => p.PaymentMethods);
+                        foreach(var us in usr)
+                        {
+                            if(us.Name.Equals(userName))
+                            {
+                                us.PaymentMethods.Remove(p); //remove the current payment method for the connected user
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
