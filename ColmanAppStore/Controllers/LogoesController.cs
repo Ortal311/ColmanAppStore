@@ -84,10 +84,10 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            //WHY Logo is NULL?????
-            /*var logo = await _context.Logo
-             .Include(l => l.Apps)
-             .FirstOrDefaultAsync(m => m.Id == id);
+        
+            var logo = await _context.Logo
+              .Include(l => l.Apps)
+              .FirstOrDefaultAsync(m => m.Id == id);
             if (logo == null)
             {
                 return NotFound();
@@ -98,13 +98,13 @@ namespace ColmanAppStore.Controllers
             if ((userName != appDevName) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
-            }*/
+            }
 
-            var logo = await _context.Logo.FindAsync(id);
+           /* var logo = await _context.Logo.FindAsync(id);
             if (logo == null)
             {
                 return NotFound();
-            }
+            }*/
 
             var apps = _context.Apps.Include(l => l.Logo);
             foreach(var item in apps)
@@ -170,6 +170,13 @@ namespace ColmanAppStore.Controllers
             if (logo == null)
             {
                 return NotFound();
+            }
+            string userName = User.Identity.Name;
+            string appDevName = _context.Logo.Find(id).Apps.DeveloperName;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != appDevName) && !isAdmin)
+            {
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             return View(logo);
