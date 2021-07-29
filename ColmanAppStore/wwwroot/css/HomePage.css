@@ -38,3 +38,10 @@
 #facebookLogin {
     text-align: center;
 }
+
+/* Map style*/
+#myMap {
+    position: relative;
+    height: 500px;
+    margin-top: 50px;
+}

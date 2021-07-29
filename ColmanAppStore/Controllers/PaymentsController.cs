@@ -286,5 +286,16 @@ namespace ColmanAppStore.Controllers
 
             return View(model);
         }
+
+        public JsonResult GetCitiesList()
+        {
+            List<String> citiesLst = new List<string>();
+            foreach(var item in _context.Payment)
+            {
+                if (!citiesLst.Contains(item.City))
+                    citiesLst.Add(item.City);
+            }
+            return Json(citiesLst);
+        }
     }
 }
