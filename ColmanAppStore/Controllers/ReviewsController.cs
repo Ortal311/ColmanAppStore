@@ -121,15 +121,27 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
-            var review = await _context.Review.FindAsync(id);
+            var review = await _context.Review.Include(r => r.App).Include(r => r.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
                 return NotFound();
             }
+            string userName = User.Identity.Name;
+           
+            string ReviewWriter = review.UserName.Name;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != ReviewWriter) && !isAdmin)
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
+
+        //    var review = await _context.Review.FindAsync(id);
+           
             ViewData["AppId"] = review.AppId;
             ViewData["UserNameId"] = review.UserNameId;
             return View(review);
@@ -211,6 +223,14 @@ namespace ColmanAppStore.Controllers
             if (review == null)
             {
                 return NotFound();
+            }
+            string userName = User.Identity.Name;
+
+            string ReviewWriter = review.UserName.Name;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != ReviewWriter) && !isAdmin)
+            {
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             return View(review);

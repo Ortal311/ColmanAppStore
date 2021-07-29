@@ -87,6 +87,13 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            string userName = User.Identity.Name;
+            string appDevName = _context.Apps.Find(id).DeveloperName;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != appDevName) && !isAdmin)
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
 
             var appVideo = await _context.AppVideo.FindAsync(id);
             if (appVideo == null)
@@ -140,6 +147,13 @@ namespace ColmanAppStore.Controllers
             if (id == null)
             {
                 return NotFound();
+            }
+            string userName = User.Identity.Name;
+            string appDevName = _context.Apps.Find(id).DeveloperName;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != appDevName) && !isAdmin)
+            {
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             var appVideo = await _context.AppVideo
