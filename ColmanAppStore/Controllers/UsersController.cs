@@ -174,7 +174,7 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
- 
+
             if (ModelState.IsValid)
             {
                 try
@@ -202,16 +202,11 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Account(string id)//get to user account info by name
         {
-            if (id == null)
+            if (id == null )
             {
                 return NotFound();
             }
-            string connected = User.Identity.Name;
-
-            if (connected != id)
-            {
-                 return RedirectToAction("AccessDenied", "Users");
-            }
+     
             else
             {
 
@@ -220,6 +215,12 @@ namespace ColmanAppStore.Controllers
                 if (user == null)
                 {
                     return NotFound();
+                }
+                string connected = User.Identity.Name;
+
+                if (connected != id)
+                {
+                    return RedirectToAction("AccessDenied", "Users");
                 }
 
                 return View(user);
@@ -233,7 +234,7 @@ namespace ColmanAppStore.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Client,Programmer")]
+        [Authorize(Roles = "Admin,Client,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

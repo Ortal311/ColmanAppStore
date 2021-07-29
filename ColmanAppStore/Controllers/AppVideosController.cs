@@ -87,12 +87,27 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-
-            var appVideo = await _context.AppVideo.FindAsync(id);
+            var appVideo = await _context.AppVideo
+               .Include(a => a.App)
+               .FirstOrDefaultAsync(m => m.Id == id);
             if (appVideo == null)
             {
                 return NotFound();
             }
+
+            string userName = User.Identity.Name;
+            string appDevName = _context.AppVideo.Find(id).App.DeveloperName;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != appDevName) && !isAdmin)
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
+
+           /* var appVideo = await _context.AppVideo.FindAsync(id);
+            if (appVideo == null)
+            {
+                return NotFound();
+            }*/
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appVideo.AppId);
             return View(appVideo);
         }
@@ -141,15 +156,20 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-
             var appVideo = await _context.AppVideo
-                .Include(a => a.App)
-                .FirstOrDefaultAsync(m => m.Id == id);
+           .Include(a => a.App)
+           .FirstOrDefaultAsync(m => m.Id == id);
             if (appVideo == null)
             {
                 return NotFound();
             }
-
+            string userName = User.Identity.Name;
+            string appDevName = _context.AppVideo.Find(id).App.DeveloperName;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != appDevName) && !isAdmin)
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
             return View(appVideo);
         }
 

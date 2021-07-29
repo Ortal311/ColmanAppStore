@@ -54,8 +54,12 @@ namespace ColmanAppStore.Controllers
         // GET: Payments/Create
         [HttpGet]
         [Authorize(Roles = "Client,Admin,Programer")]
-        public IActionResult Create(int id)
+        public IActionResult Create(int? id) //added ? 
         {
+            if(id==null)
+            {
+                return NotFound();
+            }
 
             ViewData["AppId"] = id;
             foreach (var item in _context.Apps)
@@ -79,7 +83,8 @@ namespace ColmanAppStore.Controllers
             }
 
             var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
-            List<PaymentMethod> paymentM = new List<PaymentMethod>();
+
+             List<PaymentMethod> paymentM = new List<PaymentMethod>();
             foreach (var item in usr)
             {
                 if (item.Equals(connectedUser))

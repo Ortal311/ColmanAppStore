@@ -49,6 +49,13 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            //Not sure! ( compares name instead of user.UserName) 
+            string userName = User.Identity.Name;
+            var cardUser = _context.PaymentMethod.Find(id).NameOnCard;
+            if (!cardUser.Contains(userName) && !cardUser.Equals(userName))
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
 
             var paymentMethod = await _context.PaymentMethod.FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)

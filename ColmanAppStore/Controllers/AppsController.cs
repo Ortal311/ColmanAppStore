@@ -130,17 +130,17 @@ namespace ColmanAppStore.Controllers
         // GET: Apps/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
             if ((userName != appDevName) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
-            }
-
-            if (id == null)
-            {
-                return NotFound();
             }
 
             var app = await _context.Apps.FindAsync(id);
@@ -236,7 +236,8 @@ namespace ColmanAppStore.Controllers
         {
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
-            if ((userName != appDevName))
+            Boolean isAdmin = User.IsInRole("Admin");
+            if ((userName != appDevName) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
