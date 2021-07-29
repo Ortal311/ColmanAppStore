@@ -135,7 +135,7 @@ namespace ColmanAppStore.Controllers
             Boolean isAdmin = User.IsInRole("Admin");
             if ((userName != appDevName) && !isAdmin)
             {
-                return Unauthorized("No Access");
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             if (id == null)
@@ -238,7 +238,7 @@ namespace ColmanAppStore.Controllers
             string appDevName = _context.Apps.Find(id).DeveloperName;
             if ((userName != appDevName))
             {
-                return Unauthorized("No Access");
+                return RedirectToAction("AccessDenied", "Users");
             }
             if (id == null)
             {

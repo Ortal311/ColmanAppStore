@@ -135,6 +135,8 @@ namespace ColmanAppStore.Controllers
         }
 
         // GET: Users/Edit/5
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
 
@@ -142,25 +144,37 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            string connected = User.Identity.Name;
+            string userName = _context.User.Find(id).Name;
 
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            if (connected != userName)
             {
-                return NotFound();
+                return RedirectToAction("AccessDenied", "Users");
             }
+            else
+            {
+                var user = await _context.User.FindAsync(id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
 
-            return View(user);
+                return View(user);
+            }
         }
 
         // POST: Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password,UserType")] User user)
         {
+
             if (id != user.Id)
             {
                 return NotFound();
             }
+ 
             if (ModelState.IsValid)
             {
                 try
@@ -184,21 +198,32 @@ namespace ColmanAppStore.Controllers
             }
             return View(user);
         }
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Account(string id)//get to user account info by name
         {
             if (id == null)
             {
                 return NotFound();
             }
+            string connected = User.Identity.Name;
 
-            var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
-
-            if (user == null)
+            if (connected != id)
             {
-                return NotFound();
+                 return RedirectToAction("AccessDenied", "Users");
             }
+            else
+            {
 
-            return View(user);
+                var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                return View(user);
+            }
         }
 
         public async Task<IActionResult> SearchUser(string query)//search by name
@@ -221,7 +246,7 @@ namespace ColmanAppStore.Controllers
             Boolean isAdmin = User.IsInRole("Admin");
             if (connected != userName && !isAdmin)
             {
-                return Unauthorized();
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             var user = await _context.User

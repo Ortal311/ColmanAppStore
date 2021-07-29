@@ -263,13 +263,25 @@
                 xfbml: true,
                 version: 'v11.0'
             });
-
-
+            /*FB.api(
+                "/100841052251427_125106203158245/",
+                "POST",
+                {
+                    "message": "This is a test value"
+                },
+                function (response) {
+                    if (response && !response.error) {
+                        print("hello");
+                    }
+                }
+            );
+         
+            window.FB.AppEvents.logPageView();*/
         };
     </script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-
+  
 
     <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FColmanappstore-100841052251427&width=0&layout=button_count&action=like&size=large&share=true&height=46&appId=135748898652519"
             width="0" height="46" style="border:none;
