@@ -152,9 +152,8 @@ namespace ColmanAppStore.Controllers
             }
             return View(paymentMethod);
         }
-        public async Task<IActionResult> SearchPaymentMethod(int query)//search by name , category and description
+        public async Task<IActionResult> SearchPaymentMethod(int query)//search by id
         {
-
             var searchContext = _context.PaymentMethod.Where(a => a.IdNumber==query );
 
             return View("searchPaymentMethod", await searchContext.ToListAsync());
