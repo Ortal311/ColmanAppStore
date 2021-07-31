@@ -62,14 +62,17 @@ namespace ColmanAppStore.Controllers
             }
 
             ViewData["AppId"] = id;
+            var application = new App();
             foreach (var item in _context.Apps)
             {
                 if (item.Id == id)
                 {
                     ViewData["App"] = item;
+                    application = item;
                     break;
                 }
             }
+            
 
             String userName = User.Identity.Name;
             User connectedUser = null;
@@ -81,16 +84,19 @@ namespace ColmanAppStore.Controllers
                     break;
                 }
             }
-
+           
             var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
-
-             List<PaymentMethod> paymentM = new List<PaymentMethod>();
+     
+            List<PaymentMethod> paymentM = new List<PaymentMethod>();
             foreach (var item in usr)
             {
+
                 if (item.Equals(connectedUser))
                 {
                     foreach (var us in item.PaymentMethods)
                     {
+                        if (item.AppListUser.Contains(application)) // checks if the user already purchased the app
+                            return RedirectToAction("details", "Apps", new { id = id });
                         paymentM.Add(us);
                     }
                     break;

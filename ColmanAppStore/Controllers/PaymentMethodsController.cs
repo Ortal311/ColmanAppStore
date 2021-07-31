@@ -49,19 +49,27 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            //Not sure! ( compares name instead of user.UserName) 
-            string userName = User.Identity.Name;
-            var cardUser = _context.PaymentMethod.Find(id).NameOnCard;
-            if (!cardUser.Contains(userName) && !cardUser.Equals(userName))
-            {
-                return RedirectToAction("AccessDenied", "Users");
-            }
-
-            var paymentMethod = await _context.PaymentMethod.FirstOrDefaultAsync(m => m.Id == id);
+            var paymentMethod = await _context.PaymentMethod.Include(u => u.Users).FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
                 return NotFound();
             }
+
+            //Checks if the user has access to card details
+            List<User> cardUser = paymentMethod.Users;
+            string userName = User.Identity.Name;
+            int count = 0;
+            foreach ( var item in cardUser)
+            {
+                if (item.Name.Contains(userName))
+                {
+                    count++;
+                    break;
+                }
+            }
+            if (count == 0)
+                return RedirectToAction("AccessDenied", "Users");
+
 
             return View(paymentMethod);
         }
@@ -110,13 +118,42 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-
-            var paymentMethod = await _context.PaymentMethod.FindAsync(id);
+            var paymentMethod = await _context.PaymentMethod.Include(u => u.Users).FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
                 return NotFound();
             }
+
+            //Checks if the user has access to card details
+            List<User> cardUser = paymentMethod.Users;
+            string userName = User.Identity.Name;
+            int count = 0;
+            foreach (var item in cardUser)
+            {
+                if (item.Name.Contains(userName))
+                {
+                    count++;
+                    break;
+                }
+            }
+            if (count == 0)
+                return RedirectToAction("AccessDenied", "Users");
+
+
             return View(paymentMethod);
+
+            //OLD VERSION
+            /*  if (id == null)
+              {
+                  return NotFound();
+              }
+
+              var paymentMethod = await _context.PaymentMethod.FindAsync(id);
+              if (paymentMethod == null)
+              {
+                  return NotFound();
+              }
+              return View(paymentMethod);*/
         }
 
         // POST: PaymentMethods/Edit/5
@@ -168,14 +205,43 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-
-            var paymentMethod = await _context.PaymentMethod.FirstOrDefaultAsync(m => m.Id == id);
+            var paymentMethod = await _context.PaymentMethod.Include(u => u.Users).FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
                 return NotFound();
             }
 
+            //Checks if the user has access to card details
+            List<User> cardUser = paymentMethod.Users;
+            string userName = User.Identity.Name;
+            int count = 0;
+            foreach (var item in cardUser)
+            {
+                if (item.Name.Contains(userName))
+                {
+                    count++;
+                    break;
+                }
+            }
+            if (count == 0)
+                return RedirectToAction("AccessDenied", "Users");
+
+
             return View(paymentMethod);
+
+            //OLD VERSION
+            /* if (id == null)
+             {
+                 return NotFound();
+             }
+
+             var paymentMethod = await _context.PaymentMethod.FirstOrDefaultAsync(m => m.Id == id);
+             if (paymentMethod == null)
+             {
+                 return NotFound();
+             }
+
+             return View(paymentMethod);*/
         }
 
         // POST: PaymentMethods/Delete/5

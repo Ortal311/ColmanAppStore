@@ -234,16 +234,16 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
             if ((userName != appDevName) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
-            }
-            if (id == null)
-            {
-                return NotFound();
             }
 
             var app = await _context.Apps.Include(a => a.Category).FirstOrDefaultAsync(m => m.Id == id);

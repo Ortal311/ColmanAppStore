@@ -263,21 +263,28 @@
                 xfbml: true,
                 version: 'v11.0'
             });
-            /*FB.api(
-                "/100841052251427_125106203158245/",
-                "POST",
+            //POST-works only with short live token (long live token does not work)
+           /* FB.api(
+                '/100841052251427/feed',
+                'POST',
                 {
-                    "message": "This is a test value"
+                    "message": "hey!",
+                    access_token: 'EAAB7doDiAWcBAJvXFtSMHZBWbke6ZBFCZBmZC4wEUOjzJZCCZBq1GIDPDz7v6NDfLCeBGlsNgFzpgAVaz9F0lshUPZCIZAaYZBSy5fDfpXKctNzKbkjePkbX7Sd8K3lKLfQY4TMZAZBTwOMgZBIZBKbMVZA1wS9QARI67s2Ts2kgbXSScFQZChqLPgxqQcZB0gXxI5LcueDYDSkcg3aJQLndoXp15TyR'
                 },
                 function (response) {
-                    if (response && !response.error) {
-                        print("hello");
+                    // Insert your code here
+                    if (!response ) {
+                        alert('Error occured');
+                    } else {
+                        alert('Post ID: ' + response.id);
                     }
                 }
             );
          
-            window.FB.AppEvents.logPageView();*/
+            window.FB.AppEvents.logPageView(); */
+
         };
+        window.FB.AppEvents.logPageView();
     </script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
