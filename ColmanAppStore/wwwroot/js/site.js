@@ -22,8 +22,6 @@ function GetMap() {
         zoom: 10
     });
 
-    console.log("1");
-
     let name;
     const bing_key = 'ArSVHkQb2Q4uCxFV8HB41H0ZCCNbXAhEWXyXUYlJpAHnTFGRTbGRxXVSp9l0aOAQ';
     var pin;
