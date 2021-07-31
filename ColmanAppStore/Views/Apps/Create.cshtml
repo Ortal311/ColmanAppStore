@@ -63,6 +63,37 @@
             </div>
         </form>
     </div>
+
+    <a href="#" onClick="post();">Post to Facebook</a>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: 135748898652519,
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v11.0'
+            });
+         }
+        function post() {
+            FB.api(
+                '/100841052251427/feed',
+                'POST',
+                {
+                    message: "New App!!",
+                    access_token: 'EAAB7doDiAWcBAM1Tp6mwgpEZCYLUtYgZBjHRhdq4dmNaQq94cuWSSHr6IouPmCaghRcQgjBo4EMfno2Q8gDnZAMOB67ThfeoCNrIZB592SCEbPZBBJTSi9qYgSVNBYZC9PRL8325Ep0NmHBoykZCqwRZBqzQfO0urZCZA2E92gw6zp7cBZC3dzfVjrY'
+                },
+                function (response) {
+                    // Insert your code here
+                    if (!response) {
+                        alert('Error occured');
+                    } else {
+                        alert('Post ID: ' + response.id);
+                    }
+                }
+            );
+        }
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </div>
 
 

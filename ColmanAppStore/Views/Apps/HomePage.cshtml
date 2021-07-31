@@ -10,242 +10,242 @@
 <div id="center">
 
     <section class="pt-5 pb-5">
-      
+
+        <div class="row">
+
+            <h1 id="font2">Top Rated</h1>
+
             <div class="row">
+                <div class="col-1 align-self-center">
+                    <a class="btn btn-light mb-3 mr-1" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                        <i class="fa fa-arrow-left"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="col-10">
+                    <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+                        @{ var order = Model.OrderByDescending(r => r.AverageRaiting); }
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row">
 
-                <h1 id="font2">Top Rated</h1>
+                                    @for (int i = 0; i < 3; i++)
+                                    {
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card" id="card-home">
+                                                <img src="@order.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
 
-                <div class="row">
-                    <div class="col-1 align-self-center">
-                        <a class="btn btn-light mb-3 mr-1" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                                    @for (int i = 3; i < 6; i++)
+                                    {
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card" id="card-home">
+                                                <img src="@order.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 align-self-center">
+                    <a class="btn btn-light mb-3 " href="#carouselExampleIndicators1" role="button" data-slide="next">
+                        <i class="fa fa-arrow-right"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="pt-5 pb-5">
+
+        <div class="row">
+
+            <h1 id="font2">Last Released</h1>
+
+
+            <div class="row">
+                <div class="col-1 align-self-center">
+
+                    <div class="text-right">
+                        <a class="btn btn-light mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev" ">
                             <i class="fa fa-arrow-left"></i>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
                             </svg>
                         </a>
                     </div>
-                    <div class="col-10">
-                        <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
-                            @{ var order = Model.OrderByDescending(r => r.AverageRaiting); }
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="row">
+                </div>
+                <div class="col-10">
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                        @{ var order2 = Model.OrderByDescending(r => r.publishDate); }
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row">
 
-                                        @for (int i = 0; i < 3; i++)
-                                        {
-                                            <div class="col-md-4 mb-3">
-                                                <div class="card" id="card-home">
-                                                    <img src="@order.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                                    <div class="card-body">
-                                                        <h5 class="card-subtitle mb-2 text-muted">@order.ElementAt(i).Name</h5>
-                                                        <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                                        <a asp-action="details" asp-controller="Apps" asp-route-id="@order.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                                    </div>
+                                    @for (int i = 0; i < 3; i++)
+                                    {
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card" id="card-home">
+                                                <img src="@order2.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order2.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order2.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <!--<h6 class="card-title" type="date">Publish Date:@order2.ElementAt(i).publishDate.ToShortDateString()</h6>-->
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order2.ElementAt(i).Id" class="btn btn-primary">View App </a>
                                                 </div>
                                             </div>
-                                        }
-                                    </div>
+                                        </div>
+                                    }
+
                                 </div>
-                                <div class="carousel-item">
-                                    <div class="row">
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
 
-                                        @for (int i = 3; i < 6; i++)
-                                        {
-                                            <div class="col-md-4 mb-3">
-                                                <div class="card" id="card-home">
-                                                    <img src="@order.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                                    <div class="card-body">
-                                                        <h5 class="card-subtitle mb-2 text-muted">@order.ElementAt(i).Name</h5>
-                                                        <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                                        <a asp-action="details" asp-controller="Apps" asp-route-id="@order.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                                    </div>
+                                    @for (int i = 3; i < 6; i++)
+                                    {
+
+                                        <div class="col-md-4 mb-3">
+
+                                            <div class="card" id="card-home">
+                                                <img src="@order2.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order2.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order2.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+                                                    <!--<h6 class="card-title" type="date">Publish Date:@order2.ElementAt(i).publishDate.ToShortDateString()</h6>-->
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order2.ElementAt(i).Id" class="btn btn-primary">View App </a>
                                                 </div>
                                             </div>
-                                        }
-                                    </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-1 align-self-center">
-                        <a class="btn btn-light mb-3 " href="#carouselExampleIndicators1" role="button" data-slide="next">
-                            <i class="fa fa-arrow-right"></i>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                            </svg>
-                        </a>
-                    </div>
                 </div>
-          
+                <div class="col-1 align-self-center">
+                    <a class="btn btn-light mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
+                        <i class="fa fa-arrow-right"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
 
     </section>
 
     <section class="pt-5 pb-5">
-        
+
+        <div class="row">
+
+            <h1 id="font2">Most Reviewd</h1>
+
+
             <div class="row">
+                <div class="col-1 align-self-center">
 
-                <h1 id="font2">Last Released</h1>
-
-
-                <div class="row">
-                    <div class="col-1 align-self-center">
-
-                        <div class="text-right">
-                            <a class="btn btn-light mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev" ">
-                                <i class="fa fa-arrow-left"></i>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-10">
-                        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-                            @{ var order2 = Model.OrderByDescending(r => r.publishDate); }
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="row">
-
-                                        @for (int i = 0; i < 3; i++)
-                                        {
-                                            <div class="col-md-4 mb-3">
-                                                <div class="card" id="card-home">
-                                                    <img src="@order2.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                                    <div class="card-body">
-                                                        <h5 class="card-subtitle mb-2 text-muted">@order2.ElementAt(i).Name</h5>
-                                                        <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order2.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                                        <!--<h6 class="card-title" type="date">Publish Date:@order2.ElementAt(i).publishDate.ToShortDateString()</h6>-->
-                                                        <a asp-action="details" asp-controller="Apps" asp-route-id="@order2.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="row">
-
-                                        @for (int i = 3; i < 6; i++)
-                                        {
-
-                                            <div class="col-md-4 mb-3">
-
-                                                <div class="card" id="card-home">
-                                                    <img src="@order2.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                                    <div class="card-body">
-                                                        <h5 class="card-subtitle mb-2 text-muted">@order2.ElementAt(i).Name</h5>
-                                                        <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order2.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-                                                        <!--<h6 class="card-title" type="date">Publish Date:@order2.ElementAt(i).publishDate.ToShortDateString()</h6>-->
-                                                        <a asp-action="details" asp-controller="Apps" asp-route-id="@order2.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <a class="btn btn-light mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
-                            <i class="fa fa-arrow-right"></i>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                    <div class="text-right">
+                        <a class="btn btn-light mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev" ">
+                            <i class="fa fa-arrow-left"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
                             </svg>
                         </a>
                     </div>
                 </div>
+                <div class="col-10">
+                    <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
+                        @{ var order3 = Model.OrderByDescending(r => r.countReview); }
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row">
+
+                                    @for (int i = 0; i < 3; i++)
+                                    {
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card" id="card-home">
+                                                <img src="@order3.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order3.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order3.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+
+                                                    <!--<h6 class="card-title" type="date">Count: @order3.ElementAt(i).countReview</h6>-->
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order3.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+
+                                    @for (int i = 3; i < 6; i++)
+                                    {
+
+                                        <div class="col-md-4 mb-3">
+
+                                            <div class="card" id="card-home">
+                                                <img src="@order3.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
+                                                <div class="card-body">
+                                                    <h5 class="card-subtitle mb-2 text-muted">@order3.ElementAt(i).Name</h5>
+                                                    <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order3.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
+
+                                                    <!--<h6 class="card-title" type="date">Count: @order3.ElementAt(i).countReview</h6>-->
+                                                    <a asp-action="details" asp-controller="Apps" asp-route-id="@order3.ElementAt(i).Id" class="btn btn-primary">View App </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-1 align-self-center">
+                    <a class="btn btn-light mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next">
+                        <i class="fa fa-arrow-right"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
+        </div>
+
+
+
 
     </section>
-
-    <section class="pt-5 pb-5">
-        
-            <div class="row">
-
-                <h1 id="font2">Most Reviewd</h1>
-
-
-                <div class="row">
-                    <div class="col-1 align-self-center">
-
-                        <div class="text-right">
-                            <a class="btn btn-light mb-3 mr-1" href="#carouselExampleIndicators3" role="button" data-slide="prev" ">
-                                <i class="fa fa-arrow-left"></i>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-10">
-                        <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
-                            @{ var order3 = Model.OrderByDescending(r => r.countReview); }
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="row">
-
-                                        @for (int i = 0; i < 3; i++)
-                                        {
-                                            <div class="col-md-4 mb-3">
-                                                <div class="card" id="card-home">
-                                                    <img src="@order3.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                                    <div class="card-body">
-                                                        <h5 class="card-subtitle mb-2 text-muted">@order3.ElementAt(i).Name</h5>
-                                                        <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order3.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-
-                                                        <!--<h6 class="card-title" type="date">Count: @order3.ElementAt(i).countReview</h6>-->
-                                                        <a asp-action="details" asp-controller="Apps" asp-route-id="@order3.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="row">
-
-                                        @for (int i = 3; i < 6; i++)
-                                        {
-
-                                            <div class="col-md-4 mb-3">
-
-                                                <div class="card" id="card-home">
-                                                    <img src="@order3.ElementAt(i).Logo.Image" class="card-img-top" alt="can't load image" id="card-img-home">
-                                                    <div class="card-body">
-                                                        <h5 class="card-subtitle mb-2 text-muted">@order3.ElementAt(i).Name</h5>
-                                                        <h6 class="card-title">Raiting: @string.Format("{0:0.00}", @order3.ElementAt(i).AverageRaiting)  <span>&#9733;</span></h6>
-
-                                                        <!--<h6 class="card-title" type="date">Count: @order3.ElementAt(i).countReview</h6>-->
-                                                        <a asp-action="details" asp-controller="Apps" asp-route-id="@order3.ElementAt(i).Id" class="btn btn-primary">View App </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <a class="btn btn-light mb-3 " href="#carouselExampleIndicators3" role="button" data-slide="next">
-                            <i class="fa fa-arrow-right"></i>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-</section>
 
 </div>
 
@@ -255,7 +255,9 @@
 
 
 <body id="facebookLogin">
+   <a href="#" onClick="postToFacebook();">Post to Facebook</a> 
     <script>
+
         window.fbAsyncInit = function () {
             FB.init({
                 appId: 135748898652519,
@@ -263,37 +265,38 @@
                 xfbml: true,
                 version: 'v11.0'
             });
-            //POST-works only with short live token (long live token does not work)
-           /* FB.api(
-                '/100841052251427/feed',
-                'POST',
-                {
-                    "message": "hey!",
-                    access_token: 'EAAB7doDiAWcBAJvXFtSMHZBWbke6ZBFCZBmZC4wEUOjzJZCCZBq1GIDPDz7v6NDfLCeBGlsNgFzpgAVaz9F0lshUPZCIZAaYZBSy5fDfpXKctNzKbkjePkbX7Sd8K3lKLfQY4TMZAZBTwOMgZBIZBKbMVZA1wS9QARI67s2Ts2kgbXSScFQZChqLPgxqQcZB0gXxI5LcueDYDSkcg3aJQLndoXp15TyR'
-                },
-                function (response) {
-                    // Insert your code here
-                    if (!response ) {
-                        alert('Error occured');
-                    } else {
-                        alert('Post ID: ' + response.id);
+        }
+        
+            //Added Long live token
+            function postToFacebook() {
+                FB.api(
+                    '/100841052251427/feed',
+                    'POST',
+                    {
+                        message: "post",
+                        access_token: 'EAAB7doDiAWcBAM1Tp6mwgpEZCYLUtYgZBjHRhdq4dmNaQq94cuWSSHr6IouPmCaghRcQgjBo4EMfno2Q8gDnZAMOB67ThfeoCNrIZB592SCEbPZBBJTSi9qYgSVNBYZC9PRL8325Ep0NmHBoykZCqwRZBqzQfO0urZCZA2E92gw6zp7cBZC3dzfVjrY'
+                    },
+                    function (response) {
+                        // Insert your code here
+                        if (!response) {
+                            alert('Error occured');
+                        } else {
+                            alert('Post ID: ' + response.id);
+                        }
                     }
-                }
-            );
-         
-            window.FB.AppEvents.logPageView(); */
+                );
+            }
 
-        };
-        window.FB.AppEvents.logPageView();
+        
+          //  window.FB.AppEvents.logPageView();
+
     </script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-
-  
+     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
     <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FColmanappstore-100841052251427&width=0&layout=button_count&action=like&size=large&share=true&height=46&appId=135748898652519"
             width="0" height="46" style="border:none;
     overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-    </iframe>
+    </iframe> 
 
     <div class="fb-like" data-href="https://www.facebook.com/Colmanappstore-100841052251427"
          data-width="0" data-layout="button_count" data-action="like" data-size="large" data-share="true">
@@ -301,4 +304,5 @@
     </div>
 
     <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div>
+    
 </body>
