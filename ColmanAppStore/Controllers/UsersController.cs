@@ -142,7 +142,12 @@ namespace ColmanAppStore.Controllers
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
+            }
+            var user = await _context.User.FindAsync(id);
+            if (user == null)
+            {
+                return RedirectToAction("NotFound", "Home");
             }
             string connected = User.Identity.Name;
             string userName = _context.User.Find(id).Name;
@@ -153,12 +158,6 @@ namespace ColmanAppStore.Controllers
             }
             else
             {
-                var user = await _context.User.FindAsync(id);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-
                 return View(user);
             }
         }
@@ -172,7 +171,7 @@ namespace ColmanAppStore.Controllers
 
             if (id != user.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -187,7 +186,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!UserExists(user.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -204,7 +203,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null )
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
      
             else
@@ -214,7 +213,7 @@ namespace ColmanAppStore.Controllers
 
                 if (user == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("NotFound", "Home");
                 }
                 string connected = User.Identity.Name;
 
@@ -239,7 +238,13 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
+            }
+            var user = await _context.User
+              .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return RedirectToAction("NotFound", "Home");
             }
             //only the user himself or admin can delete an account
             string connected = User.Identity.Name;
@@ -250,12 +255,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+          
 
             return View(user);
         }

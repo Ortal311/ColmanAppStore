@@ -45,14 +45,14 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var review = await _context.Review.Include(r => r.App).Include(r => r.UserName).FirstOrDefaultAsync(m => m.Id == id);
 
             if (review == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             return View(review);
@@ -124,12 +124,12 @@ namespace ColmanAppStore.Controllers
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             var review = await _context.Review.Include(r => r.App).Include(r => r.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             string userName = User.Identity.Name;
            
@@ -154,7 +154,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id != review.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -187,7 +187,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!ReviewExists(review.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -216,13 +216,13 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var review = await _context.Review.Include(r => r.App).Include(r => r.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             string userName = User.Identity.Name;
 
@@ -285,7 +285,7 @@ namespace ColmanAppStore.Controllers
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
     
             var review  = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
@@ -295,7 +295,7 @@ namespace ColmanAppStore.Controllers
 
             if (review == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             // Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>

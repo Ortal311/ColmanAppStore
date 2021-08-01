@@ -50,7 +50,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var logo = await _context.Logo
@@ -58,7 +58,7 @@ namespace ColmanAppStore.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (logo == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             return View(logo);
@@ -96,7 +96,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
         
             var logo = await _context.Logo
@@ -104,7 +104,7 @@ namespace ColmanAppStore.Controllers
               .FirstOrDefaultAsync(m => m.Id == id);
             if (logo == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             string userName = User.Identity.Name;
             string appDevName = _context.Logo.Find(id).Apps.DeveloperName;
@@ -141,7 +141,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id != logo.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -155,7 +155,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!LogoExists(logo.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -175,7 +175,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var logo = await _context.Logo
@@ -183,7 +183,7 @@ namespace ColmanAppStore.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (logo == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             string userName = User.Identity.Name;
             string appDevName = _context.Logo.Find(id).Apps.DeveloperName;
