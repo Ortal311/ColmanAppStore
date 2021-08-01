@@ -60,19 +60,27 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            
+           
 
             ViewData["AppId"] = id;
             var application = new App();
+            int count = 0;
             foreach (var item in _context.Apps)
             {
                 if (item.Id == id)
                 {
+                    count++;
                     ViewData["App"] = item;
                     application = item;
                     break;
                 }
             }
-            
+            if (count == 0)//there is no such app
+            {
+                return NotFound();
+            }
+
 
             String userName = User.Identity.Name;
             User connectedUser = null;
