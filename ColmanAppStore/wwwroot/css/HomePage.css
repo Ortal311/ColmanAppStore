@@ -18,7 +18,7 @@
 
 #center {
     margin: auto;
-    width:100%;
+    width: 100%;
 }
 
 .card-subtitle {
@@ -36,6 +36,11 @@
 }
 
 #facebookLogin {
+    text-align: center;
+}
+
+#siteDescription {
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
 

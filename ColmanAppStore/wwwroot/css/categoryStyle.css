@@ -7,16 +7,14 @@
 /*----------------------Index----------------------*/
 #CategoryHeader {
     font-family: 'Days One', sans-serif;
-    text-align:  right;
+    text-align: right;
     padding-right: 75px;
-
     color: black;
     margin: 15px;
 }
 
 
 #CardStyle {
-
     margin: 10px;
     text-align: center;
     width: auto;
@@ -31,7 +29,6 @@
 }
 
 #CardImg {
-
     width: 100%;
     height: auto;
     margin-left: auto;
@@ -44,10 +41,8 @@
     display: table;
 }
 
-#searchprice{
-    
-    padding:17px; 
-
+#searchprice {
+    padding: 17px;
 }
 
 /*----------------------Details----------------------*/
@@ -78,4 +73,3 @@
 #AppBtn {
     margin-bottom: 10px;
 }
-

@@ -8,9 +8,7 @@
 <h1 id="paymentHeader">Buyers list</h1>
 
 <div>
-
     <div class="ManagerOverviewPageWrapper">
-
 
         @if (Model.Users.Count > 0)
         {
@@ -18,7 +16,7 @@
                 <thead>
                     <tr>
                         <th>
-                            ID
+                            Payment ID
                         </th>
                         <th>
                             Name
@@ -30,17 +28,17 @@
                             City
                         </th>
                         <th>
-                            Payment Method Id
+                            Payment Method number
                         </th>
                         <th>
-                            App Id
+                            App name
                         </th>
                         <th>
                             App details
                         </th>
-
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach (Payment user in Model.Users)
                     {
@@ -58,16 +56,15 @@
                             @Html.DisplayFor(modelItem => user.City)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => user.PaymentMethodId)
+                            @Html.DisplayFor(modelItem => user.PaymentMethod.CardNumber)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => user.AppId)
+                            @Html.DisplayFor(modelItem => user.App.Name)
                         </td>
                         <td>
-                            <a asp-controller="Apps" asp-action="Details" asp-route-id="@user.AppId">Back to app <i class="fas fa-info"></i></a> 
+                            <a asp-controller="Apps" asp-action="Details" asp-route-id="@user.AppId">Back to @user.App.Name <i class="fas fa-info"></i></a> 
                         </td>
                     </tr>
-
                     }
                 </tbody>
             </table>
