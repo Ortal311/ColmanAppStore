@@ -31,7 +31,9 @@ namespace ColmanAppStore.Controllers
                 if (item.Name.Equals(userName))
                 {
                     if ((int)item.UserType == 2) //admin user
+                    {
                         return View(await _context.Logo.Include(a => a.Apps).ToListAsync());
+                    }
                     else //programer user
                     {
                         var colmanAppStoreContext = _context.Logo.Include(a => a.Apps).Where(x => x.Apps.DeveloperName.Equals(item.Name));
@@ -53,9 +55,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            var logo = await _context.Logo
-                .Include(l => l.Apps)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var logo = await _context.Logo.Include(l => l.Apps).FirstOrDefaultAsync(m => m.Id == id);
             if (logo == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -98,10 +98,8 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-        
-            var logo = await _context.Logo
-              .Include(l => l.Apps)
-              .FirstOrDefaultAsync(m => m.Id == id);
+
+            var logo = await _context.Logo.Include(l => l.Apps).FirstOrDefaultAsync(m => m.Id == id);
             if (logo == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -109,19 +107,13 @@ namespace ColmanAppStore.Controllers
             string userName = User.Identity.Name;
             string appDevName = _context.Logo.Find(id).Apps.DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != appDevName) && !isAdmin)
+            if (!(userName.Equals(appDevName)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-           /* var logo = await _context.Logo.FindAsync(id);
-            if (logo == null)
-            {
-                return NotFound();
-            }*/
-
             var apps = _context.Apps.Include(l => l.Logo);
-            foreach(var item in apps)
+            foreach (var item in apps)
             {
                 if (item.Logo.Id == id)
                 {
@@ -178,9 +170,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            var logo = await _context.Logo
-                .Include(l => l.Apps)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var logo = await _context.Logo.Include(l => l.Apps).FirstOrDefaultAsync(m => m.Id == id);
             if (logo == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -188,7 +178,7 @@ namespace ColmanAppStore.Controllers
             string userName = User.Identity.Name;
             string appDevName = _context.Logo.Find(id).Apps.DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != appDevName) && !isAdmin)
+            if (!(userName.Equals(appDevName)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }

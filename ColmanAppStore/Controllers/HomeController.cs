@@ -23,7 +23,7 @@ namespace ColmanAppStore.Controllers
             _context = context;
         }
 
-        public  IActionResult Index()
+        public IActionResult Index()
         {
             return View("About");
         }

@@ -50,3 +50,13 @@
     height: 500px;
     margin-top: 50px;
 }
+
+#backToHome {
+    text-align: center;
+    margin: auto;
+    display: table;
+}
+
+#centerPage {
+    margin:auto;
+}

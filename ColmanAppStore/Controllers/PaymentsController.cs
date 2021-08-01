@@ -28,22 +28,22 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Index()
         {
-            /*String userName = User.Identity.Name;
-            var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p => p.Name.Contains(userName));
-           return View(await payments.ToListAsync());*/
-
-            /*String userName = User.Identity.Name;
-            User myUsr = _context.User.Where(i => i.Name.Equals(userName)).First();
-            int myId = myUsr.Id;
-            var userPay = _context.User.Include(p => p.AppListUser).Where(x=>x.Id==myId);
-            foreach(var item in userPay)
-            {
-
-            }*/
             String userName = User.Identity.Name;
-            return RedirectToAction("Account", "Users", new  { id = userName});
+            var usr = _context.User.Include(a => a.AppListUser).Include(p=>p.PaymentMethods);
+            foreach (var item in usr)
+            {
+                if(item.Name.Equals(userName))
+                {
+                    var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).
+                        Where(a => item.AppListUser.Contains(a.App)).Where(p=> item.PaymentMethods.Contains(p.PaymentMethod));
+                    return View(await payments.ToListAsync());
+                }
+            }
+            //in case user won't be found (never going to happen when logged in)
+            return View(await _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).ToListAsync());
 
-
+            //DO we need it???
+            //return RedirectToAction("Account", "Users", new  { id = userName});
         }
 
         // GET: Payments/Details/5
@@ -64,8 +64,8 @@ namespace ColmanAppStore.Controllers
             int count = 0;
             string userName= User.Identity.Name;
             int methodId = payment.PaymentMethodId;
-            var payMethod= _context.PaymentMethod.Include(u => u.Users).FirstOrDefault(m => m.Id == methodId);
-            var usr= payMethod.Users;
+            var payMethod = _context.PaymentMethod.Include(u => u.Users).FirstOrDefault(m => m.Id == methodId);
+            var usr = payMethod.Users;
             User myUsr = _context.User.Where(i => i.Name.Equals(userName)).First();
             int myId = myUsr.Id;
             foreach(var item in usr)
@@ -75,7 +75,6 @@ namespace ColmanAppStore.Controllers
                     count++;
                     break;
                 }
-
             }
             if(count==0)
             {
@@ -111,7 +110,6 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
 
             String userName = User.Identity.Name;
             User connectedUser = null;
@@ -332,6 +330,7 @@ namespace ColmanAppStore.Controllers
             return View(model);
         }
 
+        //Function for map
         public JsonResult GetCitiesList()
         {
             List<String> citiesLst = new List<string>();

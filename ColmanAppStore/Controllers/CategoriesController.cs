@@ -40,7 +40,7 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            
+
             ViewData["Logo"] = new SelectList(_context.Logo, "Id", "Name");
 
             return View(category);
@@ -60,8 +60,6 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
-            Console.WriteLine(ModelState.Values);
-
             if (ModelState.IsValid)
             {
                 _context.Add(category);
@@ -125,7 +123,8 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult> SearchByPrice(string query)
         {
-            try{
+            try
+            {
                 float.Parse(query);
                 var searchContext = _context.Apps.Include(l => l.Logo).Where(a => (a.Price.CompareTo(float.Parse(query)) <= 0));
                 return View("SearchByPrice", await searchContext.ToListAsync());
@@ -133,9 +132,9 @@ namespace ColmanAppStore.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index","Categories");
+                return RedirectToAction("Index", "Categories");
             }
-        } 
+        }
 
 
         // GET: Categories/Delete/5

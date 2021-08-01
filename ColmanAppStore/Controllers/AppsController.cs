@@ -144,12 +144,6 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-
-            var app = await _context.Apps.Include(a => a.Videos).Include(b => b.Images).FirstOrDefaultAsync(m => m.Id == id);
-            if (app == null)
-            {
-                return NotFound();
-            }
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
 
             Logo logo = null;
@@ -171,7 +165,6 @@ namespace ColmanAppStore.Controllers
                 {
                     ViewData["countReview"] = item.countReview;
                     ViewData["AverageRaiting"] = item.AverageRaiting;
-
                     break;
                 }
             }
@@ -186,7 +179,10 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size,AverageRaiting," +
                                             "countReview, DeveloperName")] App app)
         {
-            app.publishDate = DateTime.Now;
+            if (id != app.Id)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
 
             foreach (var item in _context.Logo) //update logo value in app
             {
@@ -201,15 +197,11 @@ namespace ColmanAppStore.Controllers
             }
             await _context.SaveChangesAsync();
 
-            if (id != app.Id)
-            {
-                return RedirectToAction("NotFound", "Home");
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    app.publishDate = DateTime.Now;
                     _context.Update(app);
                     await _context.SaveChangesAsync();
                 }
@@ -240,11 +232,7 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            var app = await _context.Apps.Include(a => a.Category).FirstOrDefaultAsync(m => m.Id == id);
-            if (app == null)
-            {
-                return RedirectToAction("NotFound", "Home");
-            }
+
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
@@ -256,7 +244,7 @@ namespace ColmanAppStore.Controllers
             var app = await _context.Apps.Include(a => a.Category).FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             return View(app);

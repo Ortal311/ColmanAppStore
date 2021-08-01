@@ -44,7 +44,6 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Details(int? id)
         {
-
             if (id == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -59,7 +58,7 @@ namespace ColmanAppStore.Controllers
             List<User> cardUser = paymentMethod.Users;
             string userName = User.Identity.Name;
             int count = 0;
-            foreach ( var item in cardUser)
+            foreach (var item in cardUser)
             {
                 if (item.Name.Contains(userName))
                 {
@@ -69,7 +68,6 @@ namespace ColmanAppStore.Controllers
             }
             if (count == 0)
                 return RedirectToAction("AccessDenied", "Users");
-
 
             return View(paymentMethod);
         }
@@ -191,7 +189,7 @@ namespace ColmanAppStore.Controllers
         }
         public async Task<IActionResult> SearchPaymentMethod(int query)//search by id
         {
-            var searchContext = _context.PaymentMethod.Where(a => a.IdNumber==query );
+            var searchContext = _context.PaymentMethod.Where(a => a.IdNumber == query);
 
             return View("searchPaymentMethod", await searchContext.ToListAsync());
         }
@@ -252,12 +250,12 @@ namespace ColmanAppStore.Controllers
         {
             var paymentMethod = await _context.PaymentMethod.FindAsync(id);
             var pm = _context.PaymentMethod.Include(u => u.Users);
-            
-            foreach(var p in pm)
+
+            foreach (var p in pm)
             {
-                if(p.Id==id)
+                if (p.Id == id)
                 {
-                    if(p.Users.Count() == 1) //connected to only one user
+                    if (p.Users.Count() == 1) //connected to only one user
                     {
                         _context.PaymentMethod.Remove(paymentMethod);
                     }
@@ -265,9 +263,9 @@ namespace ColmanAppStore.Controllers
                     {
                         String userName = User.Identity.Name;
                         var usr = _context.User.Include(p => p.PaymentMethods);
-                        foreach(var us in usr)
+                        foreach (var us in usr)
                         {
-                            if(us.Name.Equals(userName))
+                            if (us.Name.Equals(userName))
                             {
                                 us.PaymentMethods.Remove(p); //remove the current payment method for the connected user
                                 break;

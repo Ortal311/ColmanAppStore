@@ -31,7 +31,9 @@ namespace ColmanAppStore.Controllers
                 if (item.Name.Equals(userName))
                 {
                     if ((int)item.UserType == 2) //admin user
+                    {
                         return View(await _context.AppsImage.Include(a => a.App).ToListAsync());
+                    }
                     else //programer user
                     {
                         var colmanAppStoreContext = _context.AppsImage.Include(a => a.App).Where(x => x.App.DeveloperName.Equals(item.Name));
@@ -62,7 +64,6 @@ namespace ColmanAppStore.Controllers
             Boolean isAdmin = User.IsInRole("Admin");
             if (!appImage.App.DeveloperName.Equals(userName) && !isAdmin)
                 return RedirectToAction("AccessDenied", "Users");
-
 
             return View(appImage);
         }
@@ -115,12 +116,6 @@ namespace ColmanAppStore.Controllers
             if ((!userName.Equals(appDevName)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
-            }
-
-            var appImage = await _context.AppsImage.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
-            if (appImage == null)
-            {
-                return NotFound();
             }
 
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appImage.AppId);

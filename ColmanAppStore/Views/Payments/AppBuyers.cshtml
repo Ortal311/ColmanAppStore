@@ -42,29 +42,29 @@
                 <tbody>
                     @foreach (Payment user in Model.Users)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => user.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => user.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => user.Address)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => user.City)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => user.PaymentMethod.CardNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => user.App.Name)
-                        </td>
-                        <td>
-                            <a asp-controller="Apps" asp-action="Details" asp-route-id="@user.AppId">Back to @user.App.Name <i class="fas fa-info"></i></a> 
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.PaymentMethod.CardNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.App.Name)
+                            </td>
+                            <td>
+                                <a asp-controller="Apps" asp-action="Details" asp-route-id="@user.AppId">Back to @user.App.Name <i class="fas fa-info"></i></a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

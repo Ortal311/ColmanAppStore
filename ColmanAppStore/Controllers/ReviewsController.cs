@@ -49,7 +49,6 @@ namespace ColmanAppStore.Controllers
             }
 
             var review = await _context.Review.Include(r => r.App).Include(r => r.UserName).FirstOrDefaultAsync(m => m.Id == id);
-
             if (review == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -121,7 +120,6 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
-
             if (id == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -203,7 +201,6 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult>SearchReview(string query)//search by app name
         {
-
             var searchContext = _context.Review.Include(l => l.App).Where(a => a.App.Name.Contains(query) || (query == null));
 
             return View("SearchReview", await searchContext.ToListAsync());

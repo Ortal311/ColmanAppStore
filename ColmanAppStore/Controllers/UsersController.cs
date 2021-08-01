@@ -31,7 +31,6 @@ namespace ColmanAppStore.Controllers
             return View(await _context.User.ToListAsync());
         }
 
-
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -51,11 +50,9 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id,Name,Email,Password,UserType")] User user)
         {
-
             if (ModelState.IsValid)
             {
                 var q = _context.User.FirstOrDefault(u => u.Email == user.Email || u.Name == user.Name);
-
                 if (q == null)
                 {
                     _context.Add(user);
@@ -63,7 +60,6 @@ namespace ColmanAppStore.Controllers
 
                     var u = _context.User.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
                     Signin(u);
-
 
                     return RedirectToAction("HomePage", "Apps");
                 }
@@ -89,7 +85,6 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var q = from u in _context.User
                         where u.Password == user.Password && u.Email == user.Email
                         select u;
@@ -139,7 +134,6 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int? id)
         {
-
             if (id == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -168,7 +162,6 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password,UserType")] User user)
         {
-
             if (id != user.Id)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -208,9 +201,7 @@ namespace ColmanAppStore.Controllers
      
             else
             {
-
                 var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
-
                 if (user == null)
                 {
                     return RedirectToAction("NotFound", "Home");
@@ -231,7 +222,6 @@ namespace ColmanAppStore.Controllers
             return Json(await _context.User.Where(a => a.Name.Contains(query)).ToListAsync());
         }
 
-
         [HttpGet]
         [Authorize(Roles = "Admin,Client,Programer")]
         public async Task<IActionResult> Delete(int? id)
@@ -240,8 +230,7 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            var user = await _context.User
-              .FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _context.User.FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -254,8 +243,6 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
-
-          
 
             return View(user);
         }
@@ -272,7 +259,6 @@ namespace ColmanAppStore.Controllers
                 if (us.Id == id)
                 {
                     u = us;
-
                     if (us.AppListUser.Count() > 0) //the user downloaded at least 1 app
                     {
                         foreach (var item in _context.Payment)
@@ -298,7 +284,6 @@ namespace ColmanAppStore.Controllers
                             }
                         }
                     }
-
                     break;
                 }
             }

@@ -3,11 +3,9 @@
 @{
     ViewData["Title"] = "Register";
     <link rel="stylesheet" href="/css/UserStyle.css" />
-
 }
 
 <h1 id="UserHeader">Register a new user</h1>
-
 <hr />
 
 <div class="row">
@@ -42,14 +40,12 @@
                 <input type="submit" value="Register" class="btn btn-primary" />
             </div>
 
-
         </form>
         @if (ViewBag.Error != null)
         {
             <div class="text-danger">@ViewBag.Error</div>
         }
     </div>
-
 </div>
 
 

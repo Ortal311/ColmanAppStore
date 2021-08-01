@@ -31,7 +31,9 @@ namespace ColmanAppStore.Controllers
                 if (item.Name.Equals(userName))
                 {
                     if ((int)item.UserType == 2) //admin user
+                    {
                         return View(await _context.AppVideo.Include(a => a.App).ToListAsync());
+                    }
                     else //programer user
                     {
                         var colmanAppStoreContext = _context.AppVideo.Include(a => a.App).Where(x => x.App.DeveloperName.Equals(item.Name));
@@ -53,9 +55,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            var appVideo = await _context.AppVideo
-                .Include(a => a.App)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var appVideo = await _context.AppVideo.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
             if (appVideo == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -105,9 +105,7 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            var appVideo = await _context.AppVideo
-               .Include(a => a.App)
-               .FirstOrDefaultAsync(m => m.Id == id);
+            var appVideo = await _context.AppVideo.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
             if (appVideo == null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -121,11 +119,6 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-           /* var appVideo = await _context.AppVideo.FindAsync(id);
-            if (appVideo == null)
-            {
-                return NotFound();
-            }*/
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appVideo.AppId);
             return View(appVideo);
         }
@@ -174,9 +167,7 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            var appVideo = await _context.AppVideo
-           .Include(a => a.App)
-           .FirstOrDefaultAsync(m => m.Id == id);
+            var appVideo = await _context.AppVideo.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
             if (appVideo == null)
             {
                 return NotFound();
