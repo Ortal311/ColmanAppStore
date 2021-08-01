@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ColmanAppStore.Data;
 using ColmanAppStore.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Routing;
 
 namespace ColmanAppStore.Controllers
 {
@@ -27,9 +28,22 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Index()
         {
-            String userName = User.Identity.Name;
+            /*String userName = User.Identity.Name;
             var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).Where(p => p.Name.Contains(userName));
-            return View(await payments.ToListAsync());
+           return View(await payments.ToListAsync());*/
+
+            /*String userName = User.Identity.Name;
+            User myUsr = _context.User.Where(i => i.Name.Equals(userName)).First();
+            int myId = myUsr.Id;
+            var userPay = _context.User.Include(p => p.AppListUser).Where(x=>x.Id==myId);
+            foreach(var item in userPay)
+            {
+
+            }*/
+            String userName = User.Identity.Name;
+            return RedirectToAction("Account", "Users", new  { id = userName});
+
+
         }
 
         // GET: Payments/Details/5
@@ -47,7 +61,26 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
+            int count = 0;
+            string userName= User.Identity.Name;
+            int methodId = payment.PaymentMethodId;
+            var payMethod= _context.PaymentMethod.Include(u => u.Users).FirstOrDefault(m => m.Id == methodId);
+            var usr= payMethod.Users;
+            User myUsr = _context.User.Where(i => i.Name.Equals(userName)).First();
+            int myId = myUsr.Id;
+            foreach(var item in usr)
+            {
+                if (item.Id.Equals(myId))
+                {
+                    count++;
+                    break;
+                }
 
+            }
+            if(count==0)
+            {
+                return RedirectToAction("AccessDenied", "Users");
+            }
             return View(payment);
         }
 
@@ -61,8 +94,6 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
             
-           
-
             ViewData["AppId"] = id;
             var application = new App();
             int count = 0;
