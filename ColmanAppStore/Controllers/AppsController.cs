@@ -130,6 +130,11 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
+            var app = await _context.Apps.FindAsync(id);
+            if (app == null)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
 
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
@@ -139,11 +144,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            var app = await _context.Apps.FindAsync(id);
-            if (app == null)
-            {
-                return RedirectToAction("NotFound", "Home");
-            }
+          
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
 
             Logo logo = null;
