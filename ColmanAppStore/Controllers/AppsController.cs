@@ -98,7 +98,7 @@ namespace ColmanAppStore.Controllers
 
                 app.Images = new List<AppImage>();
                 app.Images.AddRange(_context.AppsImage.Where(x => Images.Contains(x.Id)));
-                foreach (var item in app.Images)
+                foreach (var item in app.Images) //connect app images to the app
                 {
                     item.AppId = app.Id;
                     item.App = app;
@@ -106,7 +106,7 @@ namespace ColmanAppStore.Controllers
 
                 app.Videos = new List<AppVideo>();
                 app.Videos.AddRange(_context.AppVideo.Where(x => Videos.Contains(x.Id)));
-                foreach (var item in app.Videos)
+                foreach (var item in app.Videos)  //connect app video to the app
                 {
                     item.AppId = app.Id;
                     item.App = app;
@@ -134,12 +134,13 @@ namespace ColmanAppStore.Controllers
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != appDevName) && !isAdmin)
+            if ((!userName.Equals(appDevName)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            var app = await _context.Apps.FindAsync(id);
+
+            var app = await _context.Apps.Include(a => a.Videos).Include(b => b.Images).FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {
                 return NotFound();
@@ -170,8 +171,6 @@ namespace ColmanAppStore.Controllers
                 }
             }
 
-
-
             return View(app);
         }
 
@@ -182,24 +181,25 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size,AverageRaiting," +
                                             "countReview, DeveloperName")] App app)
         {
+            if (id != app.Id)
+            {
+                return NotFound();
+            }
+
             app.publishDate = DateTime.Now;
 
-            foreach (var item in _context.Logo)
+            foreach (var item in _context.Logo) //update logo value in app
             {
                 if (item.AppsId == app.Id)
                 {
                     item.Image = app.Logo.Image;
                     _context.Update(item);
                     app.Logo = item;
+                    ViewData["Logo"] = item;
                     break;
                 }
             }
             await _context.SaveChangesAsync();
-
-            if (id != app.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -238,7 +238,7 @@ namespace ColmanAppStore.Controllers
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != appDevName) && !isAdmin)
+            if ((!userName.Equals(appDevName)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
@@ -275,7 +275,7 @@ namespace ColmanAppStore.Controllers
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Graph()
         {
             var payedApps = _context.Payment.Include(a => a.App);
@@ -296,11 +296,13 @@ namespace ColmanAppStore.Controllers
             var list = map.Keys.ToList();
             list.Sort();
 
+            //Charts graph
             var query = from key in list select new { label = key, y = map[key] };
             ViewData["Graphs"] = JsonConvert.SerializeObject(query);
 
+            //doughnut graph
             List<int> listY = new List<int>();
-            listY.Add(map.Keys.Count);
+            listY.Add(map.Keys.Count); //count of downloaded apps
             listY.Add(_context.Apps.Count() - map.Keys.Count);
 
             List<String> listX = new List<string>();

@@ -33,7 +33,6 @@ namespace ColmanAppStore.Models
         public int UserNameId { get; set; }
 
         [Display(Name = "User name")]
-        //[Required(ErrorMessage = "You must choose user")]
         public User UserName { get; set; } 
 
     }

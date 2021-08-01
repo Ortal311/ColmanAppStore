@@ -98,17 +98,19 @@ namespace ColmanAppStore.Controllers
             {
                 return NotFound();
             }
-            var appImage = await _context.AppsImage.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
-            if (appImage == null)
-            {
-                return NotFound();
-            }
+
             string userName = User.Identity.Name;
             string appDevName = _context.AppsImage.Find(id).App.DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
             if ((!userName.Equals(appDevName)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
+            }
+
+            var appImage = await _context.AppsImage.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
+            if (appImage == null)
+            {
+                return NotFound();
             }
 
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appImage.AppId);
