@@ -36,9 +36,13 @@ namespace ColmanAppStore.Models
         [Display(Name = "App logo")]
         public Logo Logo { get; set; } //ONE app to ONE logo
 
+        [Required(ErrorMessage = "You must enter 3 app images")]
+        [MaxLength(3), MinLength(3)]
         [Display(Name = "Choose 3 app images")]
         public List<AppImage> Images { get; set; } //ONE app to MANY images
 
+        [Required(ErrorMessage = "You must enter 1 app video")]
+        [MaxLength(1), MinLength(1)]
         [Display(Name = "Choose 1 app video")]
         public List<AppVideo> Videos { get; set; } //ONE app to ONE video
 
@@ -53,6 +57,5 @@ namespace ColmanAppStore.Models
         public string DeveloperName { get; set; }
 
         public List<User> Users { get; set; } //MANY users to MANY apps
-
     }
 }

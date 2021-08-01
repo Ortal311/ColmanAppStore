@@ -25,8 +25,22 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.Logo.Include(l => l.Apps);
-            return View(await colmanAppStoreContext.ToListAsync());
+            String userName = User.Identity.Name;
+            foreach (var item in _context.User)
+            {
+                if (item.Name.Equals(userName))
+                {
+                    if ((int)item.UserType == 2) //admin user
+                        return View(await _context.Logo.Include(a => a.Apps).ToListAsync());
+                    else //programer user
+                    {
+                        var colmanAppStoreContext = _context.Logo.Include(a => a.Apps).Where(x => x.Apps.DeveloperName.Equals(item.Name));
+                        return View(await colmanAppStoreContext.ToListAsync());
+                    }
+                }
+            }
+            // in case couldn't find the user (can't happen when logged in)
+            return View(await _context.Logo.ToListAsync());
         }
 
         // GET: Logoes/Details/5

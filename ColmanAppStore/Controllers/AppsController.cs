@@ -19,7 +19,6 @@ namespace ColmanAppStore.Controllers
         public AppsController(ColmanAppStoreContext context)
         {
             _context = context;
-
         }
 
         // GET: Apps
@@ -29,15 +28,13 @@ namespace ColmanAppStore.Controllers
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
-
-        public async Task<IActionResult> Search(string query)//search by name and category 
+        //Search by name and category 
+        public async Task<IActionResult> Search(string query)
         {
-
             var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category)
                .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || (query == null));
             return View("Search", await searchContext.ToListAsync());
         }
-
 
         // GET: Apps/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -47,8 +44,8 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-            var app = await _context.Apps
-                .Include(a => a.Category).Include(l => l.Logo).Include(v => v.Videos).Include(i => i.Images).Include(r => r.Review).
+            var app = await _context.Apps.Include(a => a.Category).Include(l => l.Logo).
+                Include(v => v.Videos).Include(i => i.Images).Include(r => r.Review).
                 ThenInclude(u => u.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {
@@ -90,7 +87,6 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 Logo log = new Logo();
                 log.Image = app.Logo.Image;
                 log.Apps = app;
@@ -223,7 +219,7 @@ namespace ColmanAppStore.Controllers
                         throw;
                     }
                 }
-                
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);

@@ -1,6 +1,5 @@
 ﻿
 #UserHeader {
-
     font-family: 'Days One', sans-serif;
     text-align: center;
     margin: 15px;
@@ -27,4 +26,8 @@
     padding-top: 25px;
 }
 
-
+#signoutBtn {
+    text-align: center;
+    margin: auto;
+    display: table;
+}

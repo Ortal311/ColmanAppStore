@@ -25,8 +25,22 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.AppsImage.Include(a => a.App);
-            return View(await colmanAppStoreContext.ToListAsync());
+            String userName = User.Identity.Name;
+            foreach (var item in _context.User)
+            {
+                if (item.Name.Equals(userName))
+                {
+                    if ((int)item.UserType == 2) //admin user
+                        return View(await _context.AppsImage.Include(a => a.App).ToListAsync());
+                    else //programer user
+                    {
+                        var colmanAppStoreContext = _context.AppsImage.Include(a => a.App).Where(x => x.App.DeveloperName.Equals(item.Name));
+                        return View(await colmanAppStoreContext.ToListAsync());
+                    }
+                }
+            }
+            // in case couldn't find the user (can't happen when logged in)
+            return View(await _context.AppsImage.ToListAsync());
         }
 
         // GET: AppImages/Details/5
@@ -39,10 +53,7 @@ namespace ColmanAppStore.Controllers
                 return NotFound();
             }
 
-
-            var appImage = await _context.AppsImage
-                .Include(a => a.App)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var appImage = await _context.AppsImage.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
             if (appImage == null)
             {
                 return NotFound();
@@ -68,14 +79,13 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                appImage.AppId = 1; //default before change in app's create
+                appImage.AppId = 1; //default app before change when app is created
                 _context.Add(appImage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-           
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
 
+            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View(appImage);
         }
 
@@ -96,16 +106,11 @@ namespace ColmanAppStore.Controllers
             string userName = User.Identity.Name;
             string appDevName = _context.AppsImage.Find(id).App.DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != appDevName) && !isAdmin)
+            if ((!userName.Equals(appDevName)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-          /*  var appImage = await _context.AppsImage.FindAsync(id);
-            if (appImage == null)
-            {
-                return NotFound();
-            }*/
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appImage.AppId);
             return View(appImage);
         }
@@ -162,11 +167,10 @@ namespace ColmanAppStore.Controllers
             string userName = User.Identity.Name;
             string appDevName = _context.AppsImage.Find(id).App.DeveloperName;
             Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != appDevName) && !isAdmin)
+            if ((!userName.Equals(appDevName)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
-
             return View(appImage);
         }
 

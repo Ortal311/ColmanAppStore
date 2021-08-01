@@ -1,5 +1,4 @@
 ﻿body {
- 
 }
 
 /*------------------Index--------------------*/
@@ -7,8 +6,8 @@
     font-family: 'Days One', sans-serif;
     text-align: center;
     margin: 15px;
-
 }
+
 #AppSearchHeader {
     font-family: 'Days One', sans-serif;
     text-align: right;
@@ -16,14 +15,14 @@
     padding-right: 70px;
 }
 
-#AppCard { 
+#AppCard {
     margin: 10px;
     text-align: center;
     width: auto;
     height: auto;
 }
-#AppFrontLogo {
 
+#AppFrontLogo {
     max-width: 50%;
     height: auto;
     margin-left: auto;
@@ -31,35 +30,33 @@
     margin-bottom: 5px;
 }
 
-#AppLogo { 
-
+#AppLogo {
     margin-left: auto;
     margin-right: auto;
-     width: 70px;
+    width: 70px;
     height: 70px;
     margin-bottom: 5px;
 }
 
-    #AppTitle {
-        font-family: cursive;
-        font-weight: bold;
-        margin-right: auto;
-        margin-left: auto;
-        text-align: center
-    }
+#AppTitle {
+    font-family: cursive;
+    font-weight: bold;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center
+}
 
-    #AppButton {
-        margin-top: -10px
-    }
+#AppButton {
+    margin-top: -10px
+}
 
-    #marginbtn {
-        margin-top: 10px;
-    }
+#marginbtn {
+    margin-top: 10px;
+}
 
 #searchprice {
     padding: 15px;
 }
-
 
 /*------------------Details--------------------*/
 #CardApp {
@@ -72,7 +69,7 @@
 }
 
 #AppLogoImg {
-    max-width: 15%; 
+    max-width: 15%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -89,7 +86,7 @@
 }
 
 #CarouselArrows {
-    margin:auto;
+    margin: auto;
 }
 
 #RatingAvg {
@@ -131,8 +128,8 @@
 }
 
 #ReviewCard {
-    width:28rem;
-    height:auto;
+    width: 28rem;
+    height: auto;
     border-radius: 5px;
     background-color: #E6FFFF;
     padding-left: 10px;
@@ -162,4 +159,10 @@
 #PageFooter {
     margin-top: 10px;
     text-align: center;
+}
+
+/*------------------Search--------------------*/
+
+#titleStyle {
+    text-align:center;
 }
