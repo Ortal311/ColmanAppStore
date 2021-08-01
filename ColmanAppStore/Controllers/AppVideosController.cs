@@ -50,7 +50,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var appVideo = await _context.AppVideo
@@ -58,8 +58,12 @@ namespace ColmanAppStore.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (appVideo == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
+            String userName = User.Identity.Name;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if (!appVideo.App.DeveloperName.Equals(userName) && !isAdmin)
+                return RedirectToAction("AccessDenied", "Users");
 
             return View(appVideo);
         }
@@ -99,14 +103,14 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             var appVideo = await _context.AppVideo
                .Include(a => a.App)
                .FirstOrDefaultAsync(m => m.Id == id);
             if (appVideo == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             string userName = User.Identity.Name;
@@ -134,7 +138,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id != appVideo.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -148,7 +152,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!AppVideoExists(appVideo.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -168,7 +172,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             var appVideo = await _context.AppVideo
            .Include(a => a.App)

@@ -47,12 +47,12 @@ namespace ColmanAppStore.Controllers
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             var paymentMethod = await _context.PaymentMethod.Include(u => u.Users).FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             //Checks if the user has access to card details
@@ -116,12 +116,12 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             var paymentMethod = await _context.PaymentMethod.Include(u => u.Users).FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             //Checks if the user has access to card details
@@ -164,7 +164,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id != paymentMethod.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -178,7 +178,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!PaymentMethodExists(paymentMethod.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -203,12 +203,12 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             var paymentMethod = await _context.PaymentMethod.Include(u => u.Users).FirstOrDefaultAsync(m => m.Id == id);
             if (paymentMethod == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             //Checks if the user has access to card details

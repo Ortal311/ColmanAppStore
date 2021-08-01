@@ -50,14 +50,19 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var appImage = await _context.AppsImage.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
             if (appImage == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
+            String userName = User.Identity.Name;
+            Boolean isAdmin = User.IsInRole("Admin");
+            if (!appImage.App.DeveloperName.Equals(userName) && !isAdmin)
+                return RedirectToAction("AccessDenied", "Users");
+
 
             return View(appImage);
         }
@@ -96,12 +101,12 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             var appImage = await _context.AppsImage.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
             if (appImage == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             string userName = User.Identity.Name;
             string appDevName = _context.AppsImage.Find(id).App.DeveloperName;
@@ -123,7 +128,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id != appImage.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -137,7 +142,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!AppImageExists(appImage.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -157,12 +162,12 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             var appImage = await _context.AppsImage.Include(a => a.App).FirstOrDefaultAsync(m => m.Id == id);
             if (appImage == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             string userName = User.Identity.Name;
             string appDevName = _context.AppsImage.Find(id).App.DeveloperName;

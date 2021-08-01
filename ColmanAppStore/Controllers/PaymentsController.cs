@@ -53,13 +53,13 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var payment = await _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).FirstOrDefaultAsync(m => m.Id == id);
             if (payment == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             int count = 0;
             string userName= User.Identity.Name;
@@ -91,7 +91,7 @@ namespace ColmanAppStore.Controllers
         {
             if(id==null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             
             ViewData["AppId"] = id;
@@ -109,7 +109,7 @@ namespace ColmanAppStore.Controllers
             }
             if (count == 0)//there is no such app
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
 
@@ -196,13 +196,13 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var payment = await _context.Payment.FindAsync(id);
             if (payment == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", payment.AppId);
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "ExpiredDate", payment.PaymentMethodId);
@@ -217,7 +217,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id != payment.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -231,7 +231,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!PaymentExists(payment.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -252,13 +252,13 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var payment = await _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).FirstOrDefaultAsync(m => m.Id == id);
             if (payment == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             return View(payment);
@@ -315,7 +315,7 @@ namespace ColmanAppStore.Controllers
 
             if (id == null)
             {
-                return null;
+                return RedirectToAction("NotFound", "Home");
             }
             var buyers = from p in _context.Payment.Include(r => r.App).Include(r => r.PaymentMethod)
                          join app in _context.Apps on p.AppId equals app.Id
@@ -324,7 +324,7 @@ namespace ColmanAppStore.Controllers
 
             if (buyers == null)
             {
-                return null;
+                return RedirectToAction("NotFound", "Home");
             }
             // Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
             model.Users = buyers.Distinct().Select(x => x).ToList();

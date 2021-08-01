@@ -32,14 +32,14 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var category = await _context.Category.Include(c => c.Apps).ThenInclude(c => c.Logo).FirstOrDefaultAsync(x => x.Id == id);
 
             if (category == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             
             ViewData["Logo"] = new SelectList(_context.Logo, "Id", "Name");
@@ -79,13 +79,13 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var category = await _context.Category.FindAsync(id);
             if (category == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             return View(category);
         }
@@ -98,7 +98,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id != category.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -112,7 +112,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!CategoryExists(category.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -146,14 +146,14 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var category = await _context.Category
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             return View(category);

@@ -41,7 +41,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             var app = await _context.Apps.Include(a => a.Category).Include(l => l.Logo).
@@ -49,7 +49,7 @@ namespace ColmanAppStore.Controllers
                 ThenInclude(u => u.UserName).FirstOrDefaultAsync(m => m.Id == id);
             if (app == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             string userName = User.Identity.Name;
@@ -128,7 +128,7 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             string userName = User.Identity.Name;
@@ -142,7 +142,7 @@ namespace ColmanAppStore.Controllers
             var app = await _context.Apps.FindAsync(id);
             if (app == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
 
@@ -198,7 +198,7 @@ namespace ColmanAppStore.Controllers
 
             if (id != app.Id)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
 
             if (ModelState.IsValid)
@@ -212,7 +212,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (!AppExists(app.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFound", "Home");
                     }
                     else
                     {
@@ -233,7 +233,12 @@ namespace ColmanAppStore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
+            }
+            var app = await _context.Apps.Include(a => a.Category).FirstOrDefaultAsync(m => m.Id == id);
+            if (app == null)
+            {
+                return RedirectToAction("NotFound", "Home");
             }
             string userName = User.Identity.Name;
             string appDevName = _context.Apps.Find(id).DeveloperName;
@@ -243,11 +248,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            var app = await _context.Apps.Include(a => a.Category).FirstOrDefaultAsync(m => m.Id == id);
-            if (app == null)
-            {
-                return NotFound();
-            }
+        
 
             return View(app);
         }
