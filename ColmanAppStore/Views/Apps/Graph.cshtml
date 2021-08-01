@@ -6,9 +6,9 @@
 
 }
 
+@*Graph 1*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
-
     <canvas id="myChart" style="height: 370px; width: 100%; padding:20px;"></canvas>
     <script>
         const xValues = @Html.Raw(ViewData["GraphUsageX"]);
@@ -40,12 +40,13 @@
 
 </body>
 
-<br><br>
+<br />
+<br />
 
-@*@Graph 2@*@
+@*Graph 2*@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
-            const map = @Html.Raw(ViewData["Graphs"]);
+              const map = @Html.Raw(ViewData["Graphs"]);
 
               window.onload = function () {
                 var dataPoint = [];
@@ -60,11 +61,10 @@
                         [{
                             type: "column",
                             dataPoints: map
-
                         }]
                 });
                 chart.render();
-            }
+              }
 </script>
 <body>
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
