@@ -57,16 +57,16 @@ namespace ColmanAppStore.Controllers
             //Checks if the user has access to card details
             List<User> cardUser = paymentMethod.Users;
             string userName = User.Identity.Name;
-            int count = 0;
+            int flag = 0;
             foreach (var item in cardUser)
             {
                 if (item.Name.Contains(userName))
                 {
-                    count++;
+                    flag++;
                     break;
                 }
             }
-            if (count == 0)
+            if (flag == 0)
                 return RedirectToAction("AccessDenied", "Users");
 
             return View(paymentMethod);
@@ -125,33 +125,21 @@ namespace ColmanAppStore.Controllers
             //Checks if the user has access to card details
             List<User> cardUser = paymentMethod.Users;
             string userName = User.Identity.Name;
-            int count = 0;
+            int flag = 0;
             foreach (var item in cardUser)
             {
                 if (item.Name.Contains(userName))
                 {
-                    count++;
+                    flag++;
                     break;
                 }
             }
-            if (count == 0)
+            if (flag == 0)
                 return RedirectToAction("AccessDenied", "Users");
 
 
             return View(paymentMethod);
 
-            //OLD VERSION
-            /*  if (id == null)
-              {
-                  return NotFound();
-              }
-
-              var paymentMethod = await _context.PaymentMethod.FindAsync(id);
-              if (paymentMethod == null)
-              {
-                  return NotFound();
-              }
-              return View(paymentMethod);*/
         }
 
         // POST: PaymentMethods/Edit/5
@@ -212,34 +200,21 @@ namespace ColmanAppStore.Controllers
             //Checks if the user has access to card details
             List<User> cardUser = paymentMethod.Users;
             string userName = User.Identity.Name;
-            int count = 0;
+            int flag = 0;
             foreach (var item in cardUser)
             {
                 if (item.Name.Contains(userName))
                 {
-                    count++;
+                    flag++;
                     break;
                 }
             }
-            if (count == 0)
+            if (flag == 0)
                 return RedirectToAction("AccessDenied", "Users");
 
 
             return View(paymentMethod);
 
-            //OLD VERSION
-            /* if (id == null)
-             {
-                 return NotFound();
-             }
-
-             var paymentMethod = await _context.PaymentMethod.FirstOrDefaultAsync(m => m.Id == id);
-             if (paymentMethod == null)
-             {
-                 return NotFound();
-             }
-
-             return View(paymentMethod);*/
         }
 
         // POST: PaymentMethods/Delete/5

@@ -16,12 +16,12 @@
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
 
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" readonly/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label" hidden></label>
-                <input asp-for="Email" class="form-control" hidden />
+                <label asp-for="Email" class="control-label" readonly></label>
+                <input asp-for="Email" class="form-control" readonly />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">

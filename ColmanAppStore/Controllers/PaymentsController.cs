@@ -42,9 +42,7 @@ namespace ColmanAppStore.Controllers
             //in case user won't be found (never going to happen when logged in)
             return View(await _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).ToListAsync());
 
-            //DO we need it???
-            //return RedirectToAction("Account", "Users", new  { id = userName});
-        }
+         }
 
         // GET: Payments/Details/5
         [HttpGet]
@@ -86,7 +84,7 @@ namespace ColmanAppStore.Controllers
         // GET: Payments/Create
         [HttpGet]
         [Authorize(Roles = "Client,Admin,Programer")]
-        public IActionResult Create(int? id) //added ? 
+        public IActionResult Create(int? id) 
         {
             if(id==null)
             {
@@ -306,15 +304,15 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AppBuyers(int? id)
         {
-            Join model = new Join();
-
-            // Init:
-            model.Users = null;
-
             if (id == null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
+            Join model = new Join();
+
+            // Init:
+            model.Users = null;
+          
             var buyers = from p in _context.Payment.Include(r => r.App).Include(r => r.PaymentMethod)
                          join app in _context.Apps on p.AppId equals app.Id
                          where id == p.AppId

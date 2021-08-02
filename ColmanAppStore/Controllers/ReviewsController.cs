@@ -133,13 +133,12 @@ namespace ColmanAppStore.Controllers
            
             string ReviewWriter = review.UserName.Name;
             Boolean isAdmin = User.IsInRole("Admin");
-            if ((userName != ReviewWriter) && !isAdmin)
+            if (!(userName.Equals(ReviewWriter)) && !isAdmin)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-        //    var review = await _context.Review.FindAsync(id);
-           
+                
             ViewData["AppId"] = review.AppId;
             ViewData["UserNameId"] = review.UserNameId;
             return View(review);

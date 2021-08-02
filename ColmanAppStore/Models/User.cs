@@ -38,6 +38,7 @@ namespace ColmanAppStore.Models
 
         public List<App> AppListUser { get; set; } //MANY users to MANY apps
 
+        [Display(Name = "User type")]
         public UserType UserType { get; set; } = UserType.Client;
     }
 }

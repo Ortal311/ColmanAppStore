@@ -198,8 +198,7 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-     
-            else
+             else
             {
                 var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
                 if (user == null)
@@ -208,7 +207,7 @@ namespace ColmanAppStore.Controllers
                 }
                 string connected = User.Identity.Name;
 
-                if (connected != id)
+                if (!connected.Equals(id))
                 {
                     return RedirectToAction("AccessDenied", "Users");
                 }
