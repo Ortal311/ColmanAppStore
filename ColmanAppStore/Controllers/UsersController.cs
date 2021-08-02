@@ -192,7 +192,7 @@ namespace ColmanAppStore.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Client,Admin,Programer")]
-        public async Task<IActionResult> Account(string id)//get to user account info by name
+        public async Task<IActionResult> Account(string id) //get to user account info by name
         {
             if (id == null )
             {
@@ -210,6 +210,15 @@ namespace ColmanAppStore.Controllers
                 if (!connected.Equals(id))
                 {
                     return RedirectToAction("AccessDenied", "Users");
+                }
+
+                foreach(var usr in _context.User.Include(a=>a.AppListUser)) //calc list of user's payments
+                {
+                    if(usr.Name.Equals(connected))
+                    {
+                        ViewData["Payments"] = _context.Payment.Include(a => a.App).Include(c=>c.PaymentMethod).Where(b =>usr.AppListUser.Contains(b.App)).Where(u=>usr.PaymentMethods.Contains(u.PaymentMethod));
+                        break;
+                    }
                 }
 
                 return View(user);

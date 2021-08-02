@@ -67,8 +67,17 @@
                                                                     <td>@i</td>
                                                                     <td>@item.Name</td>
                                                                     <td>@item.Price</td>
-                                                                    <td><a asp-action="details" asp-controller="Apps" asp-route-id="@item.Id" class="btn btn-primary">View App </a></td>
-                                                                    <td><a id="marginbtn" class="btn btn-danger" asp-action="delete" asp-route-id="" asp-controller="Payments">Delete</a></td>
+                                                                    <td><a asp-action="details" asp-controller="Apps" asp-route-id="@item.Id" class="btn btn-outline-info">View App </a></td>
+
+                                                                    @foreach (var p in ViewBag.Payments) //delete payment button
+                                                                    {
+                                                                        @if (p.App.Id == item.Id)
+                                                                        {
+                                                                            <td><a id="marginbtn" class="btn btn-outline-danger" asp-action="delete" asp-route-id="@p.Id" asp-controller="Payments">Delete</a></td>
+                                                                            break;
+                                                                        }
+                                                                    }
+
                                                                 </tr>
                                                                 i++;
                                                             }
@@ -113,9 +122,9 @@
                                                             <tr>
                                                                 <td>@item.CardNumber</td>
                                                                 <td>@item.NameOnCard</td>
-                                                                <td><a asp-action="details" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Card Details </a></td>
-                                                                <td><a asp-action="edit" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Edit </a></td>
-                                                                <td><a asp-action="delete" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-primary"> Delete </a></td>
+                                                                <td><a asp-action="details" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-outline-info"> Card Details </a></td>
+                                                                <td><a asp-action="edit" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-outline-info"> Edit </a></td>
+                                                                <td><a asp-action="delete" asp-controller="PaymentMethods" asp-route-id="@item.Id" class="btn btn-outline-danger"> Delete </a></td>
                                                             </tr>
                                                         }
 
@@ -149,8 +158,8 @@
                                                     <tr>
                                                         <td>@Model.Name</td>
                                                         <td>@Model.Email</td>
-                                                        <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a></td>
-                                                        <td><a asp-action="delete" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-primary"> Delete </a></td>
+                                                        <td><a asp-action="edit" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-outline-info"> Edit </a></td>
+                                                        <td><a asp-action="delete" asp-controller="Users" asp-route-id="@Model.Id" class="btn btn-outline-danger"> Delete </a></td>
                                                     </tr>
 
                                                 </tbody>
