@@ -300,6 +300,23 @@ namespace ColmanAppStore.Controllers
             return _context.Payment.Any(e => e.Id == id);
         }
 
+        public async Task<IActionResult> SearchPayment(string query)//search by id
+        {
+            String userName = User.Identity.Name;
+            var usr = _context.User.Include(a => a.AppListUser).Include(p => p.PaymentMethods);
+            foreach (var item in usr)
+            {
+                if (item.Name.Equals(userName))
+                {
+                    var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).
+                        Where(a => item.AppListUser.Contains(a.App) ).Where(p => item.PaymentMethods.Contains(p.PaymentMethod))
+                        .Where(x=>x.App.Name.Contains(query));
+                    return View("SearchPayment", await payments.ToListAsync());
+                }
+            }
+            return View();
+        }
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AppBuyers(int? id)

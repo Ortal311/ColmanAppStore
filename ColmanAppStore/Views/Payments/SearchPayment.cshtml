@@ -7,11 +7,11 @@
 
 <div class="row">
     <div class="col-lg-9 col-md-10">
-        <h1 id="PaymentHeader">All Payments</h1>
+        <h1 id="PaymentHeader">Search results</h1>
     </div>
 
     <div class="col-lg-3 col-md-2">
-        <form id="searchPayment" asp-action="searchPayment" asp-controller="Payments" class="d-flex">
+        <form id="searchPayment" asp-action="SearchPayment" asp-controller="Payments" class="d-flex">
             <input id="font" name="query" type="search" class="form-control" placeholder="Search by App Name" aria-label="Search" aria-describedby="search-addon" autocomplete="off" />
             <div id="slider-range"></div>
         </form>
@@ -21,9 +21,9 @@
 <table class="table">
     <thead>
         <tr>
-           <!-- <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th> -->
+            <!-- <th>
+                 @Html.DisplayNameFor(model => model.Name)
+             </th> -->
             <th>
                 @Html.DisplayNameFor(model => model.Address)
             </th>
@@ -50,9 +50,9 @@
         @foreach (var item in Model)
         {
             <tr>
-              <!--  <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td> -->
+                <!--  <td>
+                      @Html.DisplayFor(modelItem => item.Name)
+                  </td> -->
                 <td>
                     @Html.DisplayFor(modelItem => item.Address)
                 </td>

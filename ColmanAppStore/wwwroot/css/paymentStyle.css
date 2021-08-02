@@ -87,3 +87,16 @@
     width: 25rem;
     margin: auto;
 }
+
+
+/*---------------------------------Search------------------------------------------*/
+#searchPayment {
+    padding: 15px;
+}
+
+#PaymentHeader {
+    font-family: 'Days One', sans-serif;
+    text-align: right;
+    padding-right: 70px;
+    margin: 15px;
+}
