@@ -30,7 +30,7 @@ namespace ColmanAppStore.Controllers
             {
                 if (item.Name.Equals(userName))
                 {
-                    if ((int)item.UserType == 2) //admin user
+                    if (User.IsInRole("Admin")) //admin user
                     {
                         return View(await _context.AppVideo.Include(a => a.App).ToListAsync());
                     }
