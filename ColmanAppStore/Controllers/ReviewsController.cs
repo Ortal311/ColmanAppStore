@@ -200,7 +200,10 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult>SearchReview(string query)//search by app name
         {
-            var searchContext = _context.Review.Include(l => l.App).Where(a => a.App.Name.Contains(query) || (query == null));
+            string userName = User.Identity.Name;
+
+            var searchContext = _context.Review.Include(l => l.App).
+                Where(a => a.App.Name.Contains(query) || (query == null)).Where(u=> u.UserName.Name.Equals(userName));
 
             return View("SearchReview", await searchContext.ToListAsync());
         }
