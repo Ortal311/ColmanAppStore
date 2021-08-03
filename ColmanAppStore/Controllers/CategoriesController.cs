@@ -162,7 +162,11 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.FindAsync(id);
+            var category = await _context.Category.Include(a=>a.Apps).FirstOrDefaultAsync(m => m.Id == id);
+            foreach(var item in category.Apps)
+            {
+                item.CategoryId = 9; //default category (for not removing app)
+            }
             _context.Category.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

@@ -17,16 +17,19 @@
 
             @foreach (var item in Model)
             {
-                <div class="card col-3" id="AppCard">
-                    <div class="card-body">
-                        <img src="@item.Logo.Image" class="card-img-top" id="AppLogo" alt="can't load image">
-                        <h5 class="card-title" id="AppTitle">@item.Name</h5>
-                        <p class="card-text">Price: @item.Price ₪</p>
-                        <p class="card-text">Size: @item.Size MB</p>
-                        <p class="card-text">Rate: @string.Format("{0:0.00}", item.AverageRaiting)  <span> &#9733; </span> </p> @* star symbol *@
-                        <a href="/Apps/Details/@item.Id" class="btn btn-primary stretched-link" id="AppButton">More info</a>
+                if (item.Id != 49) //default app
+                {
+                    <div class="card col-3" id="AppCard">
+                        <div class="card-body">
+                            <img src="@item.Logo.Image" class="card-img-top" id="AppLogo" alt="can't load image">
+                            <h5 class="card-title" id="AppTitle">@item.Name</h5>
+                            <p class="card-text">Price: @item.Price ₪</p>
+                            <p class="card-text">Size: @item.Size MB</p>
+                            <p class="card-text">Rate: @string.Format("{0:0.00}", item.AverageRaiting)  <span> &#9733; </span> </p> @* star symbol *@
+                            <a href="/Apps/Details/@item.Id" class="btn btn-primary stretched-link" id="AppButton">More info</a>
+                        </div>
                     </div>
-                </div>
+                }
             }
         </div>
     </div>

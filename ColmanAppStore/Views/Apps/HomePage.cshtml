@@ -97,7 +97,7 @@
                 </div>
                 <div class="col-10">
                     <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-                        @{ var order2 = Model.OrderByDescending(r => r.publishDate); }
+                        @{ var order2 = Model.OrderByDescending(r => r.publishDate).Where(a=>a.Id!=49); }
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="row">

@@ -231,7 +231,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (id == null || id == 49)
             {
                 return RedirectToAction("NotFound", "Home");
             }
