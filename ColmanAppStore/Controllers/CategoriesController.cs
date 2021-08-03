@@ -147,8 +147,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return RedirectToAction("NotFound", "Home");

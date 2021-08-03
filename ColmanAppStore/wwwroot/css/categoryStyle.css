@@ -73,3 +73,15 @@
 #AppBtn {
     margin-bottom: 10px;
 }
+
+#CatKey {
+    text-align:right;
+}
+
+#CatValue {
+    text-align: left;
+}
+
+#divCenter {
+    text-align:center;
+}
