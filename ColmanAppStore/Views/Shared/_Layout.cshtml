@@ -100,20 +100,30 @@
 
                         <nav class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
-                            <a id="col-btn" class="btn btn-primary " asp-action="HomePage" asp-controller="Apps">Home</a>
+                            @*navbar for unlogged user*@
+                            <a id="col-btn" class="btn btn-primary" asp-action="HomePage" asp-controller="Apps">Home</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="index" asp-controller="Categories">Categories</a>
+                            <a id="col-btn" class="btn btn-primary" asp-action="Index" asp-controller="Apps">All apps</a>
 
-                            <a class="btn_categories" asp-action="index" asp-controller="Categories"><h2 id="font" class="dropdown-header align-self-center">Categories</h2></a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="4">News</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="3">Social</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="2">Sport</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="1">Kids</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="5">Games</a>
-                            <a id="col-btn" class="btn btn-primary" asp-action="details" asp-controller="Categories" asp-route-id="6">Shopping</a>
-                            @if (User.IsInRole("Admin"))
+                            @*if user logged in*@
+                            @if (Context.User.Identity != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
                             {
-                                <a id="col-btn" class="btn btn-primary" asp-action="Graph" asp-controller="Apps" asp-route-id="6">Statistics</a>
-                            }
+                                <a id="col-btn" class="btn btn-primary" asp-action="Index" asp-controller="Payments">Payments</a>
 
+                                if (User.IsInRole("Programer") || User.IsInRole("Admin"))
+                                {
+                                    <a id="col-btn" class="btn btn-primary" asp-action="Index" asp-controller="Logoes">Logoes</a>
+                                    <a id="col-btn" class="btn btn-primary" asp-action="Index" asp-controller="AppImages">App images</a>
+                                    <a id="col-btn" class="btn btn-primary" asp-action="Index" asp-controller="AppVideos">App videos</a>
+                                }
+
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <a id="col-btn" class="btn btn-primary" asp-action="Index" asp-controller="Reviews">All reviews</a>
+                                    <a id="col-btn" class="btn btn-primary" asp-action="Index" asp-controller="Users">All users</a>
+                                    <a id="col-btn" class="btn btn-primary" asp-action="Graph" asp-controller="Apps">Statistics</a>
+                                }
+                            }
                         </nav>
 
                     </div>

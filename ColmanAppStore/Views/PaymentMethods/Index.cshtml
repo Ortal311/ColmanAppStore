@@ -19,52 +19,61 @@
 
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NameOnCard)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CardNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExpiredDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CVV)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdNumber)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NameOnCard)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CardNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExpiredDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CVV)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdNumber)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.NameOnCard)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CardNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpiredDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CVV)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdNumber)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameOnCard)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpiredDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CVV)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdNumber)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <h2 class="text-center" id="PageHeader">Sorry, you don't have any payment methods</h2>
+    <br />
+}

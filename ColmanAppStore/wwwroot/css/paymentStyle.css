@@ -2,7 +2,11 @@
 }
 /*---------------------------------Create------------------------------------------*/
 #paymentHeader {
-    font-family: 'Days One', sans-serif;
+    font-family: cursive;
+    font-weight: bold;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
     text-align: center;
     margin: 15px;
 }
