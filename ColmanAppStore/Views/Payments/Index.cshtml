@@ -24,8 +24,8 @@
         <thead>
             <tr>
                 @*<th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>*@
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Address)
                 </th>
@@ -80,8 +80,8 @@
                         @Html.DisplayFor(modelItem => item.App.Name)
                     </td>
                     <td>
-                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a> 
-        
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+
                     </td>
                     <td>
                         <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>

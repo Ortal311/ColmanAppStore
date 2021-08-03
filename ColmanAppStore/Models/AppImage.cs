@@ -18,6 +18,7 @@ namespace ColmanAppStore.Models
         [Required]
         public string Image { get; set; }
 
+        [Display(Name = "App name")]
         public int AppId { get; set; }
 
         [Display(Name = "App name")]
