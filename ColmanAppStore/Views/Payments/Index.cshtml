@@ -44,6 +44,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.App)
                 </th>
+                <th>
+                    Details
+                </th>
+                <th>
+                    Delete
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -74,8 +80,11 @@
                         @Html.DisplayFor(modelItem => item.App.Name)
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a> 
+        
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
             }
