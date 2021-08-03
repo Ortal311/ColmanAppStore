@@ -26,17 +26,17 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-         /*   String userName = User.Identity.Name;
+            /*   String userName = User.Identity.Name;
 
-            foreach (var item in _context.User)
-            {
-                if (item.Name.Equals(userName))
-                {
-                    var reviews = _context.Review.Where(x=>x.UserNameId==item.Id).Include(a=>a.App);
-                    return View(await reviews.ToListAsync());
-                }
-            }
-         */
+               foreach (var item in _context.User)
+               {
+                   if (item.Name.Equals(userName))
+                   {
+                       var reviews = _context.Review.Where(x=>x.UserNameId==item.Id).Include(a=>a.App);
+                       return View(await reviews.ToListAsync());
+                   }
+               }
+            */
             var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(r => r.UserName);
             return View(await colmanAppStoreContext.ToListAsync());
         }
@@ -66,11 +66,11 @@ namespace ColmanAppStore.Controllers
         {
             ViewData["AppId"] = id;
 
-            foreach(var item in _context.Apps)
+            foreach (var item in _context.Apps)
             {
-                if(item.Id==id)
+                if (item.Id == id)
                 {
-                    ViewData["App"]= item;
+                    ViewData["App"] = item;
                     break;
                 }
             }
@@ -90,7 +90,7 @@ namespace ColmanAppStore.Controllers
                 {
                     if (item.Id == review.AppId)
                     { //updating the app's new avg raiting
-                        item.AverageRaiting = ((item.AverageRaiting * item.countReview) + review.Raiting) / (item.countReview + 1); 
+                        item.AverageRaiting = ((item.AverageRaiting * item.countReview) + review.Raiting) / (item.countReview + 1);
                         item.countReview++;
                         break;
                     }
@@ -131,7 +131,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
             string userName = User.Identity.Name;
-           
+
             string ReviewWriter = review.UserName.Name;
             Boolean isAdmin = User.IsInRole("Admin");
             if (!(userName.Equals(ReviewWriter)) && !isAdmin)
@@ -139,7 +139,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-                
+
             ViewData["AppId"] = review.AppId;
             ViewData["UserNameId"] = review.UserNameId;
             return View(review);
@@ -179,7 +179,7 @@ namespace ColmanAppStore.Controllers
                         }
                     }
 
-                    await _context.SaveChangesAsync(); 
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -199,12 +199,12 @@ namespace ColmanAppStore.Controllers
             return View(review);
         }
 
-        public async Task<IActionResult>SearchReview(string query)//search by app name
+        public async Task<IActionResult> SearchReview(string query)//search by app name
         {
             string userName = User.Identity.Name;
 
             var searchContext = _context.Review.Include(l => l.App).
-                Where(a => a.App.Name.Contains(query)|| a.Title.Contains(query) || a.Body.Contains(query) || (query == null)).Where(u=> u.UserName.Name.Equals(userName));
+                Where(a => a.App.Name.Contains(query) || a.Title.Contains(query) || a.Body.Contains(query) || (query == null)).Where(u => u.UserName.Name.Equals(userName));
 
             return View("SearchReview", await searchContext.ToListAsync());
         }
@@ -266,8 +266,8 @@ namespace ColmanAppStore.Controllers
             }
 
             await _context.SaveChangesAsync();
-             return RedirectToAction(nameof(Index));
-           
+            return RedirectToAction(nameof(Index));
+
         }
 
         private bool ReviewExists(int id)
@@ -287,11 +287,11 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-    
-            var review  = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
+
+            var review = from r in _context.Review.Include(r => r.App).Include(r => r.UserName)
                          join usr in _context.User on r.UserNameId equals usr.Id
                          where id == r.UserNameId
-                         select r ;
+                         select r;
 
             if (review == null)
             {
@@ -299,7 +299,7 @@ namespace ColmanAppStore.Controllers
             }
 
             // Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
-           // model.UserReviews = review.Distinct().Select(x => x).ToList();
+            // model.UserReviews = review.Distinct().Select(x => x).ToList();
             model.UserReviews = review.ToList();
 
             return View(model);

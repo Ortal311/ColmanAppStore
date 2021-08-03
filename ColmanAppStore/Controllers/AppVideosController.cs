@@ -73,7 +73,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public IActionResult Create()
         {
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View();
         }
 
@@ -85,14 +85,13 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                appVideo.AppId = 1; //default before change in app's create
+                appVideo.AppId = 49; //default before change in app's create
                 _context.Add(appVideo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
-
             return View(appVideo);
         }
 
@@ -119,7 +118,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appVideo.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", appVideo.AppId);
             return View(appVideo);
         }
 
@@ -129,7 +128,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Video,AppId")] AppVideo appVideo)
         {
-            if (id != appVideo.Id)
+            if (id != appVideo.Id || appVideo.AppId == 49)
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -154,7 +153,7 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "DeveloperName", appVideo.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "DeveloperName", appVideo.AppId);
             return View(appVideo);
         }
 

@@ -73,7 +73,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public IActionResult Create()
         {
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View();
         }
 
@@ -85,7 +85,7 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                appImage.AppId = 1; //default app before change when app is created
+                appImage.AppId = 49; //default app before change when app is created
                 _context.Add(appImage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -118,7 +118,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appImage.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", appImage.AppId);
             return View(appImage);
         }
 
@@ -128,7 +128,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Image,AppId")] AppImage appImage)
         {
-            if (id != appImage.Id)
+            if (id != appImage.Id || appImage.AppId == 49)
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -153,7 +153,7 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", appImage.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", appImage.AppId);
             return View(appImage);
         }
 

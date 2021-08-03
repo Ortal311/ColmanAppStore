@@ -34,7 +34,6 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
             return RedirectToAction("Login");
         }
 
@@ -42,7 +41,6 @@ namespace ColmanAppStore.Controllers
         public IActionResult Register()
         {
             return View();
-
         }
 
         // POST: Users/Register
@@ -194,11 +192,11 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Account(string id) //get to user account info by name
         {
-            if (id == null )
+            if (id == null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-             else
+            else
             {
                 var user = await _context.User.Include(x => x.PaymentMethods).Include(x => x.AppListUser).FirstOrDefaultAsync(m => m.Name == id);
                 if (user == null)
@@ -212,11 +210,11 @@ namespace ColmanAppStore.Controllers
                     return RedirectToAction("AccessDenied", "Users");
                 }
 
-                foreach(var usr in _context.User.Include(a=>a.AppListUser)) //calc list of user's payments
+                foreach (var usr in _context.User.Include(a => a.AppListUser)) //calc list of user's payments
                 {
-                    if(usr.Name.Equals(connected))
+                    if (usr.Name.Equals(connected))
                     {
-                        ViewData["Payments"] = _context.Payment.Include(a => a.App).Include(c=>c.PaymentMethod).Where(b =>usr.AppListUser.Contains(b.App)).Where(u=>usr.PaymentMethods.Contains(u.PaymentMethod));
+                        ViewData["Payments"] = _context.Payment.Include(a => a.App).Include(c => c.PaymentMethod).Where(b => usr.AppListUser.Contains(b.App)).Where(u => usr.PaymentMethods.Contains(u.PaymentMethod));
                         break;
                     }
                 }
@@ -260,7 +258,7 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = _context.User.Include(a => a.AppListUser).Include(p=>p.PaymentMethods);
+            var user = _context.User.Include(a => a.AppListUser).Include(p => p.PaymentMethods);
             User u = null;
             foreach (var us in user)
             {
@@ -278,14 +276,14 @@ namespace ColmanAppStore.Controllers
                         }
                     }
 
-                    if(us.PaymentMethods.Count() > 0)
+                    if (us.PaymentMethods.Count() > 0)
                     {
                         var pm = _context.PaymentMethod.Include(u => u.Users);
-                        foreach(var p in pm)
+                        foreach (var p in pm)
                         {
-                            if(us.PaymentMethods.Contains(p))
+                            if (us.PaymentMethods.Contains(p))
                             {
-                                if(p.Users.Count==1) //the deleted user is the only owner of the payment method
+                                if (p.Users.Count == 1) //the deleted user is the only owner of the payment method
                                 {
                                     _context.Remove(p);
                                 }
@@ -297,13 +295,13 @@ namespace ColmanAppStore.Controllers
             }
 
             var rev = _context.Review.Include(a => a.UserName);
-            foreach(var r in rev)
+            foreach (var r in rev)
             {
-                if(r.UserName == u)
+                if (r.UserName == u)
                 {
-                    foreach(var a in _context.Apps)
+                    foreach (var a in _context.Apps)
                     {
-                        if(a.Id == r.AppId)
+                        if (a.Id == r.AppId)
                         { //update the avg raiting of the app without the review of the deleted user
                             a.AverageRaiting = (((a.AverageRaiting * a.countReview) - r.Raiting) / (a.countReview - 1));
                             a.countReview--;
