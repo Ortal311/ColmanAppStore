@@ -23,14 +23,14 @@ namespace ColmanAppStore.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            return View(await _context.Category.Where(a => a.Id != 9).ToListAsync());
         }
 
         // GET: Categories/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id == null || id == 9)
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -74,7 +74,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id == null || id == 9)
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -93,7 +93,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
         {
-            if (id != category.Id)
+            if (id != category.Id || id == 9)
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -126,9 +126,8 @@ namespace ColmanAppStore.Controllers
             try
             {
                 float.Parse(query);
-                var searchContext = _context.Apps.Include(l => l.Logo).Where(a => (a.Price.CompareTo(float.Parse(query)) <= 0));
+                var searchContext = _context.Apps.Include(l => l.Logo).Where(a => (a.Price.CompareTo(float.Parse(query)) <= 0)).Where(a => a.Id != 49);
                 return View("SearchByPrice", await searchContext.ToListAsync());
-
             }
             catch (Exception e)
             {
@@ -142,7 +141,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (id == null || id == 9)
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -162,13 +161,19 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.Include(a=>a.Apps).FirstOrDefaultAsync(m => m.Id == id);
-            foreach(var item in category.Apps)
+            if (id != 9) //default category
             {
-                item.CategoryId = 9; //default category (for not removing app)
+                var category = await _context.Category.Include(a => a.Apps).FirstOrDefaultAsync(m => m.Id == id);
+                var categoryDefault = await _context.Category.FindAsync(9);
+                foreach (var item in category.Apps) //default category (for not deleting all the apps in the category)
+                {
+                    item.Category = categoryDefault;
+                    item.CategoryId = 9;
+                    _context.Update(item);
+                }
+                _context.Category.Remove(category);
+                await _context.SaveChangesAsync();
             }
-            _context.Category.Remove(category);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

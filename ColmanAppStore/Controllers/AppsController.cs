@@ -24,25 +24,31 @@ namespace ColmanAppStore.Controllers
         // GET: Apps
         public async Task<IActionResult> Index()
         {
-            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo);
-            return View(await colmanAppStoreContext.ToListAsync());
+            if (User.IsInRole("Admin"))
+            {
+                var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo).Where(a => a.Id != 49);
+                return View(await colmanAppStoreContext.ToListAsync());
+            }
+            else
+            {
+                var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo).Where(a => a.Id != 49).Where(a => a.CategoryId != 9);
+                return View(await colmanAppStoreContext.ToListAsync());
+            }
         }
 
 
         //Search by name and category 
         public async Task<IActionResult> Search(string query)
         {
-
-                var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category)
-              .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || a.DeveloperName.Equals(query) || (query == null));
-                return View("Search", await searchContext.ToListAsync());
-
+            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => a.Id != 49)
+          .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || a.DeveloperName.Equals(query) || (query == null));
+            return View("Search", await searchContext.ToListAsync());
         }
 
         // GET: Apps/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id == null || id == 49) //default app
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -74,7 +80,7 @@ namespace ColmanAppStore.Controllers
         // GET: Apps/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Category.Where(c => c.Id != 9), "Id", "Name");
             ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
             ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
 
@@ -120,7 +126,9 @@ namespace ColmanAppStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Category.Where(c => c.Id != 9), "Id", "Name", app.CategoryId);
+            ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
+            ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
             return View(app);
         }
 
@@ -129,7 +137,7 @@ namespace ColmanAppStore.Controllers
         // GET: Apps/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id == null || id == 49) //default app
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -147,7 +155,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Category.Where(c => c.Id != 9), "Id", "Name", app.CategoryId);
 
             Logo logo = null;
             var apps = _context.Apps.Include(x => x.Logo).Include(y => y.Images).Include(z => z.Videos);
@@ -182,7 +190,7 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size,AverageRaiting," +
                                             "countReview, DeveloperName")] App app)
         {
-            if (id != app.Id)
+            if (id != app.Id || id == 49) //default app
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -231,7 +239,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || id == 49)
+            if (id == null || id == 49) //default app
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -259,9 +267,12 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var app = await _context.Apps.FindAsync(id);
-            _context.Apps.Remove(app);
-            await _context.SaveChangesAsync();
+            if (id != 49)
+            {
+                var app = await _context.Apps.FindAsync(id);
+                _context.Apps.Remove(app);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -272,7 +283,7 @@ namespace ColmanAppStore.Controllers
 
         public async Task<IActionResult> HomePage()
         {
-            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo);
+            var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo).Where(a => a.Id != 49);
             return View(await colmanAppStoreContext.ToListAsync());
         }
 

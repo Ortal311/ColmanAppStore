@@ -70,10 +70,10 @@
                                 @Html.DisplayFor(modelItem => rev.App.Name)
                             </td>
                             <td>
-                                <a asp-action="edit" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Edit </a>
+                                <a asp-action="edit" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-outline-info"> Edit </a>
                             </td>
                             <td>
-                                <a asp-action="delete" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-primary"> Delete </a>
+                                <a asp-action="delete" asp-controller="Reviews" asp-route-id="@rev.Id" class="btn btn-outline-danger"> Delete </a>
                             </td>
                         </tr>
                     }

@@ -16,10 +16,8 @@ namespace ColmanAppStore.Controllers
     {
         private readonly ColmanAppStoreContext _context;
 
-
         public PaymentsController(ColmanAppStoreContext context)
         {
-
             _context = context;
         }
 
@@ -29,20 +27,20 @@ namespace ColmanAppStore.Controllers
         public async Task<IActionResult> Index()
         {
             String userName = User.Identity.Name;
-            var usr = _context.User.Include(a => a.AppListUser).Include(p=>p.PaymentMethods);
+            var usr = _context.User.Include(a => a.AppListUser).Include(p => p.PaymentMethods);
             foreach (var item in usr)
             {
-                if(item.Name.Equals(userName))
+                if (item.Name.Equals(userName))
                 {
                     var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).
-                        Where(a => item.AppListUser.Contains(a.App)).Where(p=> item.PaymentMethods.Contains(p.PaymentMethod));
+                        Where(a => item.AppListUser.Contains(a.App)).Where(p => item.PaymentMethods.Contains(p.PaymentMethod));
                     return View(await payments.ToListAsync());
                 }
             }
             //in case user won't be found (never going to happen when logged in)
             return View(await _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).ToListAsync());
 
-         }
+        }
 
         // GET: Payments/Details/5
         [HttpGet]
@@ -60,13 +58,13 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
             int count = 0;
-            string userName= User.Identity.Name;
+            string userName = User.Identity.Name;
             int methodId = payment.PaymentMethodId;
             var payMethod = _context.PaymentMethod.Include(u => u.Users).FirstOrDefault(m => m.Id == methodId);
             var usr = payMethod.Users;
             User myUsr = _context.User.Where(i => i.Name.Equals(userName)).First();
             int myId = myUsr.Id;
-            foreach(var item in usr)
+            foreach (var item in usr)
             {
                 if (item.Id.Equals(myId))
                 {
@@ -74,7 +72,7 @@ namespace ColmanAppStore.Controllers
                     break;
                 }
             }
-            if(count==0)
+            if (count == 0)
             {
                 return RedirectToAction("AccessDenied", "Users");
             }
@@ -84,13 +82,13 @@ namespace ColmanAppStore.Controllers
         // GET: Payments/Create
         [HttpGet]
         [Authorize(Roles = "Client,Admin,Programer")]
-        public IActionResult Create(int? id) 
+        public IActionResult Create(int? id)
         {
-            if(id==null)
+            if (id == null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            
+
             ViewData["AppId"] = id;
             var application = new App();
             int count = 0;
@@ -119,9 +117,9 @@ namespace ColmanAppStore.Controllers
                     break;
                 }
             }
-           
+
             var usr = _context.User.Include(u => u.PaymentMethods).Include(u => u.AppListUser);
-     
+
             List<PaymentMethod> paymentM = new List<PaymentMethod>();
             foreach (var item in usr)
             {
@@ -309,8 +307,8 @@ namespace ColmanAppStore.Controllers
                 if (item.Name.Equals(userName))
                 {
                     var payments = _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).
-                        Where(a => item.AppListUser.Contains(a.App) ).Where(p => item.PaymentMethods.Contains(p.PaymentMethod))
-                        .Where(x=>x.App.Name.Contains(query));
+                        Where(a => item.AppListUser.Contains(a.App)).Where(p => item.PaymentMethods.Contains(p.PaymentMethod))
+                        .Where(x => x.App.Name.Contains(query));
                     return View("SearchPayment", await payments.ToListAsync());
                 }
             }
@@ -329,7 +327,7 @@ namespace ColmanAppStore.Controllers
 
             // Init:
             model.Users = null;
-          
+
             var buyers = from p in _context.Payment.Include(r => r.App).Include(r => r.PaymentMethod)
                          join app in _context.Apps on p.AppId equals app.Id
                          where id == p.AppId
@@ -350,7 +348,7 @@ namespace ColmanAppStore.Controllers
         public JsonResult GetCitiesList()
         {
             List<String> citiesLst = new List<string>();
-            foreach(var item in _context.Payment)
+            foreach (var item in _context.Payment)
             {
                 if (!citiesLst.Contains(item.City))
                     citiesLst.Add(item.City);

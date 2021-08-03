@@ -69,8 +69,9 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public IActionResult Create()
         {
-            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name");
-            return View();
+            return RedirectToAction("NotFound", "Home");
+            //ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name");
+            //return View();
         }
 
         // POST: Logoes/Create
@@ -85,7 +86,7 @@ namespace ColmanAppStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name", logo.AppsId);
+            ViewData["AppsId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", logo.AppsId);
             return View(logo);
         }
 
@@ -112,7 +113,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            var apps = _context.Apps.Include(l => l.Logo);
+            var apps = _context.Apps.Include(l => l.Logo).Where(a => a.Id != 49);
             foreach (var item in apps)
             {
                 if (item.Logo.Id == id)
@@ -156,7 +157,7 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name", logo.AppsId);
+            ViewData["AppsId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", logo.AppsId);
             return View(logo);
         }
 
