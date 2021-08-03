@@ -28,12 +28,15 @@ namespace ColmanAppStore.Controllers
             return View(await colmanAppStoreContext.ToListAsync());
         }
 
+
         //Search by name and category 
         public async Task<IActionResult> Search(string query)
         {
-            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category)
-               .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || (query == null));
-            return View("Search", await searchContext.ToListAsync());
+
+                var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category)
+              .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || a.DeveloperName.Equals(query) || (query == null));
+                return View("Search", await searchContext.ToListAsync());
+
         }
 
         // GET: Apps/Details/5

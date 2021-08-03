@@ -22,10 +22,11 @@ namespace ColmanAppStore.Controllers
 
         // GET: Reviews
         [HttpGet]
-        [Authorize(Roles = "Client,Admin,Programer")]
+        //  [Authorize(Roles = "Client,Admin,Programer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            String userName = User.Identity.Name;
+         /*   String userName = User.Identity.Name;
 
             foreach (var item in _context.User)
             {
@@ -35,7 +36,7 @@ namespace ColmanAppStore.Controllers
                     return View(await reviews.ToListAsync());
                 }
             }
-
+         */
             var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(r => r.UserName);
             return View(await colmanAppStoreContext.ToListAsync());
         }
@@ -203,7 +204,7 @@ namespace ColmanAppStore.Controllers
             string userName = User.Identity.Name;
 
             var searchContext = _context.Review.Include(l => l.App).
-                Where(a => a.App.Name.Contains(query) || (query == null)).Where(u=> u.UserName.Name.Equals(userName));
+                Where(a => a.App.Name.Contains(query)|| a.Title.Contains(query) || a.Body.Contains(query) || (query == null)).Where(u=> u.UserName.Name.Equals(userName));
 
             return View("SearchReview", await searchContext.ToListAsync());
         }
@@ -298,7 +299,8 @@ namespace ColmanAppStore.Controllers
             }
 
             // Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
-            model.UserReviews = review.Distinct().Select(x => x).ToList(); 
+           // model.UserReviews = review.Distinct().Select(x => x).ToList();
+            model.UserReviews = review.ToList();
 
             return View(model);
         }
