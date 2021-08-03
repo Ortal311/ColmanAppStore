@@ -97,7 +97,7 @@
                 </div>
                 <div class="col-10">
                     <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-                        @{ var order2 = Model.OrderByDescending(r => r.publishDate).Where(a=>a.Id!=49); }
+                        @{ var order2 = Model.OrderByDescending(r => r.publishDate).Where(a => a.Id != 49); }
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="row">
@@ -187,7 +187,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                     }
+                                    }
                                 </div>
                             </div>
                             <div class="carousel-item">
@@ -205,7 +205,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                     }
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -232,8 +232,10 @@
 
 
 <body id="facebookLogin">
- 
-    <a href="#" onClick="postToFacebook()">Post to Facebook</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-outline-primary" href="#" onClick="postToFacebook()">Post to Facebook</a>
+    }
     <script>
 
         window.fbAsyncInit = function () {
@@ -245,16 +247,16 @@
             });
 
         }
-   
+
         //Added Long live token
         function postToFacebook() {
             FB.api(
                 '/100841052251427/feed',
                 'POST',
                 {
-                    message: "New App!!",
-                    link: "www.facebook.com",
-                    access_token: 'EAAB7doDiAWcBAGniZBEFTZAkeOnpxLIZBOXI6q6wIn1nZA8Pkk0TZCCq4aVCwyvOV868io5aAvOYQa4WUtVLIohXf2Uugp1dCIZCZB8yOPGtZAa3ZAjizDZC14ukwGEONpTKiKnNaD11SI4HN8zmmzE7U5RQXoH5W0j8wzF4XCkMZBJG0DnSsaBeDyt'
+                    message: "Visit our website!!",
+                    link: new URL(window.location.host),
+                    access_token: 'EAAB7doDiAWcBACHEHTzvvMEeCoI39dw3P5rJXLhnZBEyaCM0dtFGIaWbx8qh0kJHW8hohmJqH68Vbo52PNzVSJnhSzSxmSNIrEN6u2HyvIRo2xu2gAzzv5ZC0kdb5oqm2TXCWa6yGZAsZCs9R2TvZCkOYS5LHZBbEoH5wyPxX9G6nOtrvdDa3ZBirZATs5SgsaQ4rrwIIpMCOZCEqGZBJmZBMCF'
                 },
                 function (response) {
                     // Insert your code here
@@ -267,21 +269,38 @@
             );
         }
 
-         //   window.FB.AppEvents.logPageView();
+                 //   window.FB.AppEvents.logPageView();
 
     </script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-    <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FColmanappstore-100841052251427&width=0&layout=button_count&action=like&size=large&share=true&height=46&appId=135748898652519"
-            width="0" height="46" style="border:none;
-    overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-    </iframe>
+    <!-- <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FColmanappstore-100841052251427&width=0&layout=button_count&action=like&size=large&share=true&height=46&appId=135748898652519"
+             width="0" height="46" style="border:none;
+     overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+     </iframe>
 
-    <div class="fb-like" data-href="https://www.facebook.com/Colmanappstore-100841052251427"
-         data-width="0" data-layout="button_count" data-action="like" data-size="large" data-share="true">
+     <div class="fb-like" data-href="https://www.facebook.com/Colmanappstore-100841052251427"
+          data-width="0" data-layout="button_count" data-action="like" data-size="large" data-share="true">
+
+     </div>
+
+     <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div>
+
+        -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v11.0&appId=135748898652519&autoLogAppEvents=1" nonce="UXsxw2Ei">
+
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v11.0&appId=135748898652519&autoLogAppEvents=1" nonce="63lwDWoN">
+
+    </script>
+
+    <!--like+share button-->
+    <div class="fb-like" data-href="https://www.facebook.com/Colmanappstore-100841052251427" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true">
 
     </div>
+    <!--login button-->
+    <div class="fb-login-button" data-width="" data-size="medium" data-button-type="continue_with" data-layout="default" data-auto-logout-link="true" data-use-continue-as="false">
 
-    <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div>
-
+    </div>
 </body>
