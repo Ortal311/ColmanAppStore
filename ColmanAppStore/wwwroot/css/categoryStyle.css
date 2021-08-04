@@ -85,3 +85,8 @@
 #divCenter {
     text-align:center;
 }
+
+#addCatButton {
+    text-align: center;
+    margin-right: 30px;
+}
