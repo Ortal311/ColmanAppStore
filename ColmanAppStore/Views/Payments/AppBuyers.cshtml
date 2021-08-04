@@ -16,9 +16,6 @@
                 <thead>
                     <tr>
                         <th>
-                            Payment ID
-                        </th>
-                        <th>
                             Name
                         </th>
                         <th>
@@ -44,9 +41,6 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => user.Id)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => user.Name)
                             </td>
                             <td>
@@ -71,8 +65,8 @@
         }
         else
         {
+            <br />
             <h3 id="subtitle">No one bought this app!</h3>
         }
-
     </div>
 </div>
