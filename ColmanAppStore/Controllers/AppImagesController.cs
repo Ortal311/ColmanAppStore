@@ -91,7 +91,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
+            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View(appImage);
         }
 
@@ -118,7 +118,15 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49).Where(x=>x.DeveloperName.Equals(userName)), "Id", "Name", appImage.AppId);
+            if (User.IsInRole("Admin")) //admin user
+            {
+                ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", appImage.AppId);
+            }
+            else //programer user
+            {
+                ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49).Where(x => x.DeveloperName.Equals(userName)), "Id", "Name", appImage.AppId);
+            }
+
             return View(appImage);
         }
 
@@ -153,8 +161,17 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             string userName = User.Identity.Name;
-            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49).Where(x => x.DeveloperName.Equals(userName)), "Id", "Name", appImage.AppId);
+            if (User.IsInRole("Admin")) //admin user
+            {
+                ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", appImage.AppId);
+            }
+            else //programer user
+            {
+                ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49).Where(x => x.DeveloperName.Equals(userName)), "Id", "Name", appImage.AppId);
+            }
+
             return View(appImage);
         }
 
