@@ -161,6 +161,20 @@ namespace ColmanAppStore.Controllers
             return View(logo);
         }
 
+        public async Task<IActionResult> SearchLogo(string query)//search by app name
+        {
+            string userName = User.Identity.Name;
+            var searchContext = _context.Logo.Include(l => l.Apps).
+                 Where(a => a.Apps.Name.Contains(query) || (query == null));
+            if (!User.IsInRole("Admin")) // if developer- he will see only his apps ( admin sees everything)
+            {
+             
+                searchContext = _context.Logo.Include(l => l.Apps).
+                  Where(a => a.Apps.Name.Contains(query) || (query == null)).Where(u => u.Apps.DeveloperName.Equals(userName));
+            }
+            return View("SearchLogo", await searchContext.ToListAsync());
+        }
+
         // GET: Logoes/Delete/5
         [HttpGet]
         [Authorize(Roles = "Admin,Programer")]
