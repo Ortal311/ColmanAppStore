@@ -1,24 +1,28 @@
-﻿@model IEnumerable<ColmanAppStore.Models.Logo>
+﻿@model IEnumerable<ColmanAppStore.Models.AppImage>
 
 @{
-    ViewData["Title"] = "All logoes";
-    <link rel="stylesheet" href="~/css/logoStyle.css" />
+    ViewData["Title"] = "All app Images";
+    <link rel="stylesheet" href="~/css/appImgStyle.css" />
 }
+
 
 <div class="row">
     <div class="col-lg-9 col-md-10">
-        <h1 id="LogoHeader">All Logoes</h1>
+
+        <h1 id="AppImageHeader">Search Results</h1>
     </div>
 
     <div class="col-lg-3 col-md-2">
-        <form id="searchLogo" asp-action="SearchLogo" asp-controller="Logoes" class="d-flex">
+        <form id="searchAppImage" asp-action="SearchAppImage" asp-controller="AppImages" class="d-flex">
             <input id="font" name="query" type="search" class="form-control" placeholder="Search by App Name" aria-label="Search" aria-describedby="search-addon" autocomplete="off" />
             <div id="slider-range"></div>
         </form>
     </div>
 </div>
 
-    <a class="btn btn-outline-info" asp-action="Create">Create New Logo</a>
+
+<p>
+    <a class="btn btn-outline-info" asp-action="Create">Create New Image</a>
 </p>
 
 @if (Model.Count() > 0)
@@ -26,11 +30,14 @@
     <table class="table">
         <thead>
             <tr>
-                <th class="col-sm-4">
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Image)
                 </th>
-                <th class="col-sm-4">
-                    @Html.DisplayNameFor(model => model.Apps)
+                <th>
+                    @Html.DisplayNameFor(model => model.App)
                 </th>
                 <th>
                     Edit
@@ -43,20 +50,22 @@
                 </th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
                         <img src="@item.Image" class="card-img-top" alt="can't load image" id="Img">
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Apps.Name)
+                        @Html.DisplayFor(modelItem => item.App.Name)
                     </td>
                     <td>
-                        <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-        
-                        
+                        <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     </td>
                     <td>
                         <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
@@ -72,6 +81,6 @@
 else
 {
     <br />
-    <h2 class="text-center" id="PageHeader">Sorry, you don't have any logoes</h2>
+    <h2 class="text-center" id="PageHeader">Sorry, you don't have any app images with that name</h2>
     <br />
 }

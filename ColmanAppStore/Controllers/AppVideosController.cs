@@ -156,6 +156,18 @@ namespace ColmanAppStore.Controllers
             ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "DeveloperName", appVideo.AppId);
             return View(appVideo);
         }
+        public async Task<IActionResult> SearchAppVideo(string query)//search by app name
+        {
+            string userName = User.Identity.Name;
+            var searchContext = _context.AppVideo.Include(l => l.App).
+                 Where(a => a.App.Name.Contains(query) || (query == null));
+            if (!User.IsInRole("Admin")) // if developer- he will see only his apps ( admin sees everything)
+            {
+                searchContext = _context.AppVideo.Include(l => l.App).
+                  Where(a => a.App.Name.Contains(query) || (query == null)).Where(u => u.App.DeveloperName.Equals(userName));
+            }
+            return View("SearchAppVideo", await searchContext.ToListAsync());
+        }
 
         // GET: AppVideos/Delete/5
         [HttpGet]

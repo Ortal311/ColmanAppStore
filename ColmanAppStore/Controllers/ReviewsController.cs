@@ -199,7 +199,7 @@ namespace ColmanAppStore.Controllers
             return View(review);
         }
 
-        public async Task<IActionResult> SearchReview(string query)//search by app name
+        public async Task<IActionResult> SearchReview(string query)//search by app name, title and body
         {
             string userName = User.Identity.Name;
 
