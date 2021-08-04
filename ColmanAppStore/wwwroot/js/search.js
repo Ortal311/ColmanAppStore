@@ -32,7 +32,6 @@ $(function () {
                     }
                     temp = temp.replaceAll('{' + key + '}', value);
                 });
-
                 $('tbody').append(temp);
             });
         });

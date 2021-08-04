@@ -11,7 +11,7 @@ $(document).ready(function () {
     });
 });
 
-
+//Map function
 function GetMap() {
     var map = new Microsoft.Maps.Map('#myMap', {
         credentials: 'ArSVHkQb2Q4uCxFV8HB41H0ZCCNbXAhEWXyXUYlJpAHnTFGRTbGRxXVSp9l0aOAQ',
@@ -37,7 +37,6 @@ function GetMap() {
                     console.log(name);
 
                     pin_location = getLatLon(name, bing_key);
-
                     pin = new Microsoft.Maps.Pushpin(pin_location);
                     map.entities.push(pin);
                 }, index * 200); //timeout between each city calc
