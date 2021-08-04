@@ -66,3 +66,27 @@ function getLatLon(query, bing_key) {
     });
     return mapObject;
 }
+
+
+// POST TO FACEBOOK AFTER NEW DISH CREATED
+$(function () {
+    $('#postToFbButton').click(function (e) {
+        e.preventDefault();
+        var page_id = 100841052251427;
+        var msg = "TEXT";
+        var page_access_token = 'EAAB7doDiAWcBAPXm54AH3diZBELzTZBiKHO2t4sZCiyvvtqphg7CN8QFsZBpWBv7eNUhpQLNPRYsEgcGnLnQs5agwZAkfoxjendvElvMz1XMXMa7QBpmJWXNlm9MIPVpDrOEAM9DAAQLutl49W9Bc5AyacsC0fucJAE8ICO5OvtQF0fULT0OW';
+
+        postToFacebook(page_id, msg, page_access_token);
+    });
+});
+
+function postToFacebook(page_id, msg, page_access_token) {
+    $.ajax({
+        method: 'POST',
+        url: "www.facebook.com/Colmanappstore-100841052251427",
+    }).done(function () {
+        alert('Done');
+    }).fail(function () {
+        alert('Error');
+    });
+}

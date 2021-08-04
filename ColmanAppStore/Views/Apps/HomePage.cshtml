@@ -234,7 +234,8 @@
 <body id="facebookLogin">
     @if (User.IsInRole("Admin"))
     {
-        <a class="btn btn-outline-primary" href="#" onClick="postToFacebook()">Post to Facebook</a>
+        <button type="button" class="btn btn-danger" id="postToFbButton">Post to Facebook</button>
+        <!--  <a class="btn btn-outline-primary" href="#" onClick="postToFacebook()">Post to Facebook</a> -->
     }
     <script>
 
@@ -249,14 +250,14 @@
         }
 
         //Added Long live token
-        function postToFacebook() {
+       /* function postToFacebook() {
             FB.api(
                 '/100841052251427/feed',
                 'POST',
                 {
                     message: "Visit our website!!",
                     link: new URL(window.location.host),
-                    access_token: 'EAAB7doDiAWcBADKi7wf14ZAtjdoJs0swc9JbGcRuuoIscAYBHTu0gZAHnNBMyYNZAosnG0CR6gWnXL2kJuT0pltBCs9k5tUp2sFRFQavfZAC6Ng7UChLMTXNx2fQI0JryUJTI6nzCOcLBR1fotxfaRAPWrJvR1yLE7DCl9sdWo9DIdy5GmGYmhAUKUcCQ1k6hXCrDM1L6JVCMH8P4j77'
+                    access_token: 'EAAB7doDiAWcBAPXm54AH3diZBELzTZBiKHO2t4sZCiyvvtqphg7CN8QFsZBpWBv7eNUhpQLNPRYsEgcGnLnQs5agwZAkfoxjendvElvMz1XMXMa7QBpmJWXNlm9MIPVpDrOEAM9DAAQLutl49W9Bc5AyacsC0fucJAE8ICO5OvtQF0fULT0OW'
                 },
                 function (response) {
                     // Insert your code here
@@ -266,10 +267,10 @@
                         alert('Post ID: ' + response.id);
                     }
                 }
-            );
+            );*/
         }
 
-                 //   window.FB.AppEvents.logPageView();
+                     //   window.FB.AppEvents.logPageView();
 
     </script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
