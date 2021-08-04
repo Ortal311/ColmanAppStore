@@ -36,9 +36,11 @@ namespace ColmanAppStore.Models
         [Display(Name = "App logo")]
         public Logo Logo { get; set; } //ONE app to ONE logo
 
+        [Required]
         [Display(Name = "Choose 3 app images")]
         public List<AppImage> Images { get; set; } //ONE app to MANY images
 
+        [Required]
         [Display(Name = "Choose 1 app video")]
         public List<AppVideo> Videos { get; set; } //ONE app to ONE video
 

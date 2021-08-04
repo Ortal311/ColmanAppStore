@@ -94,7 +94,7 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size," +
-                                                "AverageRaiting,countReview,DeveloperName,Images")] App app, int[] Images, int[] Videos)
+                                                "AverageRaiting,countReview,DeveloperName,Images,Videos")] App app, int[] Images, int[] Videos)
         {
             if (ModelState.IsValid)
             {
@@ -186,6 +186,10 @@ namespace ColmanAppStore.Controllers
                 }
             }
 
+            var CurrentApp = await _context.Apps.Include(a => a.Images).Include(b => b.Videos).FirstOrDefaultAsync(m => m.Id == id);
+            ViewData["Images"] = new SelectList(CurrentApp.Images, "Id", "Name");
+            ViewData["Videos"] = new SelectList(CurrentApp.Videos, "Id", "Name");
+
             return View(app);
         }
 
@@ -194,30 +198,44 @@ namespace ColmanAppStore.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,publishDate,Logo,CategoryId,Size,AverageRaiting," +
-                                            "countReview, DeveloperName")] App app)
+                                            "countReview, DeveloperName,Images,Videos")] App app, int[] Images, int[] Videos)
         {
             if (id != app.Id || id == 49) //default app
             {
                 return RedirectToAction("NotFound", "Home");
             }
 
-            foreach (var item in _context.Logo) //update logo value in app
+            foreach (var item in _context.Logo) //get viewdata[Logo] (in case validation is false)
             {
                 if (item.AppsId == app.Id)
                 {
-                    item.Image = app.Logo.Image;
-                    _context.Update(item);
-                    app.Logo = item;
                     ViewData["Logo"] = item;
                     break;
                 }
             }
             await _context.SaveChangesAsync();
 
+            if (ModelState.ErrorCount == 2)
+            {
+                if (ModelState.ContainsKey("Images") && ModelState.ContainsKey("Videos"))
+                    ModelState.Clear();
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    foreach (var item in _context.Logo) 
+                    {
+                        if (item.AppsId == app.Id)
+                        {
+                            item.Image = app.Logo.Image;
+                            _context.Update(item);
+                            app.Logo = item;
+                            break;
+                        }
+                    }
+
                     app.publishDate = DateTime.Now;
                     _context.Update(app);
                     await _context.SaveChangesAsync();
