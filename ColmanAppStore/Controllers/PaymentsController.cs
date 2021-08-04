@@ -337,8 +337,7 @@ namespace ColmanAppStore.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            // Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
-            //model.Users = buyers.Distinct().Select(x => x).ToList();
+
             model.Users = buyers.ToList();
 
             return View(model);

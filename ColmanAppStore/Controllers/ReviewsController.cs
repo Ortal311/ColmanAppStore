@@ -275,7 +275,7 @@ namespace ColmanAppStore.Controllers
             return _context.Review.Any(e => e.Id == id);
         }
 
-
+        //Join
         public async Task<IActionResult> UsersReview(int? id)
         {
             Join model = new Join();
@@ -298,8 +298,6 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            // Using Select Many in order to flat from IEnumerable<IEnumerable<int>> to IEnumerable<int> and than to List<int>
-            // model.UserReviews = review.Distinct().Select(x => x).ToList();
             model.UserReviews = review.ToList();
 
             return View(model);

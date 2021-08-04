@@ -28,8 +28,7 @@ namespace ColmanAppStore.Controllers
         {
             Response.StatusCode = 404;
             return RedirectToAction("NotFound", "Home");
-            // return View();
-        }
+         }
 
         [Authorize]
         public IActionResult Privacy()
