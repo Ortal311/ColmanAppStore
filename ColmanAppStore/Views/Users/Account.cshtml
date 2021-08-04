@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Account";
     <link rel="stylesheet" href="~/css/Account.css" />
-
 }
 
 
@@ -102,7 +101,10 @@
                                             if (Model.PaymentMethods.Count == 0)
                                             {
                                                 <h4 id="text-center">You did not enter credit card information</h4>
-                                                <a id="text-center" asp-action="Create" asp-controller="PaymentMethods"  class="btn btn-outline-info">Click here to add paymemt method! </a>
+                                                <br />
+                                                <div id="text-center">
+                                                    <a asp-action="Create" asp-controller="PaymentMethods" class="btn btn-outline-info">Click here to add paymemt method! </a>
+                                                </div>
                                             }
                                             else
                                             {

@@ -35,7 +35,7 @@
     </div>
     @if (User.IsInRole("Admin"))
     {
-        <div class="text-center">
+        <div id="addCatButton" class="text-center">
             <a class="btn btn-primary" asp-action="create" asp-controller="Categories">Add category</a>
         </div>
     }
