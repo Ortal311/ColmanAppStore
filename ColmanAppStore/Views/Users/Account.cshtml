@@ -84,7 +84,7 @@
 
                                                         </tbody>
                                                     </table>
-                                                    <a id="text-center" asp-action="Index" asp-controller="Payments"  class="btn btn-outline-info">Click here for more details! </a>
+                                                    <a id="text-center" asp-action="Index" asp-controller="Payments" class="btn btn-outline-info">Click here for more details! </a>
                                                 }
                                             }
                                         }
@@ -102,7 +102,7 @@
                                             if (Model.PaymentMethods.Count == 0)
                                             {
                                                 <h4 id="text-center">You did not enter credit card information</h4>
-                                                <a id="text-center" asp-action="Create" asp-controller="PaymentMethods"  class="btn btn-outline-info">Click here to add paymemt method! </a>
+                                                <a id="text-center" asp-action="Create" asp-controller="PaymentMethods" class="btn btn-outline-info">Click here to add paymemt method! </a>
                                             }
                                             else
                                             {
@@ -130,7 +130,11 @@
 
                                                     </tbody>
                                                 </table>
-                                                <a id="text-center" asp-action="Create" asp-controller="PaymentMethods"  class="btn btn-outline-info">Click here to add paymemt method! </a>
+                                                <a id="text-center" asp-action="Create" asp-controller="PaymentMethods" class="btn btn-outline-info">Click here to add paymemt method! </a>
+                                                if (Model.PaymentMethods.Count > 0 )
+                                                {
+                                                    <a id="text-center" asp-action="Index" asp-controller="PaymentMethods" class="btn btn-outline-info">Click here for more details! </a>
+                                                }
                                             }
                                         }
                                     }
@@ -165,10 +169,10 @@
                                                 </tbody>
                                             </table>
                                         }
-                                        <a id="marginbtn" asp-action="UsersReview" asp-controller="Reviews" asp-route-id="@Model.Id"  class="btn btn-outline-info"> All my reviews </a>
+                                        <a id="marginbtn" asp-action="UsersReview" asp-controller="Reviews" asp-route-id="@Model.Id" class="btn btn-outline-info"> All my reviews </a>
                                         @if (User.IsInRole("Admin"))
                                         {
-                                            <a id="marginbtn" asp-action="index" asp-controller="Reviews"  class="btn btn-outline-info"> All Reviews </a>
+                                            <a id="marginbtn" asp-action="index" asp-controller="Reviews" class="btn btn-outline-info"> All Reviews </a>
                                         }
                                     }
                                 </div>
