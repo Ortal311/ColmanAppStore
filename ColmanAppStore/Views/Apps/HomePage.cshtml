@@ -232,62 +232,22 @@
 
 
 <body id="facebookLogin">
-    @if (User.IsInRole("Admin"))
-    {
-        <button type="button" class="btn btn-danger" id="postToFbButton">Post to Facebook</button>
-        <!--  <a class="btn btn-outline-primary" href="#" onClick="postToFacebook()">Post to Facebook</a> -->
-    }
     <script>
 
         window.fbAsyncInit = function () {
             FB.init({
-                appId: 135748898652519,
+                appId: '135748898652519',
                 autoLogAppEvents: true,
                 xfbml: true,
                 version: 'v11.0'
             });
 
         }
-
-        //Added Long live token
-       /* function postToFacebook() {
-            FB.api(
-                '/100841052251427/feed',
-                'POST',
-                {
-                    message: "Visit our website!!",
-                    link: new URL(window.location.host),
-                    access_token: 'EAAB7doDiAWcBAPXm54AH3diZBELzTZBiKHO2t4sZCiyvvtqphg7CN8QFsZBpWBv7eNUhpQLNPRYsEgcGnLnQs5agwZAkfoxjendvElvMz1XMXMa7QBpmJWXNlm9MIPVpDrOEAM9DAAQLutl49W9Bc5AyacsC0fucJAE8ICO5OvtQF0fULT0OW'
-                },
-                function (response) {
-                    // Insert your code here
-                    if (!response) {
-                        alert('Error occured');
-                    } else {
-                        alert('Post ID: ' + response.id);
-                    }
-                }
-            );*/
-        }
-
-                     //   window.FB.AppEvents.logPageView();
-
+    
     </script>
+    <!--Using facebook sdk-->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-    <!-- <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FColmanappstore-100841052251427&width=0&layout=button_count&action=like&size=large&share=true&height=46&appId=135748898652519"
-             width="0" height="46" style="border:none;
-     overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-     </iframe>
-
-     <div class="fb-like" data-href="https://www.facebook.com/Colmanappstore-100841052251427"
-          data-width="0" data-layout="button_count" data-action="like" data-size="large" data-share="true">
-
-     </div>
-
-     <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div>
-
-        -->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v11.0&appId=135748898652519&autoLogAppEvents=1" nonce="UXsxw2Ei">
 
