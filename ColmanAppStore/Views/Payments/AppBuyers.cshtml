@@ -62,7 +62,7 @@
                                 @Html.DisplayFor(modelItem => user.App.Name)
                             </td>
                             <td>
-                                <a asp-controller="Apps" asp-action="Details" asp-route-id="@user.AppId">Back to @user.App.Name <i class="fas fa-info"></i></a>
+                                <a class="btn btn-outline-info" asp-controller="Apps" asp-action="Details" asp-route-id="@user.AppId">Back to @user.App.Name <i class="fas fa-info"></i></a>
                             </td>
                         </tr>
                     }
