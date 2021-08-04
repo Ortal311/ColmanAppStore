@@ -19,7 +19,7 @@ function GetMap() {
         //setting tel aviv as map center
         center: new Microsoft.Maps.Location(31.9700919, 34.77205380048267),
         mapTypeId: Microsoft.Maps.MapTypeId.road,
-        zoom: 10
+        zoom: 8
     });
 
     let name;
