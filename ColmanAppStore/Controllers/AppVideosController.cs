@@ -118,7 +118,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", appVideo.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49).Where(x => x.DeveloperName.Equals(userName)), "Id", "Name", appVideo.AppId);
             return View(appVideo);
         }
 
@@ -153,7 +153,9 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "DeveloperName", appVideo.AppId);
+
+            string userName = User.Identity.Name;
+            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49).Where(x => x.DeveloperName.Equals(userName)), "Id", "DeveloperName", appVideo.AppId);
             return View(appVideo);
         }
         public async Task<IActionResult> SearchAppVideo(string query)//search by app name

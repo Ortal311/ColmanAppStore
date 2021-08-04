@@ -118,7 +118,7 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", appImage.AppId);
+            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49).Where(x=>x.DeveloperName.Equals(userName)), "Id", "Name", appImage.AppId);
             return View(appImage);
         }
 
@@ -153,7 +153,8 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49), "Id", "Name", appImage.AppId);
+            string userName = User.Identity.Name;
+            ViewData["AppId"] = new SelectList(_context.Apps.Where(a => a.Id != 49).Where(x => x.DeveloperName.Equals(userName)), "Id", "Name", appImage.AppId);
             return View(appImage);
         }
 

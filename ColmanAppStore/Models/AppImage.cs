@@ -24,6 +24,5 @@ namespace ColmanAppStore.Models
         [Display(Name = "App name")]
         public App App { get; set; } //ONE app to MANY images
 
-
     }
 }

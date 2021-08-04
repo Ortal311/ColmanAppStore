@@ -80,9 +80,11 @@ namespace ColmanAppStore.Controllers
         // GET: Apps/Create
         public IActionResult Create()
         {
+            String userName = User.Identity.Name;
+
             ViewData["CategoryId"] = new SelectList(_context.Category.Where(c => c.Id != 9), "Id", "Name");
-            ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
-            ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
+            ViewData["Images"] = new SelectList(_context.AppsImage.Include(a => a.App).Where(x => x.App.DeveloperName.Equals(userName) || x.AppId == 49), "Id", "Name");
+            ViewData["Videos"] = new SelectList(_context.AppVideo.Include(a => a.App).Where(x => x.App.DeveloperName.Equals(userName) || x.AppId == 49), "Id", "Name");
 
             return View();
         }
@@ -126,9 +128,13 @@ namespace ColmanAppStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            String userName = User.Identity.Name;
+
             ViewData["CategoryId"] = new SelectList(_context.Category.Where(c => c.Id != 9), "Id", "Name", app.CategoryId);
-            ViewData["Images"] = new SelectList(_context.AppsImage, "Id", "Name");
-            ViewData["Videos"] = new SelectList(_context.AppVideo, "Id", "Name");
+            ViewData["Images"] = new SelectList(_context.AppsImage.Include(a => a.App).Where(x => x.App.DeveloperName.Equals(userName) || x.AppId == 49), "Id", "Name");
+            ViewData["Videos"] = new SelectList(_context.AppVideo.Include(a => a.App).Where(x => x.App.DeveloperName.Equals(userName) || x.AppId == 49), "Id", "Name");
+
             return View(app);
         }
 
