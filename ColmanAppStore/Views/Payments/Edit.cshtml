@@ -2,13 +2,14 @@
 
 @{
     ViewData["Title"] = "Edit payment";
+    <link rel="stylesheet" href="~/css/paymentStyle.css" />
 }
 
 <br />
 <h1 id="PageHeader">Sorry, you can't edit completed payment</h1>
 
-<div>
+<div id="backBtn">
     <br />
-    <a asp-action="Index">Back to all payment</a>
+    <a class="btn btn-info" asp-action="Index">Back to all payment</a>
 </div>
 

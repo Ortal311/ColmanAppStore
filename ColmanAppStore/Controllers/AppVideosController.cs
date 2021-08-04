@@ -73,7 +73,6 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public IActionResult Create()
         {
-            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View();
         }
 
@@ -85,13 +84,12 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                appVideo.AppId = 49; //default before change in app's create
+                appVideo.AppId = 49; //default app before change in app's create
                 _context.Add(appVideo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View(appVideo);
         }
 
@@ -136,7 +134,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Video,AppId")] AppVideo appVideo)
         {
-            if (id != appVideo.Id || appVideo.AppId == 49)
+            if (id != appVideo.Id)
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -174,12 +172,14 @@ namespace ColmanAppStore.Controllers
 
             return View(appVideo);
         }
-        public async Task<IActionResult> SearchAppVideo(string query)//search by app name
+
+        [Authorize(Roles = "Admin,Programer")]
+        public async Task<IActionResult> SearchAppVideo(string query) //search by app name
         {
             string userName = User.Identity.Name;
             var searchContext = _context.AppVideo.Include(l => l.App).
                  Where(a => a.App.Name.Contains(query) || (query == null));
-            if (!User.IsInRole("Admin")) // if developer- he will see only his apps ( admin sees everything)
+            if (!User.IsInRole("Admin")) // if developer - he will see only his apps (admin sees everything)
             {
                 searchContext = _context.AppVideo.Include(l => l.App).
                   Where(a => a.App.Name.Contains(query) || (query == null)).Where(u => u.App.DeveloperName.Equals(userName));

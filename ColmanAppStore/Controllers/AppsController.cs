@@ -24,7 +24,7 @@ namespace ColmanAppStore.Controllers
         // GET: Apps
         public async Task<IActionResult> Index()
         {
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Admin")) //Admin can see all apps (include apps in default category)
             {
                 var colmanAppStoreContext = _context.Apps.Include(a => a.Category).Include(l => l.Logo).Where(a => a.Id != 49);
                 return View(await colmanAppStoreContext.ToListAsync());
@@ -36,12 +36,11 @@ namespace ColmanAppStore.Controllers
             }
         }
 
-
         //Search by name and category 
         public async Task<IActionResult> Search(string query)
         {
-            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => a.Id != 49)
-          .Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || a.DeveloperName.Equals(query) || (query == null));
+            var searchContext = _context.Apps.Include(l => l.Logo).Include(c => c.Category).Where(a => a.Id != 49).
+                Where(a => a.Name.Contains(query) || a.Category.Name.Contains(query) || a.DeveloperName.Equals(query) || (query == null));
             return View("Search", await searchContext.ToListAsync());
         }
 
@@ -98,7 +97,7 @@ namespace ColmanAppStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                Logo log = new Logo();
+                Logo log = new Logo(); //create app's logo 
                 log.Image = app.Logo.Image;
                 log.Apps = app;
                 log.AppsId = app.Id;
@@ -124,7 +123,6 @@ namespace ColmanAppStore.Controllers
                 }
 
                 _context.Add(app);
-
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -225,7 +223,7 @@ namespace ColmanAppStore.Controllers
             {
                 try
                 {
-                    foreach (var item in _context.Logo) 
+                    foreach (var item in _context.Logo)
                     {
                         if (item.AppsId == app.Id)
                         {
@@ -254,6 +252,7 @@ namespace ColmanAppStore.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", app.CategoryId);
             return View(app);
         }
@@ -291,7 +290,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (id != 49)
+            if (id != 49) //default app can't be deleted
             {
                 var app = await _context.Apps.FindAsync(id);
                 _context.Apps.Remove(app);

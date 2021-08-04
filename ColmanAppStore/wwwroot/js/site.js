@@ -26,7 +26,6 @@ function GetMap() {
     const bing_key = 'ArSVHkQb2Q4uCxFV8HB41H0ZCCNbXAhEWXyXUYlJpAHnTFGRTbGRxXVSp9l0aOAQ';
     var pin;
     var pin_location;
-    let count = 0;
     $.ajax({
         url: 'https://' + new URL(window.location.host) + '/Payments/GetCitiesList',
         type: 'GET',
@@ -34,12 +33,10 @@ function GetMap() {
             $.each(data, function (index) {
                 setTimeout(() => {
                     name = data[index];
-                    console.log(name);
-
                     pin_location = getLatLon(name, bing_key);
                     pin = new Microsoft.Maps.Pushpin(pin_location);
                     map.entities.push(pin);
-                }, index * 200); //timeout between each city calc
+                }, 210); //timeout between each city calc
             });
         },
         error: function (err) {

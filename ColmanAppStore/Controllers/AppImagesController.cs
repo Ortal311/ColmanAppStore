@@ -42,7 +42,7 @@ namespace ColmanAppStore.Controllers
                 }
             }
             // in case couldn't find the user (can't happen when logged in)
-            return View(await _context.AppsImage.ToListAsync());
+            return View(await _context.AppsImage.Include(a => a.App).ToListAsync());
         }
 
         // GET: AppImages/Details/5
@@ -73,7 +73,6 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public IActionResult Create()
         {
-            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View();
         }
 
@@ -91,7 +90,6 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            //ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name");
             return View(appImage);
         }
 
@@ -136,7 +134,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Image,AppId")] AppImage appImage)
         {
-            if (id != appImage.Id || appImage.AppId == 49)
+            if (id != appImage.Id)
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -175,15 +173,16 @@ namespace ColmanAppStore.Controllers
             return View(appImage);
         }
 
-        public async Task<IActionResult> SearchAppImage(string query)//search by app name
+        [Authorize(Roles = "Admin,Programer")]
+        public async Task<IActionResult> SearchAppImage(string query) //search by app name
         {
             string userName = User.Identity.Name;
             var searchContext = _context.AppsImage.Include(l => l.App).
-                 Where(a => a.App.Name.Contains(query) || (query == null));
-            if (!User.IsInRole("Admin")) // if developer- he will see only his apps ( admin sees everything)
+                Where(a => a.App.Name.Contains(query) || (query == null));
+            if (!User.IsInRole("Admin")) // if developer - he will see only his apps (admin sees everything)
             {
                 searchContext = _context.AppsImage.Include(l => l.App).
-                  Where(a => a.App.Name.Contains(query) || (query == null)).Where(u => u.App.DeveloperName.Equals(userName));
+                    Where(a => a.App.Name.Contains(query) || (query == null)).Where(u => u.App.DeveloperName.Equals(userName));
             }
             return View("SearchAppImage", await searchContext.ToListAsync());
         }

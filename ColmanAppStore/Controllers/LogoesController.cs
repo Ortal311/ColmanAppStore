@@ -70,8 +70,6 @@ namespace ColmanAppStore.Controllers
         public IActionResult Create()
         {
             return RedirectToAction("NotFound", "Home");
-            //ViewData["AppsId"] = new SelectList(_context.Apps, "Id", "Name");
-            //return View();
         }
 
         // POST: Logoes/Create
@@ -161,14 +159,14 @@ namespace ColmanAppStore.Controllers
             return View(logo);
         }
 
+        [Authorize(Roles = "Admin,Programer")]
         public async Task<IActionResult> SearchLogo(string query)//search by app name
         {
             string userName = User.Identity.Name;
             var searchContext = _context.Logo.Include(l => l.Apps).
                  Where(a => a.Apps.Name.Contains(query) || (query == null));
-            if (!User.IsInRole("Admin")) // if developer- he will see only his apps ( admin sees everything)
+            if (!User.IsInRole("Admin")) // if developer - he will see only his apps (admin sees everything)
             {
-             
                 searchContext = _context.Logo.Include(l => l.Apps).
                   Where(a => a.Apps.Name.Contains(query) || (query == null)).Where(u => u.Apps.DeveloperName.Equals(userName));
             }

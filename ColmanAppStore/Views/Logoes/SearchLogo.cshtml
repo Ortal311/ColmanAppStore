@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<ColmanAppStore.Models.Logo>
 
 @{ ViewData["Title"] = "All logoes";
-    <link rel="stylesheet" href="~/css/logoStyle.css" /> }
+    <link rel="stylesheet" href="~/css/logoStyle.css" />
+}
 
 <div class="row">
     <div class="col-lg-9 col-md-10">
@@ -21,52 +22,54 @@
 
 @if (Model.Count() > 0)
 {
-<table class="table">
-    <thead>
-        <tr>
-            <th class="col-sm-4">
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th class="col-sm-4">
-                @Html.DisplayNameFor(model => model.Apps)
-            </th>
-            <th>
-                Edit
-            </th>
-            <th>
-                Details
-            </th>
-            <th>
-                Delete
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-<tr>
-    <td>
-        <img src="@item.Image" class="card-img-top" alt="can't load image" id="Img">
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Apps.Name)
-    </td>
-    <td>
-        <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-
-
-    </td>
-    <td>
-        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
-    </td>
-    <td>
-        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-    </td>
-</tr>}
-    </tbody>
-</table> }
-            else
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Apps)
+                </th>
+                <th>
+                    Edit
+                </th>
+                <th>
+                    Details
+                </th>
+                <th>
+                    Delete
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-<br />
-                <h2 class="text-center" id="PageHeader">Sorry, you don't have any logoes</h2>
-                                <br />}
+                <tr>
+                    <td>
+                        <img src="@item.Image" class="card-img-top" alt="can't load image" id="Img">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apps.Name)
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+
+
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+}
+        </tbody>
+    </table> }
+else
+{
+    <br />
+    <h2 class="text-center" id="PageHeader">Sorry, you don't have any logoes</h2>
+    <br />
+}

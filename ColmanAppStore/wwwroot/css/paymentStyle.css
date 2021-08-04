@@ -9,7 +9,6 @@
     text-align: center;
     text-align: center;
     margin: 15px;
-   
 }
 
 #cardStyle {
@@ -104,9 +103,12 @@
     text-align: right;
     padding-right: 70px;
     margin: 15px;
-
 }
 
 #subtitle {
-    text-align:center;
+    text-align: center;
+}
+
+#backBtn {
+    text-align: center;
 }

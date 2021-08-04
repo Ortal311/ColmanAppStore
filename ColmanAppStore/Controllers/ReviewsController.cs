@@ -22,21 +22,9 @@ namespace ColmanAppStore.Controllers
 
         // GET: Reviews
         [HttpGet]
-        //  [Authorize(Roles = "Client,Admin,Programer")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index() //admin can see al the review (client and programer - redirect to userReview)
         {
-            /*   String userName = User.Identity.Name;
-
-               foreach (var item in _context.User)
-               {
-                   if (item.Name.Equals(userName))
-                   {
-                       var reviews = _context.Review.Where(x=>x.UserNameId==item.Id).Include(a=>a.App);
-                       return View(await reviews.ToListAsync());
-                   }
-               }
-            */
             var colmanAppStoreContext = _context.Review.Include(r => r.App).Include(r => r.UserName);
             return View(await colmanAppStoreContext.ToListAsync());
         }
@@ -139,7 +127,6 @@ namespace ColmanAppStore.Controllers
                 return RedirectToAction("AccessDenied", "Users");
             }
 
-
             ViewData["AppId"] = review.AppId;
             ViewData["UserNameId"] = review.UserNameId;
             return View(review);
@@ -194,11 +181,13 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", review.AppId);
             ViewData["UserNameId"] = new SelectList(_context.User, "Id", "Name", review.UserNameId);
             return View(review);
         }
 
+        [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> SearchReview(string query)//search by app name, title and body
         {
             string userName = User.Identity.Name;
@@ -249,7 +238,7 @@ namespace ColmanAppStore.Controllers
             float sum = 0;
             foreach (var item in _context.Review)
             {
-                if ((item.AppId == reviewAppId) && (item.Id != id))
+                if ((item.AppId == reviewAppId) && (item.Id != id)) //calc the new app's avg raiting
                 {
                     sum += item.Raiting;
                 }
@@ -267,7 +256,6 @@ namespace ColmanAppStore.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
 
         private bool ReviewExists(int id)

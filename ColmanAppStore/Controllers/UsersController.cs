@@ -188,6 +188,7 @@ namespace ColmanAppStore.Controllers
             }
             return View(user);
         }
+
         [HttpGet]
         [Authorize(Roles = "Client,Admin,Programer")]
         public async Task<IActionResult> Account(string id) //get to user account info by name
@@ -223,6 +224,7 @@ namespace ColmanAppStore.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SearchUser(string query)//search by name
         {
             return Json(await _context.User.Where(a => a.Name.Contains(query)).ToListAsync());

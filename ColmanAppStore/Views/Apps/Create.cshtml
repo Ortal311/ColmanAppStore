@@ -45,6 +45,7 @@
                 <input asp-for="Size" class="form-control" />
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
+
             <input type="hidden" name="DeveloperName" value="@User.Identity.Name" />
 
             <div class="form-group">
@@ -59,43 +60,42 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-info" />
             </div>
         </form>
     </div>
 
-   <!-- <a href="#" onClick="post();">Post to Facebook</a>-->
+    <!-- <a href="#" onClick="post();">Post to Facebook</a>-->
     <script>
-     /*   window.fbAsyncInit = function () {
-            FB.init({
-                appId: 135748898652519,
-                autoLogAppEvents: true,
-                xfbml: true,
-                version: 'v11.0'
-            });
-         }
-        function post() {
-            FB.api(
-                '/100841052251427/feed',
-                'POST',
-                {
-                    message: "New App!!",
-                    access_token: 'EAAB7doDiAWcBAM1Tp6mwgpEZCYLUtYgZBjHRhdq4dmNaQq94cuWSSHr6IouPmCaghRcQgjBo4EMfno2Q8gDnZAMOB67ThfeoCNrIZB592SCEbPZBBJTSi9qYgSVNBYZC9PRL8325Ep0NmHBoykZCqwRZBqzQfO0urZCZA2E92gw6zp7cBZC3dzfVjrY'
-                },
-                function (response) {
-                    // Insert your code here
-                    if (!response) {
-                        alert('Error occured');
-                    } else {
-                        alert('Post ID: ' + response.id);
-                    }
-                }
-            );
-        }*/
+        /*   window.fbAsyncInit = function () {
+               FB.init({
+                   appId: 135748898652519,
+                   autoLogAppEvents: true,
+                   xfbml: true,
+                   version: 'v11.0'
+               });
+            }
+           function post() {
+               FB.api(
+                   '/100841052251427/feed',
+                   'POST',
+                   {
+                       message: "New App!!",
+                       access_token: 'EAAB7doDiAWcBAM1Tp6mwgpEZCYLUtYgZBjHRhdq4dmNaQq94cuWSSHr6IouPmCaghRcQgjBo4EMfno2Q8gDnZAMOB67ThfeoCNrIZB592SCEbPZBBJTSi9qYgSVNBYZC9PRL8325Ep0NmHBoykZCqwRZBqzQfO0urZCZA2E92gw6zp7cBZC3dzfVjrY'
+                   },
+                   function (response) {
+                       // Insert your code here
+                       if (!response) {
+                           alert('Error occured');
+                       } else {
+                           alert('Post ID: ' + response.id);
+                       }
+                   }
+               );
+           }*/
     </script>
-  
-</div>
 
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

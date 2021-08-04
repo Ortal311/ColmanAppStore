@@ -13,7 +13,6 @@
     margin: 15px;
 }
 
-
 #CardStyle {
     margin: 10px;
     text-align: center;
@@ -75,7 +74,7 @@
 }
 
 #CatKey {
-    text-align:right;
+    text-align: right;
 }
 
 #CatValue {
@@ -83,7 +82,7 @@
 }
 
 #divCenter {
-    text-align:center;
+    text-align: center;
 }
 
 #addCatButton {

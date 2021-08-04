@@ -39,7 +39,6 @@ namespace ColmanAppStore.Controllers
             }
             //in case user won't be found (never going to happen when logged in)
             return View(await _context.Payment.Include(p => p.App).Include(p => p.PaymentMethod).ToListAsync());
-
         }
 
         // GET: Payments/Details/5
@@ -102,7 +101,7 @@ namespace ColmanAppStore.Controllers
                     break;
                 }
             }
-            if (count == 0)//there is no such app
+            if (count == 0) //there is no such app
             {
                 return RedirectToAction("NotFound", "Home");
             }
@@ -234,6 +233,7 @@ namespace ColmanAppStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["AppId"] = new SelectList(_context.Apps, "Id", "Name", payment.AppId);
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "ExpiredDate", payment.PaymentMethodId);
             return View(payment);
@@ -298,7 +298,8 @@ namespace ColmanAppStore.Controllers
             return _context.Payment.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> SearchPayment(string query)//search by id
+        [Authorize(Roles = "Client,Admin,Programer")]
+        public async Task<IActionResult> SearchPayment(string query) //search by id
         {
             String userName = User.Identity.Name;
             var usr = _context.User.Include(a => a.AppListUser).Include(p => p.PaymentMethods);

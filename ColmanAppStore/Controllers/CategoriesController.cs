@@ -161,7 +161,7 @@ namespace ColmanAppStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (id != 9) //default category
+            if (id != 9) //default category can't be deleted
             {
                 var category = await _context.Category.Include(a => a.Apps).FirstOrDefaultAsync(m => m.Id == id);
                 var categoryDefault = await _context.Category.FindAsync(9);

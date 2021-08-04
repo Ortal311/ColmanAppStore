@@ -78,7 +78,6 @@ namespace ColmanAppStore.Controllers
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
-
             return View();
         }
 
@@ -139,7 +138,6 @@ namespace ColmanAppStore.Controllers
 
 
             return View(paymentMethod);
-
         }
 
         // POST: PaymentMethods/Edit/5
@@ -175,10 +173,11 @@ namespace ColmanAppStore.Controllers
             }
             return View(paymentMethod);
         }
-        public async Task<IActionResult> SearchPaymentMethod(int query)//search by id
+
+        [Authorize(Roles = "Client,Admin,Programer")]
+        public async Task<IActionResult> SearchPaymentMethod(int query) //search by id
         {
             var searchContext = _context.PaymentMethod.Where(a => a.IdNumber == query);
-
             return View("searchPaymentMethod", await searchContext.ToListAsync());
         }
 
@@ -212,9 +211,7 @@ namespace ColmanAppStore.Controllers
             if (flag == 0)
                 return RedirectToAction("AccessDenied", "Users");
 
-
             return View(paymentMethod);
-
         }
 
         // POST: PaymentMethods/Delete/5
@@ -242,7 +239,7 @@ namespace ColmanAppStore.Controllers
                         {
                             if (us.Name.Equals(userName))
                             {
-                                us.PaymentMethods.Remove(p); //remove the current payment method for the connected user
+                                us.PaymentMethods.Remove(p); //remove the current payment method ONLY for the connected user
                                 break;
                             }
                         }
